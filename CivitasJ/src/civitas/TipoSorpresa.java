@@ -9,6 +9,12 @@ package civitas;
  *
  * @author ecastillo
  */
+
+
+ /** 
+ * Representa todos los tipos de sorpresas del juego.
+ */
+
 public enum TipoSorpresa { 
     IRCARCEL,
     IRCASILLA,
