@@ -38,19 +38,19 @@ public class Tablero {
     
     Tablero(int c){
         
-        Casilla Salida;
-        Salida = new Casilla("Salida");
-        
         if (c >=1 )
             numCasillaCarcel = c;
         else
             numCasillaCarcel = 1;
         
+        //creo lista de casillas
         casillas = new ArrayList<Casilla>();
-        
-       
-        
+        //creo una casilla llamada Salida
+        Casilla Salida;
+        Salida = new Casilla("Salida");
+        //añádo salida a casillas
         casillas.add(Salida);
+       
         porSalida = 0;
         tieneJuez = false; 
     }
