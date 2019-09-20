@@ -19,7 +19,7 @@ public class Casilla {
  * @param n nombre de la casilla 
  */   
     Casilla(String n){
-        nombre = n;
+        this.nombre = n;
     }
     
     
