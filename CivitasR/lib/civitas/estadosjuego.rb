@@ -2,7 +2,6 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-module Civitas
-  puts Tipocasilla::CALLE
-  # puts 'hola'
+module Estadosjuego
+    
 end
