@@ -3,10 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package civitasj;
+package civitas;
 
 /**
  *
  * @author ecastillo
  */
-public enum TipoCasilla {   CALLE, SORPRESA, JUEZ, IMPUESTO, DESCANSO}
+public enum TipoCasilla {   
+    CALLE,
+    SORPRESA,
+    JUEZ,
+    IMPUESTO,
+    DESCANSO
+}

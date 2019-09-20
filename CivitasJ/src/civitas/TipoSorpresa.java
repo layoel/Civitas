@@ -3,10 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package civitasj;
+package civitas;
 
 /**
  *
  * @author ecastillo
  */
-public enum TipoSorpresa { IRCARCEL, IRCASILLA, PAGARCOBRAR, PORCASAHOTEL, PORJUGADOR, SALIRCARCEL}
+public enum TipoSorpresa { 
+    IRCARCEL,
+    IRCASILLA,
+    PAGARCOBRAR,
+    PORCASAHOTEL,
+    PORJUGADOR,
+    SALIRCARCEL
+}
