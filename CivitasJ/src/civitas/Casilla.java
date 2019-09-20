@@ -8,7 +8,26 @@ package civitas;
 /**
  *
  * @author ecastillo
+ * 
+ * @Bief Clase casilla temporal
  */
 public class Casilla {
+    private String nombre;
     
+/**
+ * @brief constructor de la clase casilla
+ * @param n nombre de la casilla 
+ */   
+    Casilla(String n){
+        nombre = n;
+    }
+    
+    
+/**
+ * @brief Consultor de nombre
+ * @return devuelve el nombre
+ */
+    String getNombre(){
+        return nombre;
+    }
 }
