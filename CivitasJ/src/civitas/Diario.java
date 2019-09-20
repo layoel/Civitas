@@ -1,4 +1,4 @@
-package civitas;
+package civitasj;
 
 
 
