@@ -63,17 +63,30 @@ public class Tablero {
      * @return true si el tablero es correcto y puede usarse para jugar
      */
     Boolean correcto(){
-    
+        
+        Boolean juegoOK = false;
+        
+        if ((numCasillaCarcel < casillas.size()) && tieneJuez)
+            juegoOK = true;
+        
+        return juegoOK;
     }
     
     
     /**
-     * @brief comprieba si el tablero es correcto para jugar 
+     * @brief comprueba si el tablero es correcto para jugar 
      * @param numCasilla indice válido para acceder a elementos de casillas
      * @return true si se puede jugar y el indice es valido
      */
     Boolean correcto(int numCasilla){
-    
+        
+        Boolean ok = false;
+        
+        if (correcto() && numCasilla < casillas.size())
+            ok = true;
+        
+        return ok;
+            
     }
     
     
@@ -82,7 +95,9 @@ public class Tablero {
      * @return numCasillaCarcel
      */
     int getCarcel(){
+        
         return numCasillaCarcel;
+    
     }
     
     
@@ -92,7 +107,12 @@ public class Tablero {
      * @return porSalida
      */
     int getPorSalida(){
-    
+        
+        if (porSalida > 0)
+            porSalida = porSalida-1;
+        
+        return porSalida;
+        
     }
     
     
@@ -102,13 +122,26 @@ public class Tablero {
      */
     void añadeCasilla( Casilla c){
         
+        if (casillas.size()== numCasillaCarcel){
+            Casilla carcel = new Casilla("Cárcel");
+            casillas.add(carcel);
+        }else{
+            casillas.add(c);
+            
+        }
     }
     
     /**
      * @brief añade la casilla juez si no esta aun
      */
     void añadeJuez(){
-    
+        
+        if(!tieneJuez){
+            Casilla juez = new Casilla("Juez");
+            casillas.add(juez);
+            tieneJuez = !tieneJuez;
+        }
+        
     }
    
      /**
@@ -116,7 +149,11 @@ public class Tablero {
      * @return casilla si es correcto o null si no lo es
      */
     Casilla getCasilla(int numCasilla){
-       
+      
+        if(correcto(numCasilla))
+            return casillas.get(numCasilla);
+        else
+            return null; 
     }
     
     
@@ -128,7 +165,18 @@ public class Tablero {
      * @return -1 si el tablero no es correcto, posicion 
      */
     int nuevaPosicion(int actual, int tirada){
-    
+        
+        int pos = -1;
+        
+        if(correcto()){
+            if (actual+tirada > casillas.size())
+                porSalida = porSalida+1;
+            
+            pos = (actual + tirada) % casillas.size();
+        }
+              
+        return pos;
+            
     }
     
     
@@ -140,7 +188,13 @@ public class Tablero {
      * casilla origen a la casilla destino 
      */
     int calcularTirada(int origen, int destino){
-    
+        
+        int tirada = destino - origen;
+        
+        if(tirada < 0)
+            tirada = tirada + casillas.size();
+        
+        return tirada;
     }            
     
     
