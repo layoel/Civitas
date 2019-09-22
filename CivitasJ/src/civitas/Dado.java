@@ -16,7 +16,7 @@ public class Dado { ///////////////// ¿dice visibilidad de paquete hay que quit
    private Random rand;
    private int ultimoResultado;
    private Boolean debug;
-   static private int SalidaCarcel =5;
+   static private int SalidaCarcel;
     
   //singleton
     static final private Dado instance = new Dado();
@@ -34,6 +34,7 @@ public class Dado { ///////////////// ¿dice visibilidad de paquete hay que quit
         rand = new Random();
         ultimoResultado = 0;
         debug = false;
+        SalidaCarcel =5;
     }
     
     /**
