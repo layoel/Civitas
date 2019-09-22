@@ -59,9 +59,9 @@ public class Dado { ///////////////// ¿dice visibilidad de paquete hay que quit
         //falta lo de pagar los 200€
         Boolean salgo = false;
         int num = tirar();
-        
+        //System.out.println("dado:"+num);  //para probar si funciona el método
         if (num >=5)
-            salgo = !salgo;
+            salgo = true;
         
         return salgo;
     }
@@ -84,9 +84,10 @@ public class Dado { ///////////////// ¿dice visibilidad de paquete hay que quit
      * @param d      
      */
    void setDebug(Boolean d){
-   
+       Diario di= Diario.getInstance();
        debug = d;
-   
+       
+       di.ocurreEvento("daado debug");
    } 
    
    /**
