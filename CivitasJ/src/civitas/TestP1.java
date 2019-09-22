@@ -137,5 +137,20 @@ public class TestP1 {
         Finalmente,realiza distintas tiradas con el dado y asegúrate de que se
         calcula correctamente la posición de destino en el tablero.
         */
+        
+        Tablero t = new Tablero(20);
+        Casilla cas =new Casilla("calle1");
+        Casilla cas1 =new Casilla("calle2");
+        Casilla cas2 =new Casilla("calle3");
+        Casilla cas3 =new Casilla("calle4");
+        Casilla cas4 =new Casilla("calle5");
+        
+        t.añadeCasilla(cas);
+        t.añadeCasilla(cas1);
+        t.añadeCasilla(cas2);
+        t.añadeCasilla(cas3);
+        t.añadeCasilla(cas4);   
+        
+        //falta hacer las pruebas con el depurador
     } 
 }
