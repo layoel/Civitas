@@ -125,10 +125,10 @@ public class Tablero {
         if (casillas.size()== numCasillaCarcel){
             Casilla carcel = new Casilla("Cárcel");
             casillas.add(carcel);
-        }else{
-            casillas.add(c);
-            
         }
+        
+        casillas.add(c);
+
     }
     
     /**
