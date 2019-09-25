@@ -3,7 +3,7 @@
 # and open the template in the editor.
 module Civitas
   #creamos un enumerado y las palabras :palabra son palabras reservadas
-  module Tiposorpresa
+  module TipoSorpresa
     IRCARCEL = :ircarcel
     IRCASILLA = :ircasilla
     PAGARCOBRAR = :pagarcobrar

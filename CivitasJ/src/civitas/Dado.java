@@ -87,7 +87,7 @@ public class Dado { ///////////////// ¿dice visibilidad de paquete hay que quit
        Diario di= Diario.getInstance();
        debug = d;
        
-       di.ocurreEvento("daado debug");
+       di.ocurreEvento("dado debug");
    } 
    
    /**
