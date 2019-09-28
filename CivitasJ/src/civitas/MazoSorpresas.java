@@ -43,8 +43,8 @@ public class MazoSorpresas {
      */
     private void init(){
         
-        sorpresas = new ArrayList<Sorpresa>();
-        cartasEspeciales = new ArrayList<Sorpresa>();
+        sorpresas = new ArrayList<>();
+        cartasEspeciales = new ArrayList<>();
         barajada = false;
         usadas = 0;
         
@@ -118,7 +118,8 @@ public class MazoSorpresas {
                 sp = sorpresas.get(i);
                 sorpresas.remove(i);
                 cartasEspeciales.add(sp);
-                //deja constancia en el diario
+                Diario di = Diario.getInstance();//deja constancia en el diario
+                di.ocurreEvento("inhabilitada carta especial "+sp);
             }
     }
     
@@ -134,10 +135,11 @@ public class MazoSorpresas {
                 sp = cartasEspeciales.get(i);
                 cartasEspeciales.remove(i);
                 sorpresas.add(sp);
-                //deja constancia en el diario
+                Diario di = Diario.getInstance();//deja constancia en el diario
+                di.ocurreEvento("habilitada carta especial "+sp);
             }
     }
-    
+
     
     
 }

@@ -44,7 +44,7 @@ public class Tablero {
             numCasillaCarcel = 1;
         
         //creo lista de casillas
-        casillas = new ArrayList<Casilla>();
+        casillas = new ArrayList<>();
         //creo una casilla llamada Salida
         Casilla Salida;
         Salida = new Casilla("Salida");
