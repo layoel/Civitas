@@ -5,6 +5,8 @@
  */
 package civitas;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ecastillo
@@ -12,7 +14,13 @@ package civitas;
  * @Bief Clase casilla temporal
  */
 public class Casilla {
+    static private int carcel;
+    private float importe;
     private String nombre;
+    TipoCasilla tipo;
+    TituloPropiedad tiutloPropiedad;
+    TipoSorpresa sorpresa;
+    MazoSorpresas mazo;
     
 /**
  * @brief constructor de la clase casilla
@@ -23,11 +31,67 @@ public class Casilla {
     }
     
     
+    Casilla (TituloPropiedad titulo){
+    
+    }
+    
+    Casilla (float cantidad, String nombre){
+    
+    }
+    
+    Casilla (int numCarcel, String nombre){
+    
+    }
+    
+    Casilla (MazoSorpresas mazo, String nombre){
+    
+    }
+    
+    
 /**
  * @brief Consultor de nombre
  * @return devuelve el nombre
  */
-    String getNombre(){
+    public String getNombre(){
         return nombre;
     }
+    
+    TituloPropiedad getTituloPropiedad(){
+        
+    }
+    
+    private void informe(int actual, ArrayList<Jugador> todos){
+    
+    }
+    
+    private void init(){
+    
+    }
+    
+    public Boolean jugadorCorrecto(int actual, ArrayList<Jugador> todos){
+    
+    }
+    
+    void recibeJugador(int actual, ArrayList<Jugador>todos){
+        
+    }
+    
+    void recibeJugador_calle(int actual, ArrayList<Jugador>todos){
+        
+    }
+    void recibeJugador_impuesto(int actual, ArrayList<Jugador>todos){
+        
+    }
+    void recibeJugador_juez(int actual, ArrayList<Jugador>todos){
+        
+    }
+    void recibeJugador_sorpresa(int actual, ArrayList<Jugador>todos){
+        
+    }
+    public String toString(){
+    
+    }
+    
+    
+    
 }

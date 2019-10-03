@@ -21,7 +21,7 @@ public class TituloPropiedad {
     private int numHoteles;
     private float precioCompra;
     private float precioEdificar;
-    public Jugador propietario;
+    private Jugador propietario;
     
     /**
      * @brief Constructor
@@ -162,6 +162,9 @@ public class TituloPropiedad {
         return loes;
     }
     
+    /**
+     *@brief consulta si esta hipotecado
+     */
     public Boolean getHipotecado(){
     return hipotecado;
     }
@@ -309,7 +312,7 @@ public class TituloPropiedad {
                 " \n hipotecado: " + Boolean.toString(hipotecado)+ " \n nombre" + nombre + 
                 " \n numCasas" + Integer.toString(numCasas)+ " \n numHoteles: " + Integer.toString(numHoteles)+ 
                 " \n precioCompra:" + Float.toString(precioCompra)+ " \n precioEdificar: " + 
-                Float.toString(precioEdificar)+ " \n propietario: " + Jugador.toString(propietario);
+                Float.toString(precioEdificar)+ " \n propietario: " + propietario.toString();
         
         return mensaje;
     }
@@ -331,13 +334,8 @@ public class TituloPropiedad {
     /**
      *@brief me falta informacion para este metodo
      */
-    Boolean vender(Jugador jugador){
-        Boolean vendido = false;
-        
-        if(esEsteElPropietario(jugador))
-            //vendido //= jugador.vender(ip????);
-        
-        return vendido;
-    }
+//    Boolean vender(Jugador jugador){
+//        
+//    }
     
 }

@@ -11,6 +11,15 @@ package civitas;
  */
 public class Civitas {
 
+    private int indiceJugadorAvtual;
+    
+    private void avanzaJugador(){
+    
+    }
+    public Boolean cancelarHipoteca(int ip){
+    
+    }
+    
     /**
      * @param args the command line arguments
      */
