@@ -199,6 +199,8 @@ public class Civitas {
     private void inicializarTablero( MazoSorpresas mazo){
         tablero = new Tablero(5); //la posicion de la carcel es la q yo he dicho??????????????????
         
+        tablero.añadeCasilla(new Casilla("SALIDA"));
+        
         tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle1", 100, 100, 50, 50, 50)));//string nom, float ab, float fr, float hb, float pc, float pe////dice que se añadan las casillas que se van creando...
         tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle2", 100, 100, 50, 50, 50)));
         tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle3", 100, 100, 50, 50, 50)));
