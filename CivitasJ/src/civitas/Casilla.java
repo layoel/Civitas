@@ -58,6 +58,9 @@ public class Casilla {
         this.nombre = nombre;
         tipo = TipoCasilla.IMPUESTO;
     }
+    
+    
+    
     /** ¿seguro que es casilla carcel y no casilla juez?? cosas raras del guion?
      * @brief constructor de casilla juez
      * @param nuncarcel numero de la casilla carcel
@@ -69,6 +72,9 @@ public class Casilla {
         this.nombre = nombre;
         tipo = TipoCasilla.JUEZ;
     }
+    
+    
+    
     /**
      * @brief constructor de casilla sorpresa
      * @param mazo de cartas sorpresa
