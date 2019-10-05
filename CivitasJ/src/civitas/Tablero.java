@@ -16,10 +16,10 @@ import java.util.ArrayList;
  *@brief Representa el tablero del juego imponiendo restricciones 
  * sobre el mismo en las reglas del juego
  * 
- * \param numCasillaCarcel el numero de la casilla donde se encuentrala carcel
- * \param casillas contenedor de las casillas del juego
- * \param porSalida numero de veces que se ha pasado por la salida en un turno
- * \param tieneJuez si el tablero tiene o no casilla de ese tipo
+ * @param numCasillaCarcel el numero de la casilla donde se encuentrala carcel
+ * @param casillas contenedor de las casillas del juego
+ * @param porSalida numero de veces que se ha pasado por la salida en un turno
+ * @param tieneJuez si el tablero tiene o no casilla de ese tipo
  */
 
 public class Tablero {
@@ -33,7 +33,7 @@ public class Tablero {
    
     /**
      * @brief Constructor
-     * \param c indice de la casilla de la carcel
+     * @param c indice de la casilla de la carcel
     */
     
     Tablero(int c){
@@ -60,7 +60,7 @@ public class Tablero {
     /**
      * @brief Consulta si el numero de elementos en casillas es mayor que el indice
      * de la casilla de la carcel y que se dispone de una casilla tipo juez
-     * @return true si el tablero es correcto y puede usarse para jugar
+     * @return juegoOK true si el tablero es correcto y puede usarse para jugar
      */
     Boolean correcto(){
         
@@ -112,7 +112,6 @@ public class Tablero {
             porSalida = porSalida-1;
         
         return porSalida;
-        
     }
     
     
@@ -128,8 +127,9 @@ public class Tablero {
         }
         
         casillas.add(c);
-
     }
+    
+    
     
     /**
      * @brief añade la casilla juez si no esta aun
@@ -140,10 +140,11 @@ public class Tablero {
             Casilla juez = new Casilla("Juez");
             casillas.add(juez);
             tieneJuez = !tieneJuez;
-        }
-        
+        }    
     }
    
+    
+    
      /**
      * @brief Comprueba si la casilla esta en el tablero
      * @return casilla si es correcto o null si no lo es
@@ -155,6 +156,7 @@ public class Tablero {
         else
             return null; 
     }
+    
     
     
     /**
@@ -175,9 +177,9 @@ public class Tablero {
             pos = (actual + tirada) % casillas.size();
         }
               
-        return pos;
-            
+        return pos;        
     }
+    
     
     
     /**

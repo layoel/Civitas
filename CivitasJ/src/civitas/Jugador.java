@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author ELVIRA
  */
-public class Jugador {
+public class Jugador implements Comparable<Jugador>{
     static protected int CasasMax = 4;
     static protected int CasasPorHotel = 4;
     protected Boolean encarcelado;
@@ -117,6 +117,9 @@ public class Jugador {
     
     }
     Boolean pagaAlquiler(float cantidad){
+    
+    }
+    Boolean pagaImpuesto(float cantidad){
     
     }
     Boolean pasaPorSalida(){

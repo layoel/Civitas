@@ -54,7 +54,7 @@ public class Sorpresa {
     
     
     /**
-     *@brief Constructor de la sorpresa evitar la carcel
+     *@brief Constructor de todas las sorpresas restantes
      * @param tipo
      * @param valor
      * @param texto
@@ -68,7 +68,7 @@ public class Sorpresa {
     
     
     /**
-     *@brief Constructor para todas las sorpresas restantes
+     *@brief Constructor para la sorpresa evitar la carcel
      * @param tipo
      * @param mazo
      */
@@ -251,7 +251,7 @@ public class Sorpresa {
                     latienen = true;
             }
             if(!latienen){
-                Sorpresa s = new Sorpresa(TipoSorpresa.SALIRCARCEL, 0, "sales de la carcel!");
+                Sorpresa s = new Sorpresa(TipoSorpresa.SALIRCARCEL, mazo);
                 todos.get(actual).obtenerSalvoconducto(s); 
             }
         }
