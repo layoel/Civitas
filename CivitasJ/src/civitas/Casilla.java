@@ -201,17 +201,17 @@ public class Casilla {
     
     
     //se implementan en proximas practicas.
-//    void recibeJugador(int actual, ArrayList<Jugador>todos){
-//        
-//    }
-//    
-//    void recibeJugador_calle(int actual, ArrayList<Jugador>todos){
-//        
-//    }
-//    
-//    void recibeJugador_sorpresa(int actual, ArrayList<Jugador>todos){
-//        
-//    }
+    void recibeJugador(int actual, ArrayList<Jugador>todos){
+        
+    }
+    
+    void recibeJugador_calle(int actual, ArrayList<Jugador>todos){
+        
+    }
+    
+    void recibeJugador_sorpresa(int actual, ArrayList<Jugador>todos){
+        
+    }
     
     
     
