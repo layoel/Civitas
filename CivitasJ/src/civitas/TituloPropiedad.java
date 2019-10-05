@@ -306,13 +306,17 @@ public class TituloPropiedad {
     public String toString(){
         String mensaje= new String();
         
-        mensaje = "alquilerBase: " + Float.toString(alquilerBase)+ " \n factorInteresesHipoteca: " +
-                Float.toString(factorInteresesHipoteca)+ " \n factorRevalorizacion: " + 
-                Float.toString(factorRevalorizacion)+ " \n hipotecaBase: " + Float.toString(hipotecaBase) +
-                " \n hipotecado: " + Boolean.toString(hipotecado)+ " \n nombre" + nombre + 
-                " \n numCasas" + Integer.toString(numCasas)+ " \n numHoteles: " + Integer.toString(numHoteles)+ 
-                " \n precioCompra:" + Float.toString(precioCompra)+ " \n precioEdificar: " + 
-                Float.toString(precioEdificar)+ " \n propietario: " + propietario.toString();
+        mensaje = "alquilerBase: " + Float.toString(alquilerBase)+ 
+                " \n factorInteresesHipoteca: " + Float.toString(factorInteresesHipoteca)+
+                " \n factorRevalorizacion: " + Float.toString(factorRevalorizacion)+ 
+                " \n hipotecaBase: " + Float.toString(hipotecaBase) +
+                " \n hipotecado: " + Boolean.toString(hipotecado)+ 
+                " \n nombre" + nombre + 
+                " \n numCasas" + Integer.toString(numCasas)+ 
+                " \n numHoteles: " + Integer.toString(numHoteles)+ 
+                " \n precioCompra:" + Float.toString(precioCompra)+ 
+                " \n precioEdificar: " + Float.toString(precioEdificar)+ 
+                " \n propietario: " + propietario.toString();
         
         return mensaje;
     }
@@ -334,8 +338,10 @@ public class TituloPropiedad {
     /**
      *@brief me falta informacion para este metodo
      */
-//    Boolean vender(Jugador jugador){
-//        
-//    }
+    Boolean vender(Jugador jugador){
+        Boolean ok = false;
+        
+        return ok;
+    }
     
 }
