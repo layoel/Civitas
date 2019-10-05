@@ -122,7 +122,7 @@ public class Tablero {
     void añadeCasilla( Casilla c){
         
         if (casillas.size()== numCasillaCarcel){
-            Casilla carcel = new Casilla("Cárcel");
+            Casilla carcel = new Casilla("||||||CARCEL||||||");
             casillas.add(carcel);
         }
         
@@ -199,5 +199,14 @@ public class Tablero {
         return tirada;
     }            
     
+    /*******************____MAIN PRUEBA___*************************************/
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        System.out.println(TipoCasilla.CALLE);
+    }
+
     
 }

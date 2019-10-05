@@ -88,8 +88,6 @@ public class MazoSorpresas {
      */
     Sorpresa siguiente(){
     
-        Sorpresa sp = new Sorpresa();
-        
         if (!debug)
             if (!barajada || (usadas == sorpresas.size())){
                 Collections.shuffle(sorpresas); //baraja las cartas
@@ -98,7 +96,7 @@ public class MazoSorpresas {
             }
         usadas = usadas+1;
         
-        sp = sorpresas.get(0);
+        Sorpresa sp = sorpresas.get(0);
         sorpresas.remove(0);
         sorpresas.add(sp);
         ultimaSorpresa = sp;
@@ -114,8 +112,7 @@ public class MazoSorpresas {
     
         for(int i=0; i<sorpresas.size(); i=i+1)
             if(sorpresas.get(i)== sorpresa){
-                Sorpresa sp = new Sorpresa();
-                sp = sorpresas.get(i);
+                Sorpresa sp = sorpresas.get(i);
                 sorpresas.remove(i);
                 cartasEspeciales.add(sp);
                 Diario di = Diario.getInstance();//deja constancia en el diario
@@ -131,8 +128,7 @@ public class MazoSorpresas {
         
         for(int i=0; i<cartasEspeciales.size(); i=i+1)
             if(cartasEspeciales.get(i)== sorpresa){
-                Sorpresa sp = new Sorpresa();
-                sp = cartasEspeciales.get(i);
+                Sorpresa sp = cartasEspeciales.get(i);
                 cartasEspeciales.remove(i);
                 sorpresas.add(sp);
                 Diario di = Diario.getInstance();//deja constancia en el diario
@@ -140,6 +136,13 @@ public class MazoSorpresas {
             }
     }
 
-    
+    /*******************____MAIN PRUEBA___*************************************/
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        System.out.println(TipoCasilla.CALLE);
+    }    
     
 }

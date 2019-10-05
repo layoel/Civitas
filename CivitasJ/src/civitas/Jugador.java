@@ -548,7 +548,7 @@ public class Jugador implements Comparable<Jugador>{
     /**
      * @brief
      */
-    Boolean hipotecar(){
+    Boolean hipotecar(int ip){
         Boolean ok = false; 
         
         return ok; 
@@ -619,5 +619,13 @@ public class Jugador implements Comparable<Jugador>{
     }
     
     
+    /*******************____MAIN PRUEBA___*************************************/
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        System.out.println(TipoCasilla.CALLE);
+    }
     
 }

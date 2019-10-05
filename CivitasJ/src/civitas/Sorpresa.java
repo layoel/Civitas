@@ -19,7 +19,7 @@ public class Sorpresa {
     private Tablero tablero;
     
     /**
-     *@brief Constructor de la sorpresa que envia a la carcel
+     * @brief Constructor de la sorpresa que envia a la carcel
      * @param tipo 
      * @param tablero
      */
@@ -38,7 +38,7 @@ public class Sorpresa {
     
     
     /**
-     *@brief Constructor sirpresa que lleva a otra casilla
+     * @brief Constructor sirpresa que lleva a otra casilla
      * @param tipo
      * @param tablero
      * @param valor
@@ -54,7 +54,7 @@ public class Sorpresa {
     
     
     /**
-     *@brief Constructor de todas las sorpresas restantes
+     * @brief Constructor de todas las sorpresas restantes
      * @param tipo
      * @param valor
      * @param texto
@@ -82,7 +82,7 @@ public class Sorpresa {
     
     
     /**
-     *@brief Inicializa los  valores valor mazo y tablero
+     * @brief Inicializa los  valores valor mazo y tablero
      */
     private void init(){
         valor = -1;
@@ -93,7 +93,7 @@ public class Sorpresa {
     
     
     /**
-     *@brief comprueba si el jugador actual esta en la lista de jugadores
+     * @brief comprueba si el jugador actual esta en la lista de jugadores
      * @param actual es el jugador que tiene el turno
      * @param todos lista de jugadores
      * @return correcto true si es correcto el jugador
@@ -108,7 +108,7 @@ public class Sorpresa {
     
     
     /**
-     *@brief Informa que se esta aplicando una sorpresa a un jugador
+     * @brief Informa que se esta aplicando una sorpresa a un jugador
      * @param actual es el jugador que tiene el turno
      * @param todos lista de jugadores
      */
@@ -120,7 +120,7 @@ public class Sorpresa {
     
     
     /**
-     @brief aplica al jugador el tipo de sorpresa
+     * @brief aplica al jugador el tipo de sorpresa
      * @param actual el indice del jugador que tiene el turno
      * @param todos la lista de jugadores
      */
@@ -142,7 +142,7 @@ public class Sorpresa {
     
     
     /**
-     *@brief si el jugador es correcto, 
+     * @brief si el jugador es correcto, 
      * ◦ se utiliza el método informe y obtiene la casilla actual del jugador
      * ◦ se calcula la tirada utilizando el método calcularTirada(casillaActual, valor) del tablero.
      * ◦ se obtiene la nueva posición del jugador con el método nuevaPosicion(casillaActual,tirada) del tablero.
@@ -192,7 +192,7 @@ public class Sorpresa {
     
     
     /**
-     *@brief si el jugador es correcto,
+     * @brief si el jugador es correcto,
      * se utiliza el método informe
      * y se modifica el saldo del jugador actual(método modificarSaldo) 
      * con el valor de la sorpresa multiplicado por el número de casas 
@@ -209,7 +209,7 @@ public class Sorpresa {
     
     
     /**
-     *@brief El jugador da dinero al jugador actual
+     * @brief El jugador da dinero al jugador actual
      * si el jugador es actual es correcto, 
      * se utiliza el método informe
      * ◦ se crea una sorpresa de tipo PAGARCOBRAR con el valor de la sorpresa multiplicado por -1 
@@ -259,7 +259,7 @@ public class Sorpresa {
    
     
     /**
-     *@brief si el tipo de la sorpresa es la que evita la cárcel, 
+     * @brief si el tipo de la sorpresa es la que evita la cárcel, 
      * inhabilita la carta especial en el mazo de sorpresas.
      */
     void salirDelMazo(){
@@ -277,11 +277,22 @@ public class Sorpresa {
     
     
     /**
-     *@brief si el tipo de la sorpresa es la que evita la cárcel, 
+     * @brief si el tipo de la sorpresa es la que evita la cárcel, 
      * habilita la carta especial en el mazo de sorpresas.
      */
     void usada(){
          if(tipo == TipoSorpresa.SALIRCARCEL)
             mazo.habilitarCartaEspecial(this);
     }
+    
+    /*******************____MAIN PRUEBA___*************************************/
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        System.out.println(TipoCasilla.CALLE);
+    }
+
+    
 }
