@@ -245,7 +245,7 @@ public class Civitas {
     private ArrayList<Jugador> ranking(){
         //Arrays.sort(jugadores, c);
    
-//        ArrayList<Jugador> rankingJugadores = new ArrayList<>();
+        ArrayList<Jugador> rankingJugadores = new ArrayList<>();
 //        ArrayList<Float> saldos = new ArrayList<>();
 //            
 //        //guardo los saldos en un array
@@ -264,7 +264,7 @@ public class Civitas {
 //                }
 //                i=i+1;
 //            }
-//        return rankingJugadores;
+         return rankingJugadores;
     }
     
     
@@ -309,7 +309,7 @@ public class Civitas {
     }
     
     
-    
+    //////////////////////////////////// implementacion en p3 /////////////
     /**
      *@brief  
      */
@@ -319,13 +319,15 @@ public class Civitas {
     
     
     public OperacionesJuego siguientePaso(){
-    
+        return null;
     }
     
     
     
     public Boolean comprar(){
-    
+        Boolean ok=false;
+        
+        return ok;
     }
     
     /*******************____MAIN PRUEBA___*************************************/

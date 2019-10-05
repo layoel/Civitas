@@ -98,9 +98,9 @@ public class TestP1 {
         habilita la segunda carta añadida. 
         Dado que MazoSorpresas
         */
-        Sorpresa s = new Sorpresa();
-        Sorpresa s2 = new Sorpresa();
-        Sorpresa s3 = new Sorpresa();
+        Sorpresa s = new Sorpresa(TipoSorpresa.PAGARCOBRAR, -100, "Paga a la banca 100 monedas");
+        Sorpresa s2 = new Sorpresa(TipoSorpresa.PORCASAHOTEL, -100, "Paga a la banca 100monedas por casaHotel");
+        Sorpresa s3 = new Sorpresa(TipoSorpresa.PORJUGADOR, 100, "cada uno de tus compis te regalan 100 monedas");
         
         MazoSorpresas m = new MazoSorpresas();
         
