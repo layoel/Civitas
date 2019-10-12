@@ -482,6 +482,34 @@ module Civitas
 
 
 
+#    /**
+#     * @brief El jugador esta en bancarrota si tieen saldo negativo
+#     * @return ok true si lo está 
+#     */
+    def enBancarrota
+      ok = false; 
+        if (@saldo <= 0.0)
+            ok = true
+        end
+        return ok;
+    end
+     
+    
+    
+#    /**
+#     * @brief consulta sobre si existe una propiedad en concreto.
+#     * @param ip identificador de la propiedad
+#     * @return ok true si existe
+#     */
+    def existeLaPropiedad(ip)
+        ok = false 
+        if (ip < @propiedades.size)
+            ok = true
+        end
+        return ok
+    end
+      
+      
       private :existeLaPropiedad, :perderSalvoConducto, 
         :puedeSalirCarcelPagando, :CasasMax, :HotelesMax,
         :PrecioLibertad, :PasoPorSalida, :puedoEdificarCasa,
