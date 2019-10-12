@@ -26,6 +26,10 @@ module Civitas
     # *@brief Cuanto cuesta edificar
     # */
     attr_reader :precioEdificar
+    #/**
+    # *@brief Cuanto cuesta Comprar
+    # */
+    attr_reader :precioCompra
     # /**
     # *@brief Quien es el propietario
     #  */
@@ -75,12 +79,12 @@ module Civitas
     # */
     def cancelarHipoteca(jugador)
         ok = false;
-        
-        if (@hipotecado && esEsteElPropietario(jugador))
-            ok = @jugador.paga(getImporteCancelarHipoteca)
-            @hipotecado = false;
-        end
-        
+#        
+#        if (@hipotecado && esEsteElPropietario(jugador))
+#            ok = @jugador.paga(getImporteCancelarHipoteca)
+#            @hipotecado = false;
+#        end
+#        
         return ok;    
     end
     
@@ -101,10 +105,10 @@ module Civitas
     # */
     def comprar(jugador)
        comprado = false;
-       if(!tienePropietario)
-           @propietario = jugador;
-           comprado = @propietario.paga(@precioCompra);
-       end
+#       if(!tienePropietario)
+#           @propietario = jugador;
+#           comprado = @propietario.paga(@precioCompra);
+#       end
        return comprado;
     end
 
@@ -116,12 +120,12 @@ module Civitas
     # */
     def construirCasa(jugador)
         construida = false;
-        
-        if(esEsteElPropietario(jugador))
-            construida = jugador.paga(@precioCompra);
-            @numCasas = @numCasas + 1
-        end
-        
+#        
+#        if(esEsteElPropietario(jugador))
+#            construida = jugador.paga(@precioCompra);
+#            @numCasas = @numCasas + 1
+#        end
+#        
         return construida;
     end
     
@@ -134,12 +138,12 @@ module Civitas
     # */
     def construirHotel(jugador)
         construida = false
-        
-        if(esEsteElPropietario(jugador))
-            construida = jugador.paga(@precioCompra);
-            @numHoteles = @numHoteles + 1
-        end
-        
+#        
+#        if(esEsteElPropietario(jugador))
+#            construida = jugador.paga(@precioCompra);
+#            @numHoteles = @numHoteles + 1
+#        end
+#        
         return construida;
     end
     
@@ -204,7 +208,7 @@ module Civitas
     # * @return alq el precio que debe pagar
     # */
     def getPrecioAlquiler
-      if(!@hipotecado || !propietarioEncarcelado)
+      if(!@hipotecado && !propietarioEncarcelado)
             alq = @alquilerBase * ( 1 + ( @numCasas * 0.5)+(@numHoteles * 2.5))
       end
       return alq
@@ -219,7 +223,7 @@ module Civitas
     # * @return precio el precio calculado
     # */
     def getPrecioVenta
-      precio = @numCasas *(@precioCompra +@precioEdificar) *@numHoteles *@factorRevalorizacion 
+      precio = (cantidadCasasHoteles) *(@precioCompra +@precioEdificar) *@factorRevalorizacion 
       return precio
     end
     
@@ -231,13 +235,13 @@ module Civitas
     # */
     def hipotecar(jugador)
       realizada = false;
-        
-      if(!@hipotecado && esEsteElPropietario(jugador))
-        jugador.recibe(@hipotecaBase);
-        @hipotecado = true;
-        realizada = true;
-      end
-        
+#        
+#      if(!@hipotecado && esEsteElPropietario(jugador))
+#        jugador.recibe(@hipotecaBase);
+#        @hipotecado = true;
+#        realizada = true;
+#      end
+#        
         return realizada;
     end
     
@@ -272,13 +276,18 @@ module Civitas
     # */
     def toString
       
-      mensaje = "alquilerBase: " + @alquilerBase.to_s + " \n factorInteresesHipoteca: " +
-                @factorInteresesHipoteca.to_s+ " \n factorRevalorizacion: " + 
-                @factorRevalorizacion.to_s+ " \n hipotecaBase: " + @hipotecaBase.to_s +
-                " \n hipotecado: " + @hipotecado.to_s+ " \n nombre" + @nombre + 
-                " \n numCasas" + @numCasas.to_s+ " \n numHoteles: " + @numHoteles.to_s + 
-                " \n precioCompra:" + @precioCompra.to_s+ " \n precioEdificar: " + 
-                @precioEdificar.to_s+ " \n propietario: " + @propietario.to_s
+      mensaje = " \n nombre" + @nombre + 
+                " \n alquilerBase: " + @alquilerBase.to_s + 
+                " \n factorInteresesHipoteca: " + @factorInteresesHipoteca.to_s+ 
+                " \n factorRevalorizacion: " + @factorRevalorizacion.to_s+ " \n hipotecaBase: " + @hipotecaBase.to_s +
+                " \n hipotecado: " + @hipotecado.to_s + 
+                " \n numCasas" + @numCasas.to_s+ 
+                " \n numHoteles: " + @numHoteles.to_s + 
+                " \n precioCompra:" + @precioCompra.to_s+ 
+                " \n precioEdificar: " + @precioEdificar.to_s
+              if @propietario != nil
+                mensaje = mensaje + " \n propietario: " + @propietario.to_s
+              end
         return mensaje;
     end
     
@@ -291,24 +300,31 @@ module Civitas
         
       if(tienePropietario &&  (@propietario != jugador) )
           pagado = false;
-          pagado = jugador.pagaAlquiler(getPrecioAlquiler());
-          @propietario.recibe(getPrecioAlquiler());
+          pagado = jugador.pagaAlquiler(getPrecioAlquiler);
+          @propietario.recibe(getPrecioAlquiler);
       end
     end
   
     # /**
-    # *@brief me falta informacion para este metodo
+    # *@brief si el jugador pasado como parámetro es el propietario
+    #del título, y éste no está hipotecado, entonces se da al propietario (método recibe de
+    #Jugador) el precio de venta , se desvincula el propietario de la propiedad, y se eliminan las
+    #casas y hoteles, devolviendo true.
     # */
-    def vender(jugador){
+    def vender(jugador)
         vendido = false
         
-        if(esEsteElPropietario(jugador))
-            vendido = jugador.vender(jugador.propiedades.find(@nombre))
+        if(esEsteElPropietario(jugador) && !@hipotecado)
+            jugador.recibe(getPrecioVenta);
+            @propietario = nil;
+            @numCasas = 0;
+            @numHoteles = 0;
+            vendido = true;
         end
         return vendido;
     end    
     
-    private :esEsteElPropietario, :getImporteHipoteca, :propietarioEncarcelado
+    private :esEsteElPropietario, :getImporteHipoteca, :propietarioEncarcelado, :getPrecioAlquiler, :getPrecioVenta
       
     def main
       

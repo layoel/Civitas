@@ -65,12 +65,12 @@ public class TituloPropiedad {
      */
     Boolean cancelarHipoteca(Jugador jugador){
         Boolean ok = false;
-        
-        if (hipotecado && esEsteElPropietario(jugador)){
-            ok = jugador.paga(getImporteCancelarHipoteca());
-            hipotecado = false;
-        }
-        
+//        
+//        if (hipotecado && esEsteElPropietario(jugador)){
+//            ok = jugador.paga(getImporteCancelarHipoteca());
+//            hipotecado = false;
+//        }
+//        
         return ok;    
     }
     
@@ -91,13 +91,13 @@ public class TituloPropiedad {
      */
     Boolean comprar(Jugador jugador){
        Boolean comprado = false;
-       if(!tienePropietario()){
-           propietario = jugador;
-           comprado = propietario.paga(precioCompra);
-       }
+//       if(!tienePropietario()){
+//           propietario = jugador;
+//           comprado = propietario.paga(precioCompra);
+//       }
        return comprado;
     }
-    
+   
     
     /**
      * @brief ¿puedo construir una casa?
@@ -106,12 +106,12 @@ public class TituloPropiedad {
      */
     Boolean construirCasa(Jugador jugador){
         Boolean construida = false;
-        
-        if(esEsteElPropietario(jugador)){
-            construida = jugador.paga(precioCompra);
-            numCasas++;
-        }
-        
+//        
+//        if(esEsteElPropietario(jugador)){
+//            construida = jugador.paga(precioCompra);
+//            numCasas++;
+//        }
+//        
         return construida;
     }
     
@@ -123,12 +123,12 @@ public class TituloPropiedad {
      */
     Boolean construirHotel(Jugador jugador){
         Boolean construida = false;
-        
-        if(esEsteElPropietario(jugador)){
-            construida = jugador.paga(precioCompra);
-            numHoteles++;
-        }
-        
+//        
+//        if(esEsteElPropietario(jugador)){
+//            construida = jugador.paga(precioCompra);
+//            numHoteles++;
+//        }
+//        
         return construida;
     }
     
@@ -215,7 +215,7 @@ public class TituloPropiedad {
     private float getPrecioAlquiler(){
         float alq = (float) 0.0;
         
-        if(!hipotecado || !propietarioEncarcelado())
+        if(!hipotecado && !propietarioEncarcelado())
             alq = alquilerBase*(1+(numCasas*(float) 0.5)+(numHoteles*(float) 2.5));
         
         return alq;
@@ -244,7 +244,7 @@ public class TituloPropiedad {
     private float getPrecioVenta(){
         float precio= (float)0.0;
         
-        precio = numCasas * (precioCompra + precioEdificar) * numHoteles * factorRevalorizacion;
+        precio = (cantidadCasasHoteles())* (precioCompra + precioEdificar) * factorRevalorizacion;
                 
         return precio;
         
@@ -264,13 +264,13 @@ public class TituloPropiedad {
      */
     Boolean hipotecar(Jugador jugador){
         Boolean realizada = false;
-        
-        if(!hipotecado && esEsteElPropietario(jugador)){
-            jugador.recibe(hipotecaBase);
-            hipotecado = true;
-            realizada = true;
-        }
-        
+//        
+//        if(!hipotecado && esEsteElPropietario(jugador)){
+//            jugador.recibe(hipotecaBase);
+//            hipotecado = true;
+//            realizada = true;
+//        }
+//        
         return realizada;
     }
     
@@ -306,17 +306,18 @@ public class TituloPropiedad {
     public String toString(){
         String mensaje= new String();
         
-        mensaje = "alquilerBase: " + Float.toString(alquilerBase)+ 
+        mensaje = "\n nombre: " + nombre +
+                " \n alquilerBase: " + Float.toString(alquilerBase)+ 
                 " \n factorInteresesHipoteca: " + Float.toString(factorInteresesHipoteca)+
                 " \n factorRevalorizacion: " + Float.toString(factorRevalorizacion)+ 
                 " \n hipotecaBase: " + Float.toString(hipotecaBase) +
                 " \n hipotecado: " + Boolean.toString(hipotecado)+ 
-                " \n nombre" + nombre + 
-                " \n numCasas" + Integer.toString(numCasas)+ 
+                " \n numCasas: " + Integer.toString(numCasas)+ 
                 " \n numHoteles: " + Integer.toString(numHoteles)+ 
-                " \n precioCompra:" + Float.toString(precioCompra)+ 
-                " \n precioEdificar: " + Float.toString(precioEdificar)+ 
-                " \n propietario: " + propietario.toString();
+                " \n precioCompra: " + Float.toString(precioCompra)+ 
+                " \n precioEdificar: " + Float.toString(precioEdificar);
+        if (propietario != null)
+                mensaje = mensaje +" \n propietario: " + propietario.toString();
         
         return mensaje;
     }
@@ -336,12 +337,23 @@ public class TituloPropiedad {
     }
     
     /**
-     *@brief me falta informacion para este metodo
+     *@brief si el jugador pasado como parámetro es el propietario
+        del título, y éste no está hipotecado, entonces se da al propietario (método recibe de
+        Jugador) el precio de venta , se desvincula el propietario de la propiedad, y se eliminan las
+        casas y hoteles, devolviendo true.
+     * @return ok true si puede vender
      */
     Boolean vender(Jugador jugador){
-        Boolean ok = false;
-        
-        return ok;
+        Boolean vendido = false;
+        if(esEsteElPropietario(jugador) && !hipotecado){
+            jugador.recibe(getPrecioVenta());
+            propietario = null;
+            numCasas = 0;
+            numHoteles = 0;
+            vendido = true;
+        }
+
+        return vendido;
     }
 
     
