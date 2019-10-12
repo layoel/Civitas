@@ -24,11 +24,11 @@ public class Casilla {
     
     /**
      * @brief constructor de casilla descanso
-     * @param n nombre de la casilla 
+     * @param nombre nombre de la casilla 
      */   
-    Casilla(String n){
+    Casilla(String nombre){
         init();
-        nombre = n;
+        nombre = nombre;
         tipo = TipoCasilla.DESCANSO;
     }
     
@@ -60,10 +60,10 @@ public class Casilla {
     }
     
     
-    
-    /** ¿seguro que es casilla carcel y no casilla juez?? cosas raras del guion?
+
+    /** 
      * @brief constructor de casilla juez
-     * @param nuncarcel numero de la casilla carcel
+     * @param numcarcel numero de la casilla carcel
      * @param nombre el nombre de la casilla
      */ 
     Casilla (int numCarcel, String nombre){
@@ -101,7 +101,7 @@ public class Casilla {
     private void init(){
         carcel= 0;
         importe = 0;
-        nombre = "Casilla Descanso";
+        nombre = "Calle";
         tipo = TipoCasilla.DESCANSO;
         tituloPropiedad = null;
         sorpresa = null;
@@ -157,11 +157,18 @@ public class Casilla {
     public String toString(){
         String text;
         
-        text = "carcel: "+ Integer.toString(carcel)+ "\nel importe: "+ 
-                Float.toString(importe)+"\n nombre: "+ nombre +
-                "\n El tipo : " +tipo.toString() + "\n tutiloPropiedad" +
-                tituloPropiedad.toString() + "\n sorpresa: " + sorpresa.toString() 
-                + "\n mazo: " + mazo.toString();       
+        text = "\n nombre: "+ nombre +
+                "\n El tipo : " +tipo.toString();
+        if (carcel > 0)
+            text = text +"\n carcel: "+ Integer.toString(carcel);
+        if (importe > 0)
+            text = text + "\n el importe: "+ Float.toString(importe);
+        if(tituloPropiedad != null)
+            text = text + "\n tutiloPropiedad" + tituloPropiedad.toString();
+        if(sorpresa != null)
+            text = text + "\n sorpresa: " + sorpresa.toString();
+        if(mazo != null)
+            text = text + "\n mazo: " + mazo.toString();       
         return text;
     }   
     
@@ -218,8 +225,59 @@ public class Casilla {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println(TipoCasilla.CALLE);
+        System.out.println("creando casilla de salida");
+        Casilla salida = new Casilla("Salida");
+        System.out.println(salida.toString());
+        
+        System.out.println("\ncreando casilla calle");
+        TituloPropiedad titulo = new TituloPropiedad("calle pollito" ,(float)1.0,(float)2.0,(float)3.0,(float)4.0,(float)5.0);
+        Casilla calle1 = new Casilla(titulo);
+        System.out.println(calle1.toString());
+        
+        System.out.println("\ncreando casilla impuesto:");
+        Casilla impuesto = new Casilla ((float) 200.36, "impuesto de sucesiones");
+        System.out.println(impuesto.toString());
+        
+        System.out.println("\ncreando casilla Juez:");
+        Casilla juez = new Casilla(5, "Soy el Juez");
+        System.out.println(juez.toString());
+        
+        System.out.println("\ncreando casilla Sorpresa:");
+        MazoSorpresas m = new MazoSorpresas();
+        Sorpresa s = new Sorpresa (TipoSorpresa.PAGARCOBRAR,100, "has conseguido 100 monedas!");
+        m.alMazo(s);
+        Casilla sor = new Casilla(m, "Toma sorpresa!");
+        System.out.println(sor.toString());
+        
+        
+        Jugador j1 = new Jugador(" Elvira ");
+        Jugador j2 = new Jugador(" Ale ");
+        Jugador j3 = new Jugador(" Jolu ");
+        Jugador j4 = new Jugador(" Iballa ");
+        
+        ArrayList<Jugador> todos = new ArrayList<>();
+        
+        todos.add(j1);
+        todos.add(j2);
+        todos.add(j3);
+        todos.add(j4);
+        
+        
+        salida.informe(0, todos);
+        Diario di = Diario.getInstance();
+        System.out.println(di.eventosPendientes());
+        System.out.println(di.leerEvento());
+        calle1.informe(1, todos);
+        System.out.println(di.leerEvento());
+        impuesto.informe(2, todos);
+        System.out.println(di.leerEvento());
+        juez.informe(3, todos);
+        System.out.println(di.leerEvento());
+        if(sor.jugadorCorrecto(2,todos)){
+            sor.informe(2, todos);
+            System.out.println(di.leerEvento());
+        }else
+            System.out.println("no existen tantos jugadores");
     }
     
     

@@ -18,7 +18,7 @@ module Civitas
   
   class Tablero
     
-    #attr_reader :casillas         #////solo para hacer las pruebas de test_p1
+    #attr_reader :casillas         #solo para hacer las pruebas de test_p1
     
     #/**
     #* @brief Consultor de numero de casilla carcel
@@ -30,6 +30,9 @@ module Civitas
     #attr_writer
     #attr_accessor
 
+    
+    
+    
     # /**
     # * @brief Constructor
     # * @param casilla_carcel indice de la casilla de la carcel
@@ -51,6 +54,8 @@ module Civitas
     end
     
     
+    
+    
      #/**
      #* @brief Comprueba si el tablero es correcto para jugar
      #* de la casilla de la carcel y que se dispone de una casilla tipo juez
@@ -65,6 +70,8 @@ module Civitas
       end
       return ok
     end
+    
+    
     
     #/**
     #* @brief comprueba una casilla está en el tablero 
@@ -83,6 +90,7 @@ module Civitas
     end
     
     
+    
     # /**
     # * @brief numero de veces que se pasa por salida
     # * @return porSalida
@@ -99,6 +107,7 @@ module Civitas
     end
     
     
+    
     # /**
     # * @brief añade a casillas la casilla c
     # * @param c casilla que se va a añadir
@@ -112,6 +121,7 @@ module Civitas
     end
     
     
+    
     #/**
     # * @brief añade la casilla juez si no esta aun
     # */
@@ -122,6 +132,7 @@ module Civitas
         @tieneJuez = true
       end
     end
+    
     
     
     #/**
@@ -137,6 +148,7 @@ module Civitas
       end
       return cas
     end
+    
     
     
     #/**
@@ -178,10 +190,13 @@ module Civitas
       end
       return tirada
     end
-    #solo para pruebas
-    def getCasillas
-      return @casillas
-    end
+    
+    
+    
+#    #solo para pruebas
+#    def getCasillas
+#      return @casillas
+#    end
     
     #metodos privados de la clase
     private :correcto, :correctoC

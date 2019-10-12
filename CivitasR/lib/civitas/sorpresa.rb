@@ -6,9 +6,6 @@ module Civitas
   
 end
 class Sorpresa
-  def initialize
-    
-  end
   
     # /**
     #  *@brief Inicializa los  valores valor mazo y tablero
@@ -17,6 +14,56 @@ class Sorpresa
         @valor = -1
         @mazo = nil
         @tablero = nil
+    end
+
+#     /**
+#     * @brief Constructor sorpresa que lleva a otra casilla
+#     * @param tipo
+#     * @param tablero
+#     * @param valor
+#     * @param texto
+#     */
+    def self.new_SorpresaIrOtraCasilla(tipo, tablero, valor, texto)
+      new(tipo, nil)
+      @valor = valor
+      @texto = texto
+    end
+  
+  
+#   /**
+#     * @brief Constructor de todas las sorpresas restantes
+#     * @param tipo
+#     * @param valor
+#     * @param texto
+#     */
+    def self.new_todasSorpresas(tipo, valor,texto)
+        new(tipo, nil)
+        @valor = valor
+        @texto = texto
+    end
+    
+    
+#  /**
+#     *@brief Constructor para la sorpresa evitar la carcel
+#     * @param tipo
+#     * @param mazo
+#     */
+    def self.new_sorpresaEvitaCarcel(tipo, mazo)
+        new(tipo, nil)
+        @mazo = mazo
+        @texto = "Salvoconducto"
+    end
+    
+#      /**
+#     * @brief Constructor de la sorpresa que envia a la carcel
+#     * @param tipo 
+#     * @param tablero
+#     */
+    def initialize(tipo,tablero)
+      init()
+      @tipo = tipo
+      @tablero = tablero
+      @texto = "ve a la carcel"
     end
     
     
@@ -32,18 +79,19 @@ class Sorpresa
         if (actual < todos.size())
             correcto = true
         end
-        return correct
+        return correcto
     end
-    
+
+----------------------.nombre/////////////////////////////////////////////////////////////////////////////////////////////////////////  
 #    /**
 #     *@brief Informa que se esta aplicando una sorpresa a un jugador
 #     * @param actual es el jugador que tiene el turno
 #     * @param todos lista de jugadores
 #     */
     def informe(actual,todos)
-        di = Diario.instance()
-        di.ocurreEvento("se esta aplicando la sorpresa "+ @texto+" al jugador: " + 
-            todos.at(actual).nombre)
+        di = Diario.instance
+        di.instance.ocurreEvento("se esta aplicando la sorpresa "+ @texto+
+            " al jugador: " + todos.at(actual).nombre)
     end
     
     
@@ -52,27 +100,27 @@ class Sorpresa
 #     * @param actual el indice del jugador que tiene el turno
 #     * @param todos la lista de jugadores
 #     */
-   def aplicarAJugador(actual, todos)
-        
-        if (@tipo == TipoSorpresa::IRCARCEL)
-            aplicarAJugador_irCarcel(actual, todos)
-        end
-        if (@tipo == TipoSorpresa::IRCASILLA)
-            aplicarAJugador_irACasilla(actual, todos)
-        end
-        if (@tipo == TipoSorpresa::PAGARCOBRAR)
-            aplicarAJugador_pagarCobrar(actual, todos)
-        end
-        if (@tipo == TipoSorpresa::PORCASAHOTEL)
-            aplicarAJugador_porCasaHotel(actual, todos)
-        end
-        if (@tipo == TipoSorpresa::PORJUGADOR)
-            aplicarAJugador_porJugador(actual, todos)
-        end
-        if (@tipo == TipoSorpresa::SALIRCARCEL)
-            aplicarAJugador_salirCarcel(actual, todos)
-        end
-   end
+    def aplicarAJugador(actual, todos)
+
+         if (@tipo == TipoSorpresa::IRCARCEL)
+             aplicarAJugador_irCarcel(actual, todos)
+         end
+         if (@tipo == TipoSorpresa::IRCASILLA)
+             aplicarAJugador_irACasilla(actual, todos)
+         end
+         if (@tipo == TipoSorpresa::PAGARCOBRAR)
+             aplicarAJugador_pagarCobrar(actual, todos)
+         end
+         if (@tipo == TipoSorpresa::PORCASAHOTEL)
+             aplicarAJugador_porCasaHotel(actual, todos)
+         end
+         if (@tipo == TipoSorpresa::PORJUGADOR)
+             aplicarAJugador_porJugador(actual, todos)
+         end
+         if (@tipo == TipoSorpresa::SALIRCARCEL)
+             aplicarAJugador_salirCarcel(actual, todos)
+         end
+    end
    
    
 #   /**
@@ -87,13 +135,152 @@ class Sorpresa
 #     */
     def aplicarAJugador_irACasilla(actual, todos)
         if (jugadorCorrecto(actual, todos))
-            informe(actual, todos);
-            micasilla = Casilla.new(Integer.toString(todos.at(actual).numCasillaActual));
-            int nuevaPos = tablero.calcularTirada(actual, valor);
-            todos.get(actual).moverACasilla(nuevaPos);
-            tablero.getCasilla(nuevaPos).recibeJugador_sorpresa(actual, todos);
+            informe(actual, todos)
+            casillaActual = todos.at(actual).numCasillaActual
+            tirada = @tablero.calcularTirada(casillaActual, @valor)
+            nuevaPos = @tablero.nuevaPosicion(casillaActual, tirada)
+            todos.at(actual).moverACasilla(nuevaPos)
+            @tablero.getCasilla(nuevaPos).recibeJugador_sorpresa(actual, todos)
         end
     end
    
+#    /**
+#     * @brief Si el jugador es correcto, 
+#     * se utiliza el método informe y 
+#     * se encarcela al jugador (método encarcelar) indicado
+#     * @param actual indice del jugador que tiene el turno
+#     * @param todos lista de jugadores 
+#     */
+    def aplicarAJugador_irCarcel(actual, todos)
+        if (jugadorCorrecto(actual, todos))
+            informe(actual, todos)
+            todos.at(actual).encarcelar(@tablero.numCasillaCarcel);
+        end
+    end
     
+#     /**
+#     * @brief si el jugador es correcto, 
+#     * se utiliza el método informe 
+#     * y se modifica el saldo del jugador actual(método modificarSaldo) con el valor de la sorpresa
+#     * @param actual indice del jugador que tiene el turno
+#     * @param todos lista de jugadores 
+#     */
+    def aplicarAJugador_pagarCobrar(actual, todos)
+        if (jugadorCorrecto(actual, todos))
+            informe(actual, todos)
+            todos.at(actual).modificarSaldo(@valor)
+        end
+    end
+    
+    
+#    /**
+#     *@brief si el jugador es correcto,
+#     * se utiliza el método informe
+#     * y se modifica el saldo del jugador actual(método modificarSaldo) 
+#     * con el valor de la sorpresa multiplicado por el número de casas 
+#     * y hoteles del jugador.
+#     * @param actual indice del jugador que tiene el turno
+#     * @param todos lista de jugadores 
+#     */
+    def aplicarAJugador_porCasaHotel( actual, todos)
+        if (jugadorCorrecto(actual, todos))
+            informe(actual, todos)
+            todos.at(actual).modificarSaldo(@valor*todos.at(actual).cantidadCasasHoteles)
+        end
+    end
+    
+#    /**
+#     *@brief El jugador da dinero al jugador actual
+#     * si el jugador es actual es correcto, 
+#     * se utiliza el método informe
+#     * ◦ se crea una sorpresa de tipo PAGARCOBRAR con el valor de la sorpresa multiplicado por -1 
+#     * ◦ y se aplica a todos los jugadores menos el actual
+#     * ◦ se crea una sorpresa de tipo PAGARCOBRAR con el valor de la sorpresa multiplicado 
+#     * por el número de jugadores excluyendo al actual y se aplica solo al jugador actual.
+#     * @param actual indice del jugador que tiene el turno
+#     * @param todos lista de jugadores 
+#     */
+    def aplicarAJugador_porJugador(actual, todos)
+        if (jugadorCorrecto(actual, todos))
+            informe(actual, todos)
+            s = Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR, @valor*-1, "devuelve la pasta!")
+            i=0;    
+            while (i<todos.size)
+                if(i != actual)
+                  s.aplicarAJugador(i,todos)
+                end
+                i=i+1
+            end
+            Sorpresa s1 = Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR, @valor*(todos.size-1), "tus compis te regalan pasta!")
+            s1.aplicarAJugador(actual,todos);
+
+        end
+    end
+    
+      
+      
+#       /**
+#     * @brief si el jugador es correcto, 
+#     * se utiliza el método informe 
+#     * y se pregunta a todos los jugadores si alguien tiene la sorpresa para evitar la cárcel (método tieneSalvoconducto).
+#     * Si nadie la tiene, la obtiene el jugador actual (método obtenerSalvoconducto) 
+#     * y se llama al método salirDelMazo.
+#     */
+    def aplicarAJugador_salirCarcel(actual, todos)
+        if (jugadorCorrecto(actual, todos))
+            informe(actual, todos)
+            latienen = false
+            i=0    
+            if(todos.at(i).tieneSalvoconducto())
+                    latienen = true;
+            end
+            while (i< todos.size() && !latienen)
+                i=i+1
+                if(todos.at(i).tieneSalvoconducto())
+                    latienen = true;
+                end
+            end
+            if(!latienen)
+                Sorpresa s = Sorpresa.new_sorpresaEvitaCarcel(TipoSorpresa::SALIRCARCEL, @mazo)
+                todos.at(actual).obtenerSalvoconducto(s)
+                s.salirDelMazo
+            end
+        end
+      end
+    
+    
+    
+#     /**
+#     *@brief si el tipo de la sorpresa es la que evita la cárcel, 
+#     * inhabilita la carta especial en el mazo de sorpresas.
+#     */
+      def salirDelMazo
+        if(@tipo == TipoSorpresa::SALIRCARCEL)
+            @mazo.inhabilitarCartaEspecial(self)
+        end
+      end
+    
+    
+      
+#     /**
+#     * @brief didce el nombre de la sorpresa.
+#     */
+      def toString()
+          return @texto;
+      end
+      
+      
+      
+#     /**
+#     *@brief si el tipo de la sorpresa es la que evita la cárcel, 
+#     * habilita la carta especial en el mazo de sorpresas.
+#     */
+      def usada
+        if(@tipo == TipoSorpresa::SALIRCARCEL)
+            @mazo.habilitarCartaEspecial(self)
+        end
+      end
+      
+      private :aplicarAJugador_irACasilla, :aplicarAJugador_irACarcel, :aplicarAJugador_pagarCobrar, :aplicarAJugador_porCasaHotel, :aplicarAJugador_porJugador, :aplicarAJugador_salirCarcel, :informe, :init
+      private_class_method :new
 end

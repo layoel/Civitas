@@ -38,7 +38,7 @@ public class Sorpresa {
     
     
     /**
-     * @brief Constructor sirpresa que lleva a otra casilla
+     * @brief Constructor sorpresa que lleva a otra casilla
      * @param tipo
      * @param tablero
      * @param valor
@@ -154,8 +154,9 @@ public class Sorpresa {
     private void aplicarAJugador_irACasilla(int actual, ArrayList<Jugador> todos){
         if (jugadorCorrecto(actual, todos)){
             informe(actual, todos);
-            Casilla micasilla = new Casilla(Integer.toString(todos.get(actual).getNumCasillaActual()));
-            int nuevaPos = tablero.calcularTirada(actual, valor);
+            int casillaActual = todos.get(actual).getNumCasillaActual();
+            int tirada = tablero.calcularTirada(casillaActual, valor);
+            int nuevaPos = tablero.nuevaPosicion(casillaActual, tirada);
             todos.get(actual).moverACasilla(nuevaPos);
             tablero.getCasilla(nuevaPos).recibeJugador_sorpresa(actual, todos);
         }
@@ -253,6 +254,7 @@ public class Sorpresa {
             if(!latienen){
                 Sorpresa s = new Sorpresa(TipoSorpresa.SALIRCARCEL, mazo);
                 todos.get(actual).obtenerSalvoconducto(s); 
+                s.salirDelMazo();
             }
         }
     }

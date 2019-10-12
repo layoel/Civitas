@@ -177,10 +177,10 @@ public class Civitas {
         mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA, tablero, 5, "ve a la carcel"));
         mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA, tablero, 4, "ve a la casilla 4"));
         mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA, tablero, 8, "ve a la casilla 8"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR, -100, "Paga a la banca 100 monedas"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR, 100, "La banca te regala 100 monedas"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL, -100, "Paga a la banca 100monedas por casaHotel"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL, 100, "La banca te regala 100monedas por casaHotel"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR, -100, "Paga a 100 monedas"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR, 100, "Toma regalo!! 100 monedas mas!!"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL, -1000, "Paga  1000 monedas por casaHotel"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL, 1000, "Toma regalo!! 300 monedas por casaHotel"));
         mazo.alMazo(new Sorpresa(TipoSorpresa.PORJUGADOR, 100, "cada uno de tus compis te regalan 100 monedas"));
         mazo.alMazo(new Sorpresa(TipoSorpresa.PORJUGADOR, -100, "debes pagar a tu compi 100 monedas"));
     }
@@ -201,30 +201,58 @@ public class Civitas {
         
         tablero.añadeCasilla(new Casilla("SALIDA"));
         
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle1", 100, 100, 50, 50, 50)));//string nom, float ab, float fr, float hb, float pc, float pe////dice que se añadan las casillas que se van creando...
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle2", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle3", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle4", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle5", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle6", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle7", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle8", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle9", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle10", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle11", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle12", 100, 100, 50, 50, 50)));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle Hipatia", 100, 100, 50, 50, 50)));//string nom, float ab, float fr, float hb, float pc, float pe////dice que se añadan las casillas que se van creando...
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Ada Lovelace", 100, 100, 50, 50, 50)));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Hertha Ayrton", 100, 100, 50, 50, 50)));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Hedy Lamarr", 100, 100, 50, 50, 50)));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Rosalind Franklin", 100, 100, 50, 50, 50)));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Annie Easley", 100, 100, 50, 50, 50)));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Anita Borg", 100, 100, 50, 50, 50)));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Valentina Tereshkova", 100, 100, 50, 50, 50)));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Jocelyn Bell Burnell", 100, 100, 50, 50, 50)));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Katherine Johnson ", 100, 100, 50, 50, 50)));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Dorothy Vaughan", 100, 100, 50, 50, 50)));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Mary Jackson", 100, 100, 50, 50, 50)));
         
-        tablero.añadeCasilla(new Casilla(mazo, "¡¡¡sorpresa1!!!"));
-        tablero.añadeCasilla(new Casilla(mazo, "¡¡¡sorpresa2!!!"));
-        tablero.añadeCasilla(new Casilla(mazo, "¡¡¡sorpresa3!!!"));
+        tablero.añadeCasilla(new Casilla(mazo, "SORPRESA!! ¿sabes quien fue Mary Winston Jackson? "
+                + "fue una matemática e ingeniera aeroespacial estadounidense, "
+                + "que trabajó para el Comité Consejero Nacional para la "
+                + "Aeronáutica (NACA), que más tarde se transformaría en la NASA."
+                + " Trabajó en el Centro de Investigación de Langley la mayor parte"
+                + " de su vida, empezando como calculista en la división de Cálculo "
+                + "del Área Oeste, y más tarde llegaría a ser la primera ingeniera "
+                + "de color de la NASA. Tras 34 años en la NASA, Jackson alcanzó"
+                + " el puesto más alto posible para ingenieros"));
+        tablero.añadeCasilla(new Casilla(mazo, "SORPRESA!! ¿sabes quien fue "
+                + "Katherine Coleman Goble Johnson una física, científica "
+                + "espacial y matemática estadounidense que contribuyó a la "
+                + "aeronáutica de los Estados Unidos y sus programas espaciales "
+                + "con la aplicación temprana de las computadoras electrónicas "
+                + "digitales en la NASA. Conocida por su precisión en la "
+                + "navegación astronómica, calculó la trayectoria para el "
+                + "Proyecto Mercury y el vuelo del Apolo 11 a la Luna en 1969."));
+        tablero.añadeCasilla(new Casilla(mazo, "SORPRESA!! ¿sabes quien fue Hedwig "
+                + "Eva Maria Kiesler? conocida como Hedy Lamarr,  fue una actriz "
+                + "de cine e inventora austriaca naturalizada estadounidense, "
+                + "inventora de la primera versión del espectro ensanchado que "
+                + "permitiría las comunicaciones inalámbricas de larga distancia."));
         
         tablero.añadeJuez();
         
-        tablero.añadeCasilla(new Casilla(5, "||||||CARCEL||||||"));
+        tablero.añadeCasilla(new Casilla(5, "||||||A LA CARCEL!!|||||| ¿Cómo que no "
+                + "conces al menos a 5 mujeres "
+                + "cientificas importantes de la historia? "));
         
-        tablero.añadeCasilla(new Casilla(100, "PAGA TUS IMPUESTOS"));
+        tablero.añadeCasilla(new Casilla(100, "Maria Goeppert-Mayer fue Premio "
+                + "Nobel de Física por sus descubrimientos sobre la estructura "
+                + "de capas nuclear. AHORA QUE LA CONOCES, PAGA TUS IMPUESTOS!"));
         
-        tablero.añadeCasilla(new Casilla("PARKING"));
+        tablero.añadeCasilla(new Casilla("Karen Uhlenbeck es una matemática "
+                + "estadounidense especialista en ecuaciones en derivadas "
+                + "parciales. En marzo de 2019 recibió el Premio Abel or sus "
+                + "investigaciones con ecuaciones en derivadas parciales de "
+                + "las formas del espacio en varias dimensiones.PUEDES ACCEDER "
+                + "AL PARKING"));
     }    
     
     
@@ -245,27 +273,12 @@ public class Civitas {
      * @brief realiza un ranking en funcion del saldo de los jugadores
      */
     private ArrayList<Jugador> ranking(){
-        //Arrays.sort(jugadores, c);
    
         ArrayList<Jugador> rankingJugadores = new ArrayList<>();
-//        ArrayList<Float> saldos = new ArrayList<>();
-//            
-//        //guardo los saldos en un array
-//            for(Jugador j : jugadores){
-//                saldos.add(j.getSaldo());
-//            }
-//        //ordeno el array de saldos
-//            Collections.sort(saldos);
-//        //si el jugador que estoy mirando su saldo coincide con el saldo 
-//        //en el ranking lo coloco en el ranking
-//            int i=0;
-//            while( i< saldos.size()){
-//                for(Jugador j : jugadores){
-//                    if(j.getSaldo() == saldos.get(i))
-//                        rankingJugadores.add(j);
-//                }
-//                i=i+1;
-//            }
+        
+        rankingJugadores = jugadores;
+        Collections.sort(rankingJugadores);
+        
          return rankingJugadores;
     }
     
@@ -337,8 +350,17 @@ public class Civitas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println(TipoCasilla.CALLE);
+        
+        ArrayList<String> todos = new ArrayList<>();
+        
+        todos.add(" Elvira ");
+        todos.add(" Ale ");
+        todos.add(" Jolu ");
+        todos.add(" Iballa ");
+        
+        Civitas civi= new Civitas (todos);
+        
+        System.out.println(civi.infoJugadorTexto());
     }
     
 }

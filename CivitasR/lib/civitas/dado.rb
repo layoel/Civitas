@@ -18,7 +18,7 @@ module Civitas
     #*/
     attr_reader :ultimoResultado
     
-    private
+    
     #/**
     #* @brief constructor de la clase dado
     #*/
@@ -29,7 +29,7 @@ module Civitas
     end
     
     
-    public
+    
     # /**
     # * @brief genera un numero aleatorio entre 1 y 6 si el modo debub esta desactivado
     # * @return ultimoResultado devuelve 1 en modo debug, sino el numero generado
@@ -85,6 +85,6 @@ module Civitas
       end
     end
     
-    
+   private :intialize 
   end
 end

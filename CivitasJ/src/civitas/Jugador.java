@@ -16,7 +16,7 @@ public class Jugador implements Comparable<Jugador>{
     static protected int CasasMax = 4;
     static protected int CasasPorHotel = 4;
     protected Boolean encarcelado;
-    protected int HotelesMax;
+    static protected int HotelesMax = 4;
     private String nombre;
     private int numCasillaActual;
     static protected float PasoPorSalida = 1000;
@@ -35,13 +35,11 @@ public class Jugador implements Comparable<Jugador>{
     Jugador(String nombre){
         this.nombre = nombre;
         encarcelado = false;
-        HotelesMax = 0;
         numCasillaActual= 0 ;
         puedeComprar = false;
         saldo = SaldoInicial;
         propiedades = new ArrayList<>();
-        MazoSorpresas mazo = new MazoSorpresas(); /////////ojo esto no se si esta bien
-        salvoconducto = new Sorpresa( TipoSorpresa.SALIRCARCEL, mazo);       
+        salvoconducto = null;
     }
     
     
@@ -323,6 +321,7 @@ public class Jugador implements Comparable<Jugador>{
     
     /**
      * @brief modifica el saldo del jugador
+     * @param cantidad cuanto ha de pagar el jugador
      * @return ok true si ha pagado correctamente.
      */
     Boolean paga(float cantidad){
@@ -334,6 +333,7 @@ public class Jugador implements Comparable<Jugador>{
     
     /**
      * @brief El jugador paga Alquiler
+     * @param cantidad cuanto ha de pagar
      * @return ok true si lo ha pagado.
      */
     Boolean pagaAlquiler(float cantidad){
@@ -385,13 +385,16 @@ public class Jugador implements Comparable<Jugador>{
     
     /**
      * @brief Solo puede comprar si no esta encarcelado
-     * @return ok true si puede comprar
+     * @return puedeComprar true si puede comprar
      */
     Boolean puedeComprarCasilla(){
-        Boolean ok = false; 
+         
         if (!isEncarcelado())
-            ok = true;
-        return ok;
+            puedeComprar = true;
+        else
+            puedeComprar=false;
+        
+        return puedeComprar;
     }
     
     
@@ -424,7 +427,11 @@ public class Jugador implements Comparable<Jugador>{
     
     
     /**
-     * @brief 
+     * @brief  se llama al método modificarSaldo con el
+     * mismo parámetro y se devuelve lo que devuelve este
+     * último método.
+     * @param cantidad cuanto recibe
+     * @return ok true si recibe alguna cantidad
      */
     Boolean recibe(float cantidad){
         Boolean ok = false; 
@@ -447,7 +454,8 @@ public class Jugador implements Comparable<Jugador>{
             encarcelado = false;
             ok = true;
             Diario di = Diario.getInstance();
-            di.ocurreEvento("El jugador "+ nombre+ "sale de la carcel pagando "+ PrecioLibertad);
+            di.ocurreEvento("El jugador "+ nombre+ "sale de la carcel pagando "+
+                PrecioLibertad);
         }
         return ok;
     }
@@ -456,19 +464,19 @@ public class Jugador implements Comparable<Jugador>{
     
     /**
      * @brief El dado es el encargado de decir si sale de la carcel el jugador
-     * @return encarcelado true si sigue encarcelado
+     * @return salir true si puede salir
      */
     Boolean salirCarcelTirando(){ 
-        if(isEncarcelado()){
-            Dado da = Dado.getInstance();
-            if(da.salgoDeLaCarcel()){
-                encarcelado = false;
-                Diario di = Diario.getInstance();
-                di.ocurreEvento("El jugador ha sacado "+ da.getUltimoResultado()+ 
-                        " tirando el dado para salir de la carcel");
-            }
+        Boolean salir = false;
+        Dado da = Dado.getInstance();
+        if(da.salgoDeLaCarcel()){
+            encarcelado = false;
+            salir = true;
+            Diario di = Diario.getInstance();
+            di.ocurreEvento("El jugador ha sacado "+ da.getUltimoResultado()+ 
+                " tirando el dado para salir de la carcel");
         }
-        return encarcelado;
+        return salir;
     }
     
     
@@ -508,10 +516,13 @@ public class Jugador implements Comparable<Jugador>{
         text = "El jugador "+ nombre+ "\n Esta encarcelado? "+Boolean.toString(encarcelado)+
                 "\n Está en la casilla " + Integer.toString(numCasillaActual)+ 
                 "\n Puede comprar? "+ Boolean.toString(puedeComprar)+ 
-                "\n Su saldo es " + Float.toString(saldo)+ 
-                "\n Tiene salvoconducto?: " + salvoconducto.toString()+
-                "\n Sus propiedades :"+ propiedades.toString()+
-                "\n El HotelesMax" + Integer.toString(HotelesMax)+
+                "\n Su saldo es " + Float.toString(saldo);
+        if (salvoconducto != null)
+            text = text+ "\n Tiene salvoconducto?: " + salvoconducto.toString();
+        if (propiedades.size()>0)
+            text = text+ "\n Sus propiedades :"+ propiedades.toString();
+        
+        text = text+ "\n El HotelesMax" + Integer.toString(HotelesMax)+
                 "\n Su saldo inicial: " +Float.toString(SaldoInicial)+
                 "\n CasasMax "+ Integer.toString(CasasMax)+
                 "\n CasasPorHotel"+ Integer.toString(CasasPorHotel)+
@@ -524,6 +535,7 @@ public class Jugador implements Comparable<Jugador>{
     
     /**
      * @brief Si el jugador es propietario vende la propiedad 
+     * @param ip indice de la propiedad
      * @return ok true si ha podido venderla.
      */
     Boolean vender(int ip){
@@ -603,7 +615,9 @@ public class Jugador implements Comparable<Jugador>{
      */
     private Boolean puedoEdificarCasa(TituloPropiedad propiedad){
         Boolean ok = false; 
-        
+        if(puedoGastar(propiedad.getPrecioEdificar()))
+            if(propiedad.getNumCasas()< CasasMax)
+                ok = true;
         return ok;
     } 
     
@@ -614,7 +628,9 @@ public class Jugador implements Comparable<Jugador>{
      */
     private Boolean puedoEdificarHotel(TituloPropiedad propiedad){
         Boolean ok = false; 
-        
+        if(puedoGastar(propiedad.getPrecioEdificar()))
+            if(propiedad.getNumHoteles()< HotelesMax)
+                ok = true;
         return ok;
     }
     
