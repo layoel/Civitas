@@ -67,12 +67,13 @@ module Civitas
     # */
     
     def siguiente
-      if @barajado == false or @usadas == @sorpresas.size
-        @sorpresas.shuffle #barajo el mazo
-        @usadas = 0
-        @barajada = true
+      if !@debug
+        if !@barajado or @usadas == @sorpresas.size
+          @sorpresas.shuffle #barajo el mazo
+          @usadas = 0
+          @barajada = true
+        end
       end
-      
       @usadas = @usadas+1
       @ultimaSorpresa = @sorpresas.at(0) #guardo la sorpresa en s
       @sorpresas.delete_at(0) #borro la sorpresa del inicio del mazo

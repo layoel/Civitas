@@ -85,6 +85,7 @@ public class MazoSorpresas {
     
     /**
      * @brief coger una carta sorpresa
+     * @return ultimaSorpresa
      */
     Sorpresa siguiente(){
     
@@ -96,12 +97,11 @@ public class MazoSorpresas {
             }
         usadas = usadas+1;
         
-        Sorpresa sp = sorpresas.get(0);
+        ultimaSorpresa = sorpresas.get(0);
         sorpresas.remove(0);
-        sorpresas.add(sp);
-        ultimaSorpresa = sp;
+        sorpresas.add(ultimaSorpresa);
         
-        return sp;
+        return ultimaSorpresa;
     }
     
     /**
