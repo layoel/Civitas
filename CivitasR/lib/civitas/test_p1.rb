@@ -22,13 +22,11 @@ module Civitas
       #hay 4 jugadores, y calcula cuantas veces se obtiene cada uno de los 
       #valores posibles. Comprueba si se cumplen a nivel práctico las 
       #probabilidades de cada valor
-        dado = Dado.instance
-        diario = Diario.instance
 
         jugador = Array.new
 
         100.times do
-           jugador << dado.quienEmpieza(4)
+           jugador << Dado.instance.quienEmpieza(4)
         end
 
         j1=0
@@ -63,26 +61,26 @@ module Civitas
 
     # Asegúrate de que funciona el modo debug del dado activando y 
     # desactivando ese modo, y realizando varias tiradas en cada modo.        
-      num = dado.tirar
+      num = Dado.instance.tirar
 
       #activo modo debug
-      dado.setDebug(true)
-      puts dado.tirar
-      puts dado.tirar
-      puts dado.tirar
-      puts dado.tirar
+      Dado.instance..setDebug(true)
+      puts Dado.instance.tirar
+      puts Dado.instance.tirar
+      puts Dado.instance.tirar
+      puts Dado.instance.tirar
       #desactuvo modo debug
-      dado.setDebug(false)
-      puts dado.tirar
-      puts dado.tirar
-      puts dado.tirar
+      Dado.instance..setDebug(false)
+      puts Dado.instance.tirar
+      puts Dado.instance.tirar
+      puts Dado.instance.tirar
 
     # Prueba al menos una vez los métodos getUltimoResultado() y 
     # salgoDeLaCarcel() de Dado.
-      puts dado.tirar
-      puts dado.ultimoResultado
-      puts dado.tirar
-      puts dado.salgoDeLaCarcel
+      puts Dado.instance.tirar
+      puts Dado.instance.ultimoResultado
+      puts Dado.instance.tirar
+      puts Dado.instance.salgoDeLaCarcel
       
 
     # Muestra al menos un valor de cada tipo enumerado
@@ -140,7 +138,7 @@ module Civitas
     # Finalmente,realiza distintas tiradas con el dado y asegúrate de que se
     # calcula correctamente la posición de destino en el tablero.
     
-    dado.setDebug(false)
+    Dado.instance..setDebug(false)
     t.aniadeJuez
     ##miscasillas = t.casillas
     
@@ -149,17 +147,17 @@ module Civitas
     ##puts "tamanio" + miscasillas.size.to_s
       
     actual = 0
-    tirada = dado.tirar
+    tirada = Dado.instance.tirar
     puts "dado" + tirada.to_s
     actual = t.nuevaPosicion(actual, tirada)
     puts "posicion nueva" + actual.to_s
     
-    tirada = dado.tirar
+    tirada = Dado.instance.tirar
     puts "dado" + tirada.to_s
     actual = t.nuevaPosicion(actual, tirada)
     puts "posicion nueva" + actual.to_s
       
-    tirada = dado.tirar
+    tirada = Dado.instance.tirar
     puts "dado" + tirada.to_s
     actual = t.nuevaPosicion(actual, tirada)
     puts "posicion nueva" + actual.to_s  

@@ -41,8 +41,8 @@ module Civitas
 #   */ 
     def self.new_casillaTitulo(titulo)
       new(titulo.nombre)
-      @tituloPropiedad = titulo;
-      @tipo = TipoCasilla.CALLE;
+      @tituloPropiedad = titulo
+      @tipo = TipoCasilla::CALLE
     end
     
     
@@ -143,8 +143,22 @@ module Civitas
 #     * @brief represente con detalle la información acerca de la casilla
 #     */
     def toString()
-      text = " \n nombre: " + @nombre + 
-             " \n El tipo : " + @tipo.to_s
+      text = " \n nombre: " + @nombre.to_s
+      if (@tipo == TipoCasilla::CALLE )
+          text =text+   " \n El tipo :  Calle"
+      end
+      if (@tipo == TipoCasilla::SORPRESA )
+          text =text+    " \n El tipo :  sorpresa"
+      end
+      if (@tipo == TipoCasilla::JUEZ )
+          text =text+    " \n El tipo :   Juez"
+      end
+      if (@tipo == TipoCasilla::IMPUESTO )
+          text =text+    " \n El tipo :  impuesto"
+      end
+      if (@tipo == TipoCasilla::DESCANSO )
+          text =text+    " \n El tipo :  descanso"
+      end
       if @carcel > 0
         text = text +" \n carcel: "+ @carcel.to_s
       end
@@ -194,12 +208,22 @@ module Civitas
         
     end
     
-    
+    def main
+      tit = TituloPropiedad.new("mititulo", 100, 100, 100, 111, 111)
+      cas = Casilla.new_casillaTitulo(tit)
+      puts cas.toString
+      
+    end
+       
+     
     private :informe, :init, :recibeJugador_calle, 
       :recibeJugador_impuesto, :recibeJugador_juez, 
       :recibeJugador_sorpresa 
     
-    private_class_method :new
+    #private_class_method :new
     
   end
+  cas = Casilla.new("hola")
+  cas.main
+  
 end

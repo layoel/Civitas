@@ -82,7 +82,7 @@ class Sorpresa
         return correcto
     end
 
-----------------------.nombre/////////////////////////////////////////////////////////////////////////////////////////////////////////  
+#----------------------.nombre/////////////////////////////////////////////////////////////////////////////////////////////////////////  
 #    /**
 #     *@brief Informa que se esta aplicando una sorpresa a un jugador
 #     * @param actual es el jugador que tiene el turno
@@ -281,6 +281,9 @@ class Sorpresa
         end
       end
       
-      private :aplicarAJugador_irACasilla, :aplicarAJugador_irACarcel, :aplicarAJugador_pagarCobrar, :aplicarAJugador_porCasaHotel, :aplicarAJugador_porJugador, :aplicarAJugador_salirCarcel, :informe, :init
-      private_class_method :new
+      private :aplicarAJugador_irACasilla, :aplicarAJugador_irCarcel, 
+        :aplicarAJugador_pagarCobrar, :aplicarAJugador_porCasaHotel, 
+        :aplicarAJugador_porJugador, :aplicarAJugador_salirCarcel, 
+        :informe, :init
+      #private_class_method :new
 end

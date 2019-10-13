@@ -53,15 +53,16 @@ public class Civitas {
         
         inicializarTablero(mazo);
         
+        tablero = null;
         inicializarMazoSorpresas(tablero);  
     }
-    
+     
     
      /**
      * @brief muestra la info del jugador actual, si banca rota imprime ranking  
      */
     public void actualizarInfo(){
-        jugadores.get(indiceJugadorActual).toString();
+        System.out.println(jugadores.get(indiceJugadorActual).toString());
         for(Jugador j : jugadores)
             if(j.enBancarrota())
                 ranking();

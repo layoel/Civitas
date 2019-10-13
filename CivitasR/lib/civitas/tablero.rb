@@ -110,14 +110,16 @@ module Civitas
     
     # /**
     # * @brief añade a casillas la casilla c
-    # * @param c casilla que se va a añadir
+    # * @param cas casilla que se va a añadir
     # */
     
     def aniadeCasilla(cas)
       if (@casillas.size == @numCasillaCarcel)
-        @casillas << Casilla.new("Carcel")
+        @casillas << Casilla.new("||||||A LA CARCEL!!|||||| Como que no 
+                 conces al menos a 5 mujeres 
+                 cientificas importantes de la historia? ")
       end
-      @casillas <<cas
+      @casillas << cas
     end
     
     
@@ -128,7 +130,8 @@ module Civitas
     
     def aniadeJuez
       unless(@tieneJuez)
-        @casillas << Casilla.new("Juez")
+        @casillas << Casilla.new_casillaJuez(@numCasillaCarcel,"Juez, yo voy a juzgar tus 
+                      conocimientos sobre mujeres importantes en la ciencia")
         @tieneJuez = true
       end
     end
@@ -142,7 +145,7 @@ module Civitas
     
     def getCasilla(numCasilla)
       if (numCasilla < @casillas.size())
-        cas = casillas[numCasilla]
+        cas = @casillas.at(numCasilla)
       else
         cas = nil
       end

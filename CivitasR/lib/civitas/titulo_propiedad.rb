@@ -1,6 +1,7 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
+
 module Civitas
   
   class TituloPropiedad
@@ -279,7 +280,8 @@ module Civitas
       mensaje = " \n nombre" + @nombre + 
                 " \n alquilerBase: " + @alquilerBase.to_s + 
                 " \n factorInteresesHipoteca: " + @factorInteresesHipoteca.to_s+ 
-                " \n factorRevalorizacion: " + @factorRevalorizacion.to_s+ " \n hipotecaBase: " + @hipotecaBase.to_s +
+                " \n factorRevalorizacion: " + @factorRevalorizacion.to_s+ 
+                " \n hipotecaBase: " + @hipotecaBase.to_s +
                 " \n hipotecado: " + @hipotecado.to_s + 
                 " \n numCasas" + @numCasas.to_s+ 
                 " \n numHoteles: " + @numHoteles.to_s + 
@@ -327,10 +329,13 @@ module Civitas
     private :esEsteElPropietario, :getImporteHipoteca, :propietarioEncarcelado, :getPrecioAlquiler, :getPrecioVenta
       
     def main
-      
+      j1 = Jugador.new("alicia")
+      actualizarPropietarioPorConversion(j1)
+      puts  @propietario
     end
-    
-    main
+    tit = TituloPropiedad.new("mititulo", 100, 100, 100, 111, 111)
+      
+    tit.main
     
   end
 end

@@ -85,6 +85,6 @@ module Civitas
       end
     end
     
-   private :intialize 
+   #private :intialize 
   end
 end
