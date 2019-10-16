@@ -384,7 +384,7 @@ module Civitas
   #     */
       def pasaPorSalida
         ok = true 
-        modificarSaldo(@@PasoPorSalida)
+        modificarSaldo(getPremioPasoSalida)
         Diario.instance.ocurreEvento("El jugador "+
           @nombre + "ha pasado por salida, incrementa su saldo en "+
           @@PasoPorSalida)
@@ -508,11 +508,110 @@ module Civitas
         end
         return ok
     end
+    
+    
+#    /**
+#     * @brief Consultor del premio que se obtiene por pasar por salida
+#     * @return PremioPasoSalida dinero que se le da al jugador.
+#     */
+    def getPremioPasoSalida
+      return @@PasoPorSalida
+    end
+    
+    
+#    /**
+#     * @brief La cantidad de casas y hoteles que tiene el jugador
+#     * @return numero de propiedades
+#     */
+    def cantidadCasasHoteles
+      return  @propiedades.size
+    end
+    
+#    /**
+#     * @brief
+#     */
+    def hipotecar(ip)
+        ok = false 
+        
+        return ok 
+    end
+    
+    
+#    /**
+#     * @brief convierte a string los atributos de jugador.
+#     */
+    def toString
+      
+        text = "El jugador "+ @nombre+ 
+          "\n Esta encarcelado? "+ @encarcelado.to_s+
+                "\n Esta en la casilla " + @numCasillaActual.to_s+ 
+                "\n Puede comprar? "+ @puedeComprar.to_s+ 
+                "\n Su saldo es " + @saldo.to_s
+        if (@salvoconducto != nil)
+            text = text + "\n Tiene salvoconducto?: " + @salvoconducto.to_s
+        end
+        if (@propiedades.size>0)
+            text = text+ "\n Sus propiedades :"+ @propiedades.toString
+        end
+        text = text+ "\n El HotelesMax " + @@HotelesMax.to_s +
+                "\n Su saldo inicial: " + @@SaldoInicial.to_s+
+                "\n CasasMax "+ @@CasasMax.to_s+
+                "\n CasasPorHotel "+ @@CasasPorHotel.to_s+
+                "\n PasoPorSalida "+ @@PasoPorSalida.to_s+
+                "\n PrecioLibertad " + @@PrecioLibertad.to_s
+        return text
+      end
+    
+    
+    
+    
+    def self.main
+      j1= Jugador.new("elvira")
+#      puts TipoCasilla::CALLE 
+        j1 = Jugador.new("Elvira") 
+        j2 = j1
+        
+        if(j1.compareTo(j2)== 0)
+            puts "tienen el mismo saldo" 
+        else if (j1.compareTo(j2)== 1)
+              puts "j1 tiene mas pasta" 
+            else
+              puts "j2 tiene mas pasta" 
+            end
+        end
+         #quitar saldo de  protected para ejecutar
+#        puts j1.saldo
+#        puts j2.saldo 
+#        puts j2.nombre 
+#        puts j2.HotelesMax 
+#        puts j2.puedeComprar() 
+#        Diario di = Diario.getInstance();
+#        j2.modificarSaldo(70000) 
+#        puts j2.getSaldo 
+#        j2.paga(70000) 
+#        puts j2.getSaldo 
+#        j2.pagaAlquiler(500) 
+#        puts j2.saldo 
+#        j2.pagaImpuesto(100) 
+#        puts j2.saldo 
+#        j2.recibe(100) 
+#        puts j2.saldo 
+#        puts j2.tieneSalvoconducto() 
+        puts j2.toString
       
       
-      private :existeLaPropiedad, :perderSalvoConducto, 
-        :puedeSalirCarcelPagando, :CasasMax, :HotelesMax,
-        :PrecioLibertad, :PasoPorSalida, :puedoEdificarCasa,
-        :puedoEdificarHotel, :puedoGastar
+    end
+      
+      private :getPremioPasoSalida, :existeLaPropiedad, :perderSalvoConducto, 
+        :puedeSalirCarcelPagando,  :puedoEdificarCasa, :CasasMax,
+        :puedoEdificarHotel, :puedoGastar, :PrecioLibertad,
+        :saldo, :puedeComprar
+      protected :HotelesMax, :CasasMax, :CasasPorHotel,
+        :encarcelado, 
+        :debeSerEncarcelado, :propiedades,
+        :saldo
+      
+      #protected_class_method :new_copiaJugador
+    Jugador.main
   end
 end

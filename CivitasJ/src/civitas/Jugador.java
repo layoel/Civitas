@@ -109,6 +109,7 @@ public class Jugador implements Comparable<Jugador>{
      *        -1 si jugador < otro
      *        +1 si jugador > otro
      */
+    @Override
     public int compareTo(Jugador otro){
         return Float.compare(saldo, otro.getSaldo());
     }
@@ -182,7 +183,7 @@ public class Jugador implements Comparable<Jugador>{
      * @brief Consultor de Hoteles max
      * @return numero maximo de hoteles
      */
-    int getHotelesMax(){
+    private int getHotelesMax(){
         return HotelesMax;
     }
     
@@ -642,6 +643,34 @@ public class Jugador implements Comparable<Jugador>{
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println(TipoCasilla.CALLE);
+        Jugador j1 = new Jugador("Elvira");
+        Jugador j2 = j1;
+        
+        if(j1.compareTo(j2)== 0)
+            System.out.println("tienen el mismo saldo");
+        else if (j1.compareTo(j2)== 1)
+            System.out.println("j1 tiene mas pasta");
+        else
+            System.out.println("j2 tiene mas pasta");
+         System.out.println(j1.getSaldo());
+        System.out.println(j2.getSaldo());
+        System.out.println(j2.getNombre());
+        System.out.println(j2.getHotelesMax());
+        System.out.println(j2.getPuedeComprar());
+        j2.modificarSaldo(70000);
+        System.out.println(j2.getSaldo());
+        j2.paga(70000);
+        System.out.println(j2.getSaldo());
+        j2.pagaAlquiler(500);
+        System.out.println(j2.getSaldo());
+        j2.pagaImpuesto(100);
+        System.out.println(j2.getSaldo());
+        j2.recibe(100);
+        System.out.println(j2.getSaldo());
+        System.out.println(j2.tieneSalvoconducto());
+
+
+
     }
     
 }
