@@ -65,12 +65,12 @@ public class TituloPropiedad {
      */
     Boolean cancelarHipoteca(Jugador jugador){
         Boolean ok = false;
-//        
-//        if (hipotecado && esEsteElPropietario(jugador)){
-//            ok = jugador.paga(getImporteCancelarHipoteca());
-//            hipotecado = false;
-//        }
-//        
+        
+        if (hipotecado && esEsteElPropietario(jugador)){
+            ok = jugador.paga(getImporteCancelarHipoteca());
+            hipotecado = false;
+        }
+        
         return ok;    
     }
     
@@ -91,10 +91,10 @@ public class TituloPropiedad {
      */
     Boolean comprar(Jugador jugador){
        Boolean comprado = false;
-//       if(!tienePropietario()){
-//           propietario = jugador;
-//           comprado = propietario.paga(precioCompra);
-//       }
+       if(!tienePropietario()){
+           propietario = jugador;
+           comprado = propietario.paga(precioCompra);
+       }
        return comprado;
     }
    
@@ -106,12 +106,12 @@ public class TituloPropiedad {
      */
     Boolean construirCasa(Jugador jugador){
         Boolean construida = false;
-//        
-//        if(esEsteElPropietario(jugador)){
-//            construida = jugador.paga(precioCompra);
-//            numCasas++;
-//        }
-//        
+        
+        if(esEsteElPropietario(jugador)){
+            construida = jugador.paga(precioCompra);
+            numCasas++;
+        }
+        
         return construida;
     }
     
@@ -123,12 +123,12 @@ public class TituloPropiedad {
      */
     Boolean construirHotel(Jugador jugador){
         Boolean construida = false;
-//        
-//        if(esEsteElPropietario(jugador)){
-//            construida = jugador.paga(precioCompra);
-//            numHoteles++;
-//        }
-//        
+        
+        if(esEsteElPropietario(jugador)){
+            construida = jugador.paga(precioCompra);
+            numHoteles++;
+        }
+        
         return construida;
     }
     
@@ -264,13 +264,12 @@ public class TituloPropiedad {
      */
     Boolean hipotecar(Jugador jugador){
         Boolean realizada = false;
-//        
-//        if(!hipotecado && esEsteElPropietario(jugador)){
-//            jugador.recibe(hipotecaBase);
-//            hipotecado = true;
-//            realizada = true;
-//        }
-//        
+        
+        if(!hipotecado && esEsteElPropietario(jugador)){
+            realizada = jugador.recibe(hipotecaBase);
+            hipotecado = true;
+        }
+        
         return realizada;
     }
     
@@ -364,6 +363,19 @@ public class TituloPropiedad {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println(TipoCasilla.CALLE);
-    }    
+       Jugador j1 = new Jugador("alicia");
+
+      TituloPropiedad tit = new TituloPropiedad("mititulo", 100, 100, 100, 111, 111);
+      System.out.println(j1.getPropiedades().toString());
+      tit.actualizaPropietarioPorConversion(j1);
+     
+
+      System.out.println( tit.toString());
+      System.out.println(tit.getImporteCancelarHipoteca());
+      if (tit.tienePropietario())
+        System.out.println("si tiene propietario");
+      else 
+        System.out.println( "no tiene propietario");
+    }
     
 }

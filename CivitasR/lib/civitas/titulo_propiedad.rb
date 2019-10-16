@@ -1,7 +1,7 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
-
+require_relative "jugador.rb"
 module Civitas
   
   class TituloPropiedad
@@ -80,12 +80,12 @@ module Civitas
     # */
     def cancelarHipoteca(jugador)
         ok = false;
-#        
-#        if (@hipotecado && esEsteElPropietario(jugador))
-#            ok = @jugador.paga(getImporteCancelarHipoteca)
-#            @hipotecado = false;
-#        end
-#        
+        
+        if (@hipotecado && esEsteElPropietario(jugador))
+            ok = @jugador.paga(getImporteCancelarHipoteca)
+            @hipotecado = false;
+        end
+        
         return ok;    
     end
     
@@ -106,10 +106,10 @@ module Civitas
     # */
     def comprar(jugador)
        comprado = false;
-#       if(!tienePropietario)
-#           @propietario = jugador;
-#           comprado = @propietario.paga(@precioCompra);
-#       end
+       if(!tienePropietario)
+           @propietario = jugador;
+           comprado = @propietario.paga(@precioCompra);
+       end
        return comprado;
     end
 
@@ -121,12 +121,12 @@ module Civitas
     # */
     def construirCasa(jugador)
         construida = false;
-#        
-#        if(esEsteElPropietario(jugador))
-#            construida = jugador.paga(@precioCompra);
-#            @numCasas = @numCasas + 1
-#        end
-#        
+        
+        if(esEsteElPropietario(jugador))
+            construida = jugador.paga(@precioCompra);
+            @numCasas = @numCasas + 1
+        end
+        
         return construida;
     end
     
@@ -139,12 +139,12 @@ module Civitas
     # */
     def construirHotel(jugador)
         construida = false
-#        
-#        if(esEsteElPropietario(jugador))
-#            construida = jugador.paga(@precioCompra);
-#            @numHoteles = @numHoteles + 1
-#        end
-#        
+        
+        if(esEsteElPropietario(jugador))
+            construida = jugador.paga(@precioCompra);
+            @numHoteles = @numHoteles + 1
+        end
+        
         return construida;
     end
     
@@ -236,13 +236,12 @@ module Civitas
     # */
     def hipotecar(jugador)
       realizada = false;
-#        
-#      if(!@hipotecado && esEsteElPropietario(jugador))
-#        jugador.recibe(@hipotecaBase);
-#        @hipotecado = true;
-#        realizada = true;
-#      end
-#        
+        
+      if(!@hipotecado && esEsteElPropietario(jugador))
+        realizada = jugador.recibe(@hipotecaBase);
+        @hipotecado = true;
+      end
+        
         return realizada;
     end
     
@@ -325,17 +324,30 @@ module Civitas
         end
         return vendido;
     end    
-    
-    private :esEsteElPropietario, :getImporteHipoteca, :propietarioEncarcelado, :getPrecioAlquiler, :getPrecioVenta
       
-    def main
+    
+    
+    def self.main
       j1 = Jugador.new("alicia")
-      actualizarPropietarioPorConversion(j1)
-      puts  @propietario
+
+      tit = TituloPropiedad.new("mititulo", 100, 100, 100, 111, 111)
+#      puts j1.propiedades.inspect
+#      j1.propiedades<<tit
+ #     tit.propietario = j1
+ #     puts j1.propiedades.inspect
+
+      puts tit.toString
+      puts tit.getImporteCancelarHipoteca
+      if tit.tienePropietario
+        puts "si tiene propietario"
+      else 
+        puts "no tiene propietario"
+      end
     end
-    tit = TituloPropiedad.new("mititulo", 100, 100, 100, 111, 111)
-      
-    tit.main
     
+    private :esEsteElPropietario, :getImporteHipoteca, :propietarioEncarcelado,
+            :getPrecioAlquiler, :getPrecioVenta
+    
+    TituloPropiedad.main
   end
 end
