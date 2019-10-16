@@ -82,7 +82,7 @@ class Sorpresa
         return correcto
     end
 
-#----------------------.nombre/////////////////////////////////////////////////////////////////////////////////////////////////////////  
+
 #    /**
 #     *@brief Informa que se esta aplicando una sorpresa a un jugador
 #     * @param actual es el jugador que tiene el turno
