@@ -24,9 +24,10 @@ class Sorpresa
 #     * @param texto
 #     */
     def self.new_SorpresaIrOtraCasilla(tipo, tablero, valor, texto)
-      new(tipo, nil)
-      @valor = valor
-      @texto = texto
+      s= new(tipo, nil)
+      s.valor = valor
+      s.texto = texto
+      return s
     end
   
   
@@ -37,9 +38,9 @@ class Sorpresa
 #     * @param texto
 #     */
     def self.new_todasSorpresas(tipo, valor,texto)
-        new(tipo, nil)
-        @valor = valor
-        @texto = texto
+        s= new(tipo, nil)
+        s.valor = valor
+        s.texto = texto
     end
     
     
@@ -49,9 +50,9 @@ class Sorpresa
 #     * @param mazo
 #     */
     def self.new_sorpresaEvitaCarcel(tipo, mazo)
-        new(tipo, nil)
-        @mazo = mazo
-        @texto = "Salvoconducto"
+        s=new(tipo, nil)
+        s.mazo = mazo
+        s.texto = "Salvoconducto"
     end
     
 #      /**
@@ -89,8 +90,7 @@ class Sorpresa
 #     * @param todos lista de jugadores
 #     */
     def informe(actual,todos)
-        di = Diario.instance
-        di.instance.ocurreEvento("se esta aplicando la sorpresa "+ @texto+
+      Diario.instance.ocurre_evento("se esta aplicando la sorpresa "+ @texto+
             " al jugador: " + todos.at(actual).nombre)
     end
     
@@ -285,5 +285,5 @@ class Sorpresa
         :aplicarAJugador_pagarCobrar, :aplicarAJugador_porCasaHotel, 
         :aplicarAJugador_porJugador, :aplicarAJugador_salirCarcel, 
         :informe, :init
-      #private_class_method :new
+
 end
