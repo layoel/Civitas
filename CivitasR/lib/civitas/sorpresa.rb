@@ -7,7 +7,7 @@ module Civitas
 end
 class Sorpresa
   
-  attr_accessor :tipo, :tablero, :valor, :mazo, :texto,
+  #attr_accessor :tipo, :tablero, :valor, :mazo, :texto,
     # /**
     #  *@brief Inicializa los  valores valor mazo y tablero
     # */
