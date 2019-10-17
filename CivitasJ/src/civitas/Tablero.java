@@ -157,7 +157,13 @@ public class Tablero {
             return null; 
     }
     
-    
+     /**
+     * @brief consultor de casillas
+     * @return casillas
+     */
+    public ArrayList<Casilla> getCasillas(){
+            return casillas; 
+    }
     
     /**
      * @brief calcula la posicion en el tablero a partir de la actual y avanza 

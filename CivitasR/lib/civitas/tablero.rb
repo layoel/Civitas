@@ -1,9 +1,6 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
+#encoding: UTF-8
 
 
-# encoding: UTF-8
 
     # /**
     #*@brief Representa el tablero del juego imponiendo restricciones 
@@ -24,7 +21,7 @@ module Civitas
     #* @brief Consultor de numero de casilla carcel
     #* @return numCasillaCarcel
     #*/
-    attr_reader :numCasillaCarcel 
+    attr_reader :numCasillaCarcel, :casillas
     
     #attr_reader 
     #attr_writer
