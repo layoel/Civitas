@@ -48,12 +48,12 @@ public class Civitas {
         
         Dado da = Dado.getInstance();
         indiceJugadorActual = da.quienEmpieza(jugadores.size());
-        
+
         mazo = new MazoSorpresas();
         
         inicializarTablero(mazo);
         
-        tablero = null;
+        
         inicializarMazoSorpresas(tablero);  
     }
      
@@ -61,12 +61,12 @@ public class Civitas {
      /**
      * @brief muestra la info del jugador actual, si banca rota imprime ranking  
      */
-    public void actualizarInfo(){
-        System.out.println(jugadores.get(indiceJugadorActual).toString());
-        for(Jugador j : jugadores)
-            if(j.enBancarrota())
-                ranking();
-    }
+//    public void actualizarInfo(){
+//        System.out.println(jugadores.get(indiceJugadorActual).toString());
+//        for(Jugador j : jugadores)
+//            if(j.enBancarrota())
+//                ranking();
+//    }
     
     
     
@@ -240,9 +240,6 @@ public class Civitas {
         
         tablero.añadeJuez();
         
-        tablero.añadeCasilla(new Casilla(5, "||||||A LA CARCEL!!|||||| ¿Cómo que no "
-                + "conces al menos a 5 mujeres "
-                + "cientificas importantes de la historia? "));
         
         tablero.añadeCasilla(new Casilla(100, "Maria Goeppert-Mayer fue Premio "
                 + "Nobel de Física por sus descubrimientos sobre la estructura "
@@ -362,6 +359,11 @@ public class Civitas {
         Civitas civi= new Civitas (todos);
         
         System.out.println(civi.infoJugadorTexto());
+        System.out.println(civi.finalDelJuego());
+        System.out.println(civi.indiceJugadorActual);
+        if(civi.tablero.correcto())
+            System.out.println("es correcto");
+        System.out.println(civi.getCasillaActual());
     }
     
 }

@@ -2,19 +2,19 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 # encoding: UTF-8
-require "civitas/casilla.rb"
-require "civitas/dado.rb"
-require "civitas/diario.rb"
-require "civitas/estados_juego.rb"
-require "civitas/gestor_estados.rb"
-require "civitas/jugador.rb"
-require "civitas/mazo_sorpresas.rb"
-require "civitas/sorpresa.rb"
-require "civitas/tablero.rb"
-require "civitas/tipocasilla.rb"
-require "civitas/tiposorpresa.rb"
-require "civitas/titulo_propiedad.rb"
-require "civitas/gestor_estados.rb"
+require_relative "casilla"
+require_relative "dado.rb"
+require_relative "diario.rb"
+require_relative "estados_juego.rb"
+require_relative "gestor_estados.rb"
+require_relative "jugador.rb"
+require_relative "mazo_sorpresas.rb"
+require_relative "sorpresa.rb"
+require_relative "tablero.rb"
+require_relative "tipocasilla.rb"
+require_relative "tiposorpresa.rb"
+require_relative "titulo_propiedad.rb"
+require_relative "gestor_estados.rb"
 
 module Civitas
     class Civitas
