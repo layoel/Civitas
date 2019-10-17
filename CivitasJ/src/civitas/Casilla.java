@@ -19,7 +19,7 @@ public class Casilla {
     private String nombre;
     private TipoCasilla tipo;
     private TituloPropiedad tituloPropiedad;
-    private TipoSorpresa sorpresa;
+    private Sorpresa sorpresa;
     private MazoSorpresas mazo;
     
     /**
@@ -28,7 +28,7 @@ public class Casilla {
      */   
     Casilla(String nombre){
         init();
-        nombre = nombre;
+        this.nombre = nombre;
         tipo = TipoCasilla.DESCANSO;
     }
     
@@ -99,7 +99,7 @@ public class Casilla {
      * @param mazo
      */
     private void init(){
-        carcel= 0;
+        carcel= 5;
         importe = 0;
         nombre = "Calle";
         tipo = TipoCasilla.DESCANSO;

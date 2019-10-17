@@ -2,6 +2,12 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+require_relative "tipocasilla.rb"
+require_relative "titulo_propiedad.rb"
+require_relative "mazo_sorpresas.rb"
+require_relative "sorpresa.rb"
+require_relative "tiposorpresa.rb"
+require_relative "diario.rb"
 module Civitas
  # /**
  #*
@@ -10,7 +16,7 @@ module Civitas
  #* @Bief Clase casilla 
  #*/
   class Casilla
-    
+
     #/**
     #* @brief Consultor de nombre
     #* @return devuelve el nombre
@@ -22,7 +28,8 @@ module Civitas
 #     * @brief consultor del titulo de la propiedad
 #     * return el titulo de la propiedad
 #     */   
-      attr_reader :TituloPropiedad
+      attr_accessor :sorpresa, :tituloPropiedad, :importe, :tipo,:mazo
+      
     
  #/**
    #* @brief constructor de casilla descanso
@@ -40,9 +47,10 @@ module Civitas
 #   * @param titulo de la propiedad 
 #   */ 
     def self.new_casillaTitulo(titulo)
-      new(titulo.nombre)
-      @tituloPropiedad = titulo
-      @tipo = TipoCasilla::CALLE
+      c=new(titulo.nombre)
+      c.tituloPropiedad = titulo
+      c.tipo = TipoCasilla::CALLE
+      return c
     end
     
     
@@ -52,9 +60,10 @@ module Civitas
 #   * @param nombre de la casilla 
 #   */
     def self.new_casillaImpuesto(cantidad, nombre)
-      new(nombre)
-      @importe = cantidad;
-      @tipo = TipoCasilla::IMPUESTO;
+      c = new(nombre)
+      c.importe = cantidad;
+      c.tipo = TipoCasilla::IMPUESTO;
+    return c
     end
     
     
@@ -64,9 +73,10 @@ module Civitas
 #   * @param nombre el nombre de la casilla
 #   */ 
     def self.new_casillaJuez(numCarcel, nombre)
-      new(nombre)
-      @carcel = numCarcel
-      @tipo = TipoCasilla::JUEZ
+      c= new(nombre)
+      @@carcel = numCarcel
+      c.tipo = TipoCasilla::JUEZ
+      return c
     end
     
 #    /**
@@ -75,9 +85,10 @@ module Civitas
 #     * @param nombre
 #     */ 
       def self.new_casillaSorpresa(mazo, nombre)
-        new(nombre)
-        @mazo = mazo
-        @tipo = TipoCasilla::SORPRESA
+        c= new(nombre)
+        c.mazo = mazo
+        c.tipo = TipoCasilla::SORPRESA
+        return c
       end
     
 #        /**
@@ -91,7 +102,6 @@ module Civitas
 #     * @param mazo
 #     */
     def init
-        @carcel= 0
         @importe = 0
         @nombre = "Calle"
         @tipo = TipoCasilla::DESCANSO
@@ -109,7 +119,7 @@ module Civitas
 #     */
 
       def informe (actual , todos)
-        Diario.instance.ocurreEvento("El jugador "+ todos.at(actual).nombre)+ " ha vaido en la casilla " + self.toString
+        Diario.instance.ocurre_evento("El jugador "+ todos.at(actual).nombre+ " ha vaido en la casilla " + self.toString)
       end
     
       
@@ -133,7 +143,7 @@ module Civitas
     def recibeJugador_juez( actual, todos)
         if(jugadorCorrecto(actual, todos))
             informe(actual,todos)
-            todos.at(actual).encarcelar(@carcel)
+            todos.at(actual).encarcelar(@@carcel)
         end
     end  
     
@@ -151,7 +161,8 @@ module Civitas
           text =text+    " \n El tipo :  sorpresa"
       end
       if (@tipo == TipoCasilla::JUEZ )
-          text =text+    " \n El tipo :   Juez"
+          text =text+    " \n El tipo :   Juez" +
+                        " \n carcel: "+ @@carcel.to_s
       end
       if (@tipo == TipoCasilla::IMPUESTO )
           text =text+    " \n El tipo :  impuesto"
@@ -159,9 +170,7 @@ module Civitas
       if (@tipo == TipoCasilla::DESCANSO )
           text =text+    " \n El tipo :  descanso"
       end
-      if @carcel > 0
-        text = text +" \n carcel: "+ @carcel.to_s
-      end
+     
       if @importe > 0
         text = text + " \n el importe: " + @importe.to_s
       end
@@ -171,9 +180,10 @@ module Civitas
       if@sorpresa != nil
             text = text + "\n sorpresa: " + @sorpresa.toString()
       end
-      if @mazo != nil
-          text = text + "\n mazo: " + @mazo.toString()         
-      end    
+      #mazo no tiene toString
+#      if @mazo != nil
+#          text = text + "\n mazo: " + @mazo.toString()         
+#      end    
         return text;
     end   
     
@@ -208,22 +218,68 @@ module Civitas
         
     end
     
-    def main
+    def self.main
       tit = TituloPropiedad.new("mititulo", 100, 100, 100, 111, 111)
       cas = Casilla.new_casillaTitulo(tit)
-      puts cas.toString
+      puts cas.inspect
+      cas2 = Casilla.new_casillaImpuesto(100,"hola" )
+      puts cas2.inspect
+      
+      puts "creando casilla de salida"
+      salida = Casilla.new("Salida") 
+      puts salida.toString
+
+      puts "\ncreando casilla calle" 
+      titulo = TituloPropiedad.new("calle pollito" ,1.0, 2.0, 3.0, 4.0, 5.0)
+      calle1 = Casilla.new_casillaTitulo(titulo)
+      puts calle1.inspect
+
+      puts "\ncreando casilla impuesto:" 
+      impuesto = Casilla.new_casillaImpuesto(  200.36, "impuesto de sucesiones") 
+      puts impuesto.inspect
+
+      puts "\ncreando casilla Juez:" 
+      juez = Casilla.new_casillaJuez(5, "Soy el Juez") 
+      puts juez.inspect
+
+      puts "\ncreando casilla Sorpresa:" 
+      m = MazoSorpresas.new
+      s = Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR,100, "has conseguido 100 monedas!" )
+      m.alMazo(s)
+      sor = Casilla.new_casillaSorpresa(m, "Toma sorpresa!" )
+      puts "hola"
+      puts sor.inspect
+
+
+       j1 = Jugador.new(" Elvira "  )
+       j2 = Jugador.new(" Ale "  )
+       j3 = Jugador.new(" Jolu "  )
+       j4 = Jugador.new(" Iballa "  )
+
+      todos = Array.new
+
+      todos<<j1
+      todos<<j2
+      todos<<j3
+      todos<<j4
+
+
+      puts sor.jugadorCorrecto(1,todos)
+      sor.informe(2, todos) #metodo privado
+      puts Diario.instance.leer_evento
+
+      puts "no existen tantos jugadores" 
       
     end
        
      
-    private :informe, :init, :recibeJugador_calle, 
+    private :init, :recibeJugador_calle, 
       :recibeJugador_impuesto, :recibeJugador_juez, 
       :recibeJugador_sorpresa 
-    
-    #private_class_method :new
+    #protected :informe
     
   end
-  cas = Casilla.new("hola")
-  cas.main
+  
+  Casilla.main
   
 end
