@@ -7,6 +7,7 @@ module Civitas
 end
 class Sorpresa
   
+  attr_accessor :tipo, :tablero, :valor, :mazo, :texto,
     # /**
     #  *@brief Inicializa los  valores valor mazo y tablero
     # */
@@ -25,6 +26,7 @@ class Sorpresa
 #     */
     def self.new_SorpresaIrOtraCasilla(tipo, tablero, valor, texto)
       s= new(tipo, nil)
+      s.tablero = tablero
       s.valor = valor
       s.texto = texto
       return s
