@@ -10,47 +10,47 @@ module Civitas
   #     * @brief consultor de CasasMax
   #     * @return numero maximo de casas
   #     */
-      attr_reader :CasasMax
+      attr_accessor :CasasMax
   #    /**
   #     * @brief Consultor de CasasPorHotel
   #     * @return numero de casas que se cambian por un hotel
   #     */
-      attr_reader :CasasPorHotel
+      attr_accessor :CasasPorHotel
   #    /**
   #     * @brief Consultor de Hoteles max
   #     * @return numero maximo de hoteles
   #     */
-      attr_reader :HotelesMax
+      attr_accessor :HotelesMax
   #    /**
   #     * @brief Consultor del nombre del jugador
   #     * @return nombre del jugador
   #     */  
-      attr_reader :nombre
+      attr_accessor :nombre
   #    /**
   #     * @brief Consultor de la casilla actual
   #     * @return numCasillaActual
   #     */
-      attr_reader :numCasillaActual
+      attr_accessor :numCasillaActual
   #    /**
   #     * @brief Consultor de propiedades
   #     * @return propiedades del jugador actual
   #     */    
-      attr_reader :propiedades
+      attr_accessor :propiedades
   #    /**
   #     * @brief Consultor de puede comprar
   #     * @return puedeComprar
   #     */
-      attr_reader :puedeComprar
+      attr_accessor :puedeComprar
   #    /**
   #     * @brief Consultor de saldo
   #     * @return saldo
   #     */
-      attr_reader :saldo
+      attr_accessor :saldo
   #    /**
   #     * @brief Consultor de encarcelado
   #     * @encarcelado true si lo está
   #     */    
-      attr_reader :encarcelado, 
+      attr_accessor :encarcelado, 
         :PrecioLibertad, :PasoPorSalida
 
       @@CasasMax = 4
@@ -107,7 +107,7 @@ module Civitas
             ok = true 
           else 
             perderSalvoConducto()
-            Diario.instance.ocurreEvento("El jugador "+ @nombre +
+            Diario.instance.ocurre_evento("El jugador "+ @nombre +
               " se libra de la carcel.\n")
           end
         end
@@ -124,7 +124,7 @@ module Civitas
         if (debeSerEncarcelado)
           moverACasilla(numCasillaCarcel)
           @encarcelado = true
-          Diario.instance.ocurreEvento("El jugador "+ @nombre +
+          Diario.instance.ocurre_evento("El jugador "+ @nombre +
               " ha sido encarcelado.\n")
         end
         return @encarcelado
@@ -250,7 +250,7 @@ module Civitas
       def modificarSaldo(cantidad)
         ok = true 
         @saldo = @saldo + cantidad
-        Diario.instance.ocurreEvento("El jugador " + @nombre +
+        Diario.instance.ocurre_evento("El jugador " + @nombre +
             " ha modificado su saldo a: "+@saldo)
         return ok
       end   
@@ -267,7 +267,7 @@ module Civitas
         if (!@encarcelado)
           @numCasillaActual = numCasilla
           @puedeComprar = false
-          Diario.instance.ocurreEvento("El jugador " +
+          Diario.instance.ocurre_evento("El jugador " +
               @nombre+ " se mueve a la casilla "+@numCasilla)
           ok = true
         end
@@ -301,7 +301,7 @@ module Civitas
           if(existeLaPropiedad(ip))
             ok = @propiedades.at(ip).vender(self) #la propiedad es vendida por el jugador
             if (ok)
-              Diario.instance.ocurreEvento("el jugador "+ 
+              Diario.instance.ocurre_evento("el jugador "+ 
                 @nombre+ " ha vendido la propiedad "+
                 @propiedades.at(ip).nombre)
               @propiedades.remove(ip) 
@@ -351,7 +351,7 @@ module Civitas
           paga(@@PrecioLibertad)
           @encarcelado = false
           ok = true
-          Diario.instance.ocurreEvento("El jugador "+ 
+          Diario.instance.ocurre_evento("El jugador "+ 
             @nombre+ "sale de la carcel pagando "+ 
             @@PrecioLibertad)
         end
@@ -369,7 +369,7 @@ module Civitas
           if(Dado.instance.salgoDeLaCarcel)
             @encarcelado = false
             salir = true
-            Diario.instance.ocurreEvento("El jugador ha sacado "+ 
+            Diario.instance.ocurre_evento("El jugador ha sacado "+ 
               Dado.instance.getUltimoResultado+ 
               " tirando el dado para salir de la carcel")
           end
@@ -385,7 +385,7 @@ module Civitas
       def pasaPorSalida
         ok = true 
         modificarSaldo(getPremioPasoSalida)
-        Diario.instance.ocurreEvento("El jugador "+
+        Diario.instance.ocurre_evento("El jugador "+
           @nombre + "ha pasado por salida, incrementa su saldo en "+
           @@PasoPorSalida)
         return ok
@@ -610,8 +610,7 @@ module Civitas
         :encarcelado, 
         :debeSerEncarcelado, :propiedades,
         :saldo
-      
-      #protected_class_method :new_copiaJugador
-    Jugador.main
+     
+    #Jugador.main
   end
 end
