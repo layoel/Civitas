@@ -26,6 +26,7 @@ module Civitas
     # /**
     # * @brief inicia sorpresas y cartas especiales barajada y usadas 
     # */
+    attr_reader :ultimaSorpresa
     
     def init
        @sorpresas = Array.new
@@ -44,7 +45,7 @@ module Civitas
       @ultimaSorpresa = nil
       init
       if (debu)
-        Diario.instance.ocurreEvento("iniciado modo debug")
+        Diario.instance.ocurre_evento("iniciado modo debug")
       end
     end
   
