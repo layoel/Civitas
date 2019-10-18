@@ -9,7 +9,7 @@ require "civitas/estados_juego.rb"
 require "civitas/mazo_sorpresas.rb"
 require "civitas/sorpresa.rb"
 require "civitas/tablero.rb"
-require "civitas/tipocasilla.rb"
+#require "civitas/tipocasilla.rb"
 require "civitas/tiposorpresa.rb"
 require "civitas/civitas.rb"
 
