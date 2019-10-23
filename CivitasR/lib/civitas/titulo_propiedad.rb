@@ -79,14 +79,16 @@ module Civitas
     # * @return ok true si se ha cancelado
     # */
     def cancelarHipoteca(jugador)
-        ok = false;
+        result = false;
         
-        if (@hipotecado && esEsteElPropietario(jugador))
-            ok = @jugador.paga(getImporteCancelarHipoteca)
+        if (@hipotecado)
+          if (esEsteElPropietario(jugador))
+            result = jugador.paga(getImporteCancelarHipoteca)
             @hipotecado = false;
+          end
         end
         
-        return ok;    
+        return result;    
     end
     
     
@@ -135,17 +137,18 @@ module Civitas
     # /**
     # * @brief ¿puedo construir un hotel?
     # * @param jugador el que quiere construir
-    # * @return construida true si ha podido construir el hotel
+    # * @return result true si ha podido construir el hotel
     # */
     def construirHotel(jugador)
-        construida = false
+        result = false
         
         if(esEsteElPropietario(jugador))
-            construida = jugador.paga(@precioCompra);
+            jugador.paga(@precioCompra)
             @numHoteles = @numHoteles + 1
+            result = true
         end
         
-        return construida;
+        return result
     end
     
     # /**
@@ -235,14 +238,15 @@ module Civitas
     # * @return realizada true si ha podido hipotecarla
     # */
     def hipotecar(jugador)
-      realizada = false;
+      salida = false
         
       if(!@hipotecado && esEsteElPropietario(jugador))
-        realizada = jugador.recibe(@hipotecaBase);
-        @hipotecado = true;
+        jugador.recibe(getImporteHipoteca)
+        @hipotecado = true
+        salida = true
       end
         
-        return realizada;
+        return salida
     end
     
     
@@ -299,10 +303,12 @@ module Civitas
     # */
     def tramitarAlquiler(jugador)
         
-      if(tienePropietario &&  (@propietario != jugador) )
-          pagado = false;
-          pagado = jugador.pagaAlquiler(getPrecioAlquiler);
-          @propietario.recibe(getPrecioAlquiler);
+      if tienePropietario 
+          if esEsteElPropietario(jugador)
+            precio = getPrecioAlquiler
+            jugador.pagaAlquiler(precio)
+            @propietario.recibe(precio)
+          end
       end
     end
   

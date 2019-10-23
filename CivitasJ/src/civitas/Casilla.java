@@ -209,15 +209,36 @@ public class Casilla {
     
     //se implementan en proximas practicas.
     void recibeJugador(int actual, ArrayList<Jugador>todos){
-        
+        if (tipo == TipoCasilla.CALLE)
+            recibeJugador_calle(actual, todos);
+        else if (tipo == TipoCasilla.IMPUESTO)
+            recibeJugador_impuesto(actual, todos);
+        else if (tipo == TipoCasilla.JUEZ)
+            recibeJugador_juez(actual, todos);
+        else if (tipo == TipoCasilla.SORPRESA)
+            recibeJugador_sorpresa(actual, todos);
+        else
+            informe(actual, todos);
     }
     
     void recibeJugador_calle(int actual, ArrayList<Jugador>todos){
-        
+        if(jugadorCorrecto(actual, todos)){
+            informe(actual, todos);
+            Jugador jugador = new Jugador(todos.get(actual));
+            if(!tituloPropiedad.tienePropietario()){
+                jugador.puedeComprarCasilla();   
+            }else{
+                tituloPropiedad.tramitarAlquiler(jugador);
+            }
+        }    
     }
     
     void recibeJugador_sorpresa(int actual, ArrayList<Jugador>todos){
-        
+        if(jugadorCorrecto(actual, todos)){
+            Sorpresa sorpresa= mazo.siguiente();
+            informe(actual, todos);
+            sorpresa.aplicarAJugador(actual,todos);
+        }
     }
     
     /*******************____MAIN PRUEBA___*************************************/

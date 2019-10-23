@@ -329,7 +329,15 @@ module Civitas
 #     *@brief  
 #     */
     def avanzaJugador
-    
+      jugadorActual = @jugadores.at(@indiceJugadorActual)
+      posicionActual = jugadorActual.numCasillaActual
+      tirada = Dado.instance.tirar()
+      posicionNueva = @tablero.nuevaPosicion(posicionActual, tirada);
+      casilla = @tablero.getCasilla(posicionNueva)
+      contabilizarPasosPorSalida(jugadorActual)
+      jugadorActual.moverACasilla(posicionNueva)
+      casilla.recibeJugador(@indiceJugadorActual, @jugadores);
+      contabilizarPasosPorSalida(jugadorActual)
     end
     
 
@@ -337,7 +345,16 @@ module Civitas
 #     *@brief  
 #     */    
     def siguientePaso
-        return nil
+        jugadorActual = @jugadores.get(indiceJugadorActual)
+        OperacionesJuego operacion = @gestorEstados.operacionesPermitidas(jugadorActual,@estado )
+        if(operacion == OperacionesJuego::PASAR_TURNO)
+            pasarTurno
+            siguientePasoCompletado(operacion);
+        elsif(operacion == OperacionesJuego::AVANZAR)
+            avanzaJugador
+            siguientePasoCompletado(operacion)
+        end
+        return operacion
     end
     
     
@@ -346,9 +363,15 @@ module Civitas
 #     *@brief  
 #     */    
     def comprar
-        ok=false
+        res = false
         
-        return ok
+        jugadorActual = @jugadores.at(@indiceJugadorActual)
+        numCasillaActual = jugadorActual.getNumCasillaActual
+        casilla = @tablero.getCasilla(numCasillaActual)
+        titulo = casilla.tituloPropiedad
+        res =jugadorActual.comprar(titulo)
+        
+        return res
     end
     
 

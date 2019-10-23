@@ -207,16 +207,47 @@ module Civitas
     
 # se implementan en proximas practicas.
     def recibeJugador( actual, todos)
-        
+        if (@tipo == TipoCasilla::CALLE)
+            recibeJugador_calle(actual, todos);
+        elsif (@tipo == TipoCasilla::IMPUESTO)
+            recibeJugador_impuesto(actual, todos);
+        elsif (@tipo == TipoCasilla::JUEZ)
+            recibeJugador_juez(actual, todos);
+        elsif (@tipo == TipoCasilla::SORPRESA)
+            recibeJugador_sorpresa(actual, todos);
+        else
+            informe(actual, todos)
+        end
     end
+    
     
     def recibeJugador_calle( actual, todos)
-        
+      if(jugadorCorrecto(actual, todos))
+         informe(actual, todos)
+         jugador = self.new_copiaJugador(todos.at(actual))
+         if(!@tituloPropiedad.tienePropietario)
+             jugador.puedeComprarCasilla   
+         else
+             @tituloPropiedad.tramitarAlquiler(jugador)
+         end
+      end
     end
     
+    
+    
+    
+    
     def recibeJugador_sorpresa( actual, todos)
-        
+        if(jugadorCorrecto(actual, todos))
+            sorpresa = @mazo.siguiente
+            informe(actual, todos)
+            sorpresa.aplicarAJugador(actual,todos)
+        end
     end
+    
+    
+    
+    
     
     def self.main
       tit = TituloPropiedad.new("mititulo", 100, 100, 100, 111, 111)

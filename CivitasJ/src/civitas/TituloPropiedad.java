@@ -61,17 +61,18 @@ public class TituloPropiedad {
     /**
      *@brief se puede cancelar la hipoteca?
      * @param jugador
-     * @return ok true si se ha cancelado
+     * @return result true si se ha cancelado
      */
     Boolean cancelarHipoteca(Jugador jugador){
-        Boolean ok = false;
+        Boolean result = false;
         
-        if (hipotecado && esEsteElPropietario(jugador)){
-            ok = jugador.paga(getImporteCancelarHipoteca());
-            hipotecado = false;
-        }
+        if (hipotecado)
+            if(esEsteElPropietario(jugador)){
+                result = jugador.paga(getImporteCancelarHipoteca());
+                hipotecado = false;
+            }
         
-        return ok;    
+        return result;    
     }
     
     
@@ -119,17 +120,18 @@ public class TituloPropiedad {
     /**
      * @brief ¿puedo construir un hotel?
      * @param jugador el que quiere construir
-     * @return construida true si ha podido construir el hotel
+     * @return result true si ha podido construir el hotel
      */
     Boolean construirHotel(Jugador jugador){
-        Boolean construida = false;
+        Boolean result = false;
         
         if(esEsteElPropietario(jugador)){
-            construida = jugador.paga(precioCompra);
+            jugador.paga(precioEdificar);
             numHoteles++;
+            result = true;
         }
         
-        return construida;
+        return result;
     }
     
     
@@ -260,17 +262,18 @@ public class TituloPropiedad {
     
     /**
      *@brief consulta si un jugador puede  hipotecar una propiedad o no
-     * @return realizada true si ha podido hipotecarla
+     * @return salida true si ha podido hipotecarla
      */
     Boolean hipotecar(Jugador jugador){
-        Boolean realizada = false;
+        Boolean salida = false;
         
         if(!hipotecado && esEsteElPropietario(jugador)){
-            realizada = jugador.recibe(hipotecaBase);
+            jugador.recibe(getImporteHipoteca());
             hipotecado = true;
+            salida = true;
         }
         
-        return realizada;
+        return salida;
     }
     
     /**
@@ -328,11 +331,12 @@ public class TituloPropiedad {
      */
     void tramitarAlquiler(Jugador jugador){
         
-        if(tienePropietario() &&  (propietario != jugador) ){
-            Boolean pagado = false;
-            pagado = jugador.pagaAlquiler(getPrecioAlquiler());
-            propietario.recibe(getPrecioAlquiler());
-        }
+        if(tienePropietario())
+            if(esEsteElPropietario(jugador)){
+                float precio = getPrecioAlquiler();
+                jugador.pagaAlquiler(precio);
+                propietario.recibe(precio);
+            }
     }
     
     /**
