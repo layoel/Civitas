@@ -38,7 +38,11 @@ module Civitas
     def initialize(nombre)
       init
       @nombre = nombre
+      if (@nombre == "carcel") ################ comprobar con que nombre creo la carcel en la funcion de inicializar tablero de civitas
+        @tipo = TipoCasilla::CARCEL;
+      else
       @tipo = TipoCasilla::DESCANSO;
+      end
     end
     
     
@@ -47,7 +51,7 @@ module Civitas
 #   * @param titulo de la propiedad 
 #   */ 
     def self.new_casillaTitulo(titulo)
-      c=new(titulo.nombre)
+      c = new(titulo.nombre)
       c.tituloPropiedad = titulo
       c.tipo = TipoCasilla::CALLE
       return c
@@ -73,7 +77,7 @@ module Civitas
 #   * @param nombre el nombre de la casilla
 #   */ 
     def self.new_casillaJuez(numCarcel, nombre)
-      c= new(nombre)
+      c = new(nombre)
       @@carcel = numCarcel
       c.tipo = TipoCasilla::JUEZ
       return c
@@ -119,7 +123,8 @@ module Civitas
 #     */
 
       def informe (actual , todos)
-        Diario.instance.ocurre_evento("El jugador "+ todos.at(actual).nombre+ " ha vaido en la casilla " + self.toString)
+        Diario.instance.ocurre_evento("El jugador "+ todos.at(actual).nombre+ 
+            " avanza hasta la casilla" + self.toString)
       end
     
       
@@ -170,7 +175,9 @@ module Civitas
       if (@tipo == TipoCasilla::DESCANSO )
           text =text+    " \n El tipo :  descanso"
       end
-     
+     if (@tipo == TipoCasilla::CARCEL )
+          text =text+    " \n El tipo :  CARCEL"
+      end
       if @importe > 0
         text = text + " \n el importe: " + @importe.to_s
       end
@@ -212,8 +219,10 @@ module Civitas
         elsif (@tipo == TipoCasilla::IMPUESTO)
             recibeJugador_impuesto(actual, todos);
         elsif (@tipo == TipoCasilla::JUEZ)
+            puts "El Juez te manda a la carcel!!"
             recibeJugador_juez(actual, todos);
         elsif (@tipo == TipoCasilla::SORPRESA)
+            puts "Has caido en una casilla sorpresa!!"
             recibeJugador_sorpresa(actual, todos);
         else
             informe(actual, todos)
@@ -224,11 +233,11 @@ module Civitas
     def recibeJugador_calle( actual, todos)
       if(jugadorCorrecto(actual, todos))
          informe(actual, todos)
-         jugador = self.new_copiaJugador(todos.at(actual))
+
          if(!@tituloPropiedad.tienePropietario)
-             jugador.puedeComprarCasilla   
+             todos.at(actual).puedeComprarCasilla   
          else
-             @tituloPropiedad.tramitarAlquiler(jugador)
+             @tituloPropiedad.tramitarAlquiler(todos.at(actual))
          end
       end
     end
