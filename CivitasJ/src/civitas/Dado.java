@@ -11,8 +11,8 @@ import java.util.Random;
  * @author ELVIRA
  */
 
-//no lleva ni public ni private, visibilidad de paquete
-public class Dado { ///////////////// ¿dice visibilidad de paquete hay que quitar el public?
+
+public class Dado {
    private Random rand;
    private int ultimoResultado;
    private Boolean debug;
@@ -36,6 +36,15 @@ public class Dado { ///////////////// ¿dice visibilidad de paquete hay que quit
         debug = false;
         SalidaCarcel =5;
     }
+
+    /*
+        Añado este método para poder inicializar el mazo de sorpresas en modo debug o no
+    */
+    public Boolean getDebug() {
+        return debug;
+    }
+    
+    
     
     /**
      * @brief genera un numero aleatorio entre 1 y 6 si el modo debub esta desactivado
@@ -48,6 +57,7 @@ public class Dado { ///////////////// ¿dice visibilidad de paquete hay que quit
             int res = rand.nextInt(6)+1;  //genera numero aleatorio entre 1 y 6
             ultimoResultado = res;
         }
+        System.out.println("*-*-*-*-*-*-* Tirando el dado sacas: "+ultimoResultado+" *-*-*-*-*-*-*\n");  //para probar si funciona el método
         return ultimoResultado;
     }
     
@@ -56,10 +66,10 @@ public class Dado { ///////////////// ¿dice visibilidad de paquete hay que quit
      * @return salgo true si sale, false no sale.
      */
     Boolean salgoDeLaCarcel(){
-        //falta lo de pagar los 200€
+        
         Boolean salgo = false;
         int num = tirar();
-        //System.out.println("dado:"+num);  //para probar si funciona el método
+        
         if (num >=5)
             salgo = true;
         
@@ -86,8 +96,10 @@ public class Dado { ///////////////// ¿dice visibilidad de paquete hay que quit
    void setDebug(Boolean d){
        Diario di= Diario.getInstance();
        debug = d;
-       
-       di.ocurreEvento("dado debug");
+       if (debug)
+            di.ocurreEvento("dado debug activado");
+       else
+           di.ocurreEvento("dado debug desactivado");
    } 
    
    /**
