@@ -170,7 +170,7 @@ public class Casilla {
             text = text + "\n tutiloPropiedad" + tituloPropiedad.toString();
         if(sorpresa != null)
             text = text + "\n sorpresa: " + sorpresa.toString();
-        //if(mazo != null)
+        //if(mazo != null) //mazo no tiene tostring
         //    text = text + "\n mazo: " + mazo.toString();       
         return text;
     }   
