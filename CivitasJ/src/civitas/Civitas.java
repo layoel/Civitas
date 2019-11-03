@@ -5,8 +5,10 @@
  */
 package civitas;
 
+import juegoTexto.OperacionesJuego;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -36,7 +38,7 @@ public class Civitas {
      *      • Llamar al método de inicialización del tablero. 
      *      • Llamar al método de inicialización del mazo de sorpresas. 
      */
-    Civitas(ArrayList<String> nombres){
+     Civitas(ArrayList<String> nombres){ // cambiado a public en vez de package porque prueba esta en el paquete juegoTexto
         
         jugadores = new ArrayList<>(nombres.size());
         for (String n : nombres){
@@ -49,16 +51,24 @@ public class Civitas {
         Dado da = Dado.getInstance();
         indiceJugadorActual = da.quienEmpieza(jugadores.size());
 
-        mazo = new MazoSorpresas();
+        mazo = new MazoSorpresas(da.getDebug()); //hay que añadir el getDebug para que el mazo sepa si esta en modo debug para que se baraje o no
         
         inicializarTablero(mazo);
         
-        
-        inicializarMazoSorpresas(tablero);  
+        inicializarMazoSorpresas(tablero); 
+
+    }
+
+     /* *************AÑDIDO PARA USO DEL JUEGO EN LA P3****************************
+     Creo este método para poder consultarlo en la pausa del controlador y saber 
+     si inicia turno el jugador o esta en otro estado
+     */
+    public EstadosJuego getEstado() {
+        return estado;
     }
      
     
-     /**
+     /** Metodo eliminado en este juego dicho por la profe en clase
      * @brief muestra la info del jugador actual, si banca rota imprime ranking  
      */
 //    public void actualizarInfo(){
@@ -72,12 +82,15 @@ public class Civitas {
     
     
     /**
-     * @brief igual que el metodo candelar hipoteca de jugador
+     * @brief igual que el metodo cancelar hipoteca de jugador
      * @param ip el identificador de la propiedad
      * @return true si la ha cancelado
      */
     public Boolean cancelarHipoteca(int ip){
-        return jugadores.get(indiceJugadorActual).cancelarHipoteca(ip);
+        Boolean ok =jugadores.get(indiceJugadorActual).cancelarHipoteca(ip);
+         if(ok)
+            System.out.println("Has cancelado la hipoteca de la propiedad" + tablero.getCasilla(ip).getNombre());
+        return ok;
     }
     
     
@@ -88,7 +101,10 @@ public class Civitas {
      * @return true si la ha construido
      */
     public Boolean construirCasa(int ip){
-        return jugadores.get(indiceJugadorActual).construirCasa(ip);
+        Boolean ok = jugadores.get(indiceJugadorActual).construirCasa(ip);
+        if(ok)
+            System.out.println("Has construido UNA CASA en la propiedad " + tablero.getCasilla(jugadores.get(indiceJugadorActual).getNumCasillaActual()).getNombre());
+        return ok;
     }
 
 
@@ -99,7 +115,10 @@ public class Civitas {
      * @return true si lo ha construido
      */    
     public Boolean construirHotel(int ip){
-        return jugadores.get(indiceJugadorActual).construirHotel(ip);
+        Boolean ok = jugadores.get(indiceJugadorActual).construirHotel(ip);
+        if(ok)
+            System.out.println("Has construido UN HOTEL en la propiedad" + tablero.getCasilla(jugadores.get(indiceJugadorActual).getNumCasillaActual()).getNombre());
+        return ok;
     }   
     
     
@@ -122,9 +141,13 @@ public class Civitas {
         Boolean fin = false;
     
         for(Jugador j : jugadores)
-            if(j.enBancarrota())
-                return true;
-        
+            if(j.enBancarrota()){
+                fin=true;
+            }
+        if (fin){
+            System.out.println("***********FIN DEL JUEGO**********");
+            System.out.println("**** "+jugadores.get(indiceJugadorActual).getNombre()+ " TE HAS ARRUINADO ****");
+        }
         return fin;
     }
     
@@ -155,7 +178,10 @@ public class Civitas {
      * @return true si la ha hipotecado
      */
     public Boolean hipotecar (int ip){
-        return jugadores.get(indiceJugadorActual).hipotecar(ip);
+        Boolean ok = jugadores.get(indiceJugadorActual).hipotecar(ip);
+         if(ok)
+            System.out.println("Has hipotecado la propiedad" + Integer.toString(ip));
+        return ok;
     }
     
     
@@ -172,18 +198,18 @@ public class Civitas {
      * @brief crea las sorpresas y las añade al mazo
      */
     private void inicializarMazoSorpresas( Tablero tablero ){
-
-        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCARCEL, tablero));
         mazo.alMazo(new Sorpresa(TipoSorpresa.SALIRCARCEL, mazo));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA, tablero, 5, "ve a la carcel"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA, tablero, 4, "ve a la casilla 4"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA, tablero, 8, "ve a la casilla 8"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR, -100, "Paga a 100 monedas"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR, 100, "Toma regalo!! 100 monedas mas!!"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL, -1000, "Paga  1000 monedas por casaHotel"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL, 1000, "Toma regalo!! 300 monedas por casaHotel"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PORJUGADOR, 100, "cada uno de tus compis te regalan 100 monedas"));
-        mazo.alMazo(new Sorpresa(TipoSorpresa.PORJUGADOR, -100, "debes pagar a tu compi 100 monedas"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PORJUGADOR, 100, "Recibes una donación de 100 monedas de cada jugador"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PORJUGADOR, -1000, "Dona a los demas jugadores 1000 monedas."));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA, tablero, 15, "Ve a la casilla 15"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL, 1000, "Toma regalo!! ganas 1000 monedas por casaHotel"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA, tablero, 8, "Ve a la casilla 8"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCARCEL, tablero));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR, -1000, "Dona a 1000 monedas"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR, 500, "Recibes una donación de 500 monedas mas!!"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA, tablero, 4, "Ve a la casilla 4"));
+        mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL, -500, "Has pensado donar a la ciencia 500 monedas por casaHotel"));
+        
     }
     
     
@@ -198,59 +224,54 @@ public class Civitas {
      * 1 casilla parking
      */
     private void inicializarTablero( MazoSorpresas mazo){
-        tablero = new Tablero(5); //la posicion de la carcel es la q yo he dicho??????????????????
-        
-        tablero.añadeCasilla(new Casilla("SALIDA"));
+        tablero = new Tablero(5); //la posicion de la carcel es la q yo he dicho por defecto crea la casilla de salida
         
         tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle Hipatia", 100, 100, 50, 50, 50)));//string nom, float ab, float fr, float hb, float pc, float pe////dice que se añadan las casillas que se van creando...
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Mary Jackson", 1000, 1000, 500, 500, 500)));
+        tablero.añadeJuez();
+        tablero.añadeCasilla(new Casilla(mazo, "SORPRESA!! ¿sabes quien fue Mary Winston Jackson? \n"
+                + "fue una matemática e ingeniera aeroespacial estadounidense, \n"
+                + "que trabajó para el Comité Consejero Nacional para la \n"
+                + "Aeronáutica (NACA), que más tarde se transformaría en la NASA.\n"
+                + " Trabajó en el Centro de Investigación de Langley la mayor parte\n"
+                + " de su vida, empezando como calculista en la división de Cálculo \n"
+                + "del Área Oeste, y más tarde llegaría a ser la primera ingeniera \n"
+                + "de color de la NASA. Tras 34 años en la NASA, Jackson alcanzó\n"
+                + " el puesto más alto posible para ingenieros. COGE UNA CARTA SORPRESA"));
         tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Ada Lovelace", 100, 100, 50, 50, 50)));
         tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Hertha Ayrton", 100, 100, 50, 50, 50)));
         tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Hedy Lamarr", 100, 100, 50, 50, 50)));
+        tablero.añadeCasilla(new Casilla(mazo, "SORPRESA!! ¿sabes quien fue \n"
+                + "Katherine Coleman Goble Johnson una física, científica \n"
+                + "espacial y matemática estadounidense que contribuyó a la \n"
+                + "aeronáutica de los Estados Unidos y sus programas espaciales \n"
+                + "con la aplicación temprana de las computadoras electrónicas \n"
+                + "digitales en la NASA. Conocida por su precisión en la \n"
+                + "navegación astronómica, calculó la trayectoria para el \n"
+                + "Proyecto Mercury y el vuelo del Apolo 11 a la Luna en 1969. COGE UNA CARTA SORPRESA"));
         tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Rosalind Franklin", 100, 100, 50, 50, 50)));
         tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Annie Easley", 100, 100, 50, 50, 50)));
+        tablero.añadeCasilla(new Casilla(mazo, "SORPRESA!! ¿sabes quien fue Hedwig \n"
+                + "Eva Maria Kiesler? conocida como Hedy Lamarr,  fue una actriz \n"
+                + "de cine e inventora austriaca naturalizada estadounidense, \n"
+                + "inventora de la primera versión del espectro ensanchado que \n"
+                + "permitiría las comunicaciones inalámbricas de larga distancia.COGE UNA CARTA SORPRESA"));
         tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Anita Borg", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Valentina Tereshkova", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Jocelyn Bell Burnell", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Katherine Johnson ", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Dorothy Vaughan", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Mary Jackson", 100, 100, 50, 50, 50)));
-        
-        tablero.añadeCasilla(new Casilla(mazo, "SORPRESA!! ¿sabes quien fue Mary Winston Jackson? "
-                + "fue una matemática e ingeniera aeroespacial estadounidense, "
-                + "que trabajó para el Comité Consejero Nacional para la "
-                + "Aeronáutica (NACA), que más tarde se transformaría en la NASA."
-                + " Trabajó en el Centro de Investigación de Langley la mayor parte"
-                + " de su vida, empezando como calculista en la división de Cálculo "
-                + "del Área Oeste, y más tarde llegaría a ser la primera ingeniera "
-                + "de color de la NASA. Tras 34 años en la NASA, Jackson alcanzó"
-                + " el puesto más alto posible para ingenieros"));
-        tablero.añadeCasilla(new Casilla(mazo, "SORPRESA!! ¿sabes quien fue "
-                + "Katherine Coleman Goble Johnson una física, científica "
-                + "espacial y matemática estadounidense que contribuyó a la "
-                + "aeronáutica de los Estados Unidos y sus programas espaciales "
-                + "con la aplicación temprana de las computadoras electrónicas "
-                + "digitales en la NASA. Conocida por su precisión en la "
-                + "navegación astronómica, calculó la trayectoria para el "
-                + "Proyecto Mercury y el vuelo del Apolo 11 a la Luna en 1969."));
-        tablero.añadeCasilla(new Casilla(mazo, "SORPRESA!! ¿sabes quien fue Hedwig "
-                + "Eva Maria Kiesler? conocida como Hedy Lamarr,  fue una actriz "
-                + "de cine e inventora austriaca naturalizada estadounidense, "
-                + "inventora de la primera versión del espectro ensanchado que "
-                + "permitiría las comunicaciones inalámbricas de larga distancia."));
-        
-        tablero.añadeJuez();
-        
-        
-        tablero.añadeCasilla(new Casilla(100, "Maria Goeppert-Mayer fue Premio "
-                + "Nobel de Física por sus descubrimientos sobre la estructura "
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Katherine Johnson ", 1000, 1000, 500, 500, 500)));
+        tablero.añadeCasilla(new Casilla((float)10000.0, "Maria Goeppert-Mayer fue Premio \n"
+                + "Nobel de Física por sus descubrimientos sobre la estructura \n"
                 + "de capas nuclear. AHORA QUE LA CONOCES, PAGA TUS IMPUESTOS!"));
-        
-        tablero.añadeCasilla(new Casilla("Karen Uhlenbeck es una matemática "
-                + "estadounidense especialista en ecuaciones en derivadas "
-                + "parciales. En marzo de 2019 recibió el Premio Abel or sus "
-                + "investigaciones con ecuaciones en derivadas parciales de "
-                + "las formas del espacio en varias dimensiones.PUEDES ACCEDER "
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Valentina Tereshkova", 1000, 1000, 500, 500, 500)));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Dorothy Vaughan", 1000, 1000, 500, 500, 500)));
+        tablero.añadeCasilla(new Casilla("Karen Uhlenbeck es una matemática \n"
+                + "estadounidense especialista en ecuaciones en derivadas \n"
+                + "parciales. En marzo de 2019 recibió el Premio Abel or sus \n"
+                + "investigaciones con ecuaciones en derivadas parciales de \n"
+                + "las formas del espacio en varias dimensiones.PUEDES ACCEDER \n"
                 + "AL PARKING"));
+        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Jocelyn Bell Burnell", 1000, 1000, 500, 500, 500)));
+    
+        
     }    
     
     
@@ -263,6 +284,7 @@ public class Civitas {
             indiceJugadorActual = indiceJugadorActual + 1;
         if (indiceJugadorActual == jugadores.size())
             indiceJugadorActual = 0;
+        //System.out.println("****PASAR DE TURNO****");
     }
     
     
@@ -270,13 +292,19 @@ public class Civitas {
     /**
      * @brief realiza un ranking en funcion del saldo de los jugadores
      */
-    private ArrayList<Jugador> ranking(){
+    public ArrayList<Jugador> ranking(){
    
         ArrayList<Jugador> rankingJugadores = new ArrayList<>();
         
         rankingJugadores = jugadores;
-        Collections.sort(rankingJugadores);
+        Collections.sort(rankingJugadores, Collections.reverseOrder());
         
+        System.out.println("\n****** El ranking queda asi ********");
+        int i = 1;
+        for(Jugador j : rankingJugadores){
+            System.out.println(Integer.toString(i)+ " "+j.getNombre()+" "+ Float.toString(j.getSaldo()));
+            i++;
+        }
          return rankingJugadores;
     }
     
@@ -288,6 +316,10 @@ public class Civitas {
      * @return true si sale
      */ 
     public Boolean salirCarcelPagando(){
+        if(jugadores.get(indiceJugadorActual).salirCarcelPagando())
+            System.out.println("\nSales de la carcel pagando\n");
+        else
+            System.out.println("\nNO puedes salir de la carcel pagando\n"); 
         return jugadores.get(indiceJugadorActual).salirCarcelPagando();
     }
     
@@ -298,6 +330,10 @@ public class Civitas {
      * @return true si sale
      */ 
     public Boolean salirCarcelTirando(){
+        if(jugadores.get(indiceJugadorActual).salirCarcelTirando())
+            System.out.println("\n Has sacado 5!! Sales de la carcel\n");
+         else
+            System.out.println("\nNO has sacado mas de 5, NO puedes salir de la carcel\n"); 
         return jugadores.get(indiceJugadorActual).salirCarcelTirando();
     }    
     
@@ -308,7 +344,7 @@ public class Civitas {
      *          estado del gestor de estados
      */
     public void siguientePasoCompletado( OperacionesJuego operacion){
-        gestorEstados.siguienteEstado(jugadores.get(indiceJugadorActual), estado, operacion);
+        estado = gestorEstados.siguienteEstado(jugadores.get(indiceJugadorActual), estado, operacion);
     }
     
     
@@ -318,6 +354,8 @@ public class Civitas {
      * @return true si lo ha vendido
      */    
     public Boolean vender(int ip){
+        if(jugadores.get(indiceJugadorActual).vender(ip))
+            System.out.println("\n Has vendido la propiedad" + tablero.getCasilla(ip).getNombre()+"\n");
         return jugadores.get(indiceJugadorActual).vender(ip);
     }
     
@@ -336,6 +374,7 @@ public class Civitas {
         jugadorActual.moverACasilla(posicionNueva);
         casilla.recibeJugador(indiceJugadorActual, jugadores);
         this.contabilizarPasosPorSalida(jugadorActual);
+        System.out.println("-------Puedes ir a la casilla: "+ jugadorActual.getNumCasillaActual()+ " " +casilla.getNombre() +" --------\n");
     }
     
     
@@ -362,7 +401,10 @@ public class Civitas {
         Casilla casilla = tablero.getCasilla(numCasillaActual);
         TituloPropiedad titulo = casilla.getTituloPropiedad();
         res =jugadorActual.comprar(titulo);
-        
+        if(!res)
+            System.out.println("\n No puedes comprar :( \n");
+        else
+            System.out.println("\n Propiedad comprada! :) \n");
         return res;
     }
     
