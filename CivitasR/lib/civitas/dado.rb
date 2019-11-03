@@ -19,6 +19,11 @@ module Civitas
     attr_reader :ultimoResultado
     
     
+#     /*
+#        Añado este método para poder inicializar el mazo de sorpresas en modo debug o no
+#    */
+    attr_reader :debug
+    
     #/**
     #* @brief constructor de la clase dado
     #*/
@@ -40,7 +45,7 @@ module Civitas
       unless(@debug)
         @ultimoResultado = @random.rand(1..6)
       end
-      
+      puts "*-*-*-*-*-*-* Tirando el dado sacas: " + @ultimoResultado + " *-*-*-*-*-*-*-*\n"
       return @ultimoResultado
     end
     
@@ -53,7 +58,7 @@ module Civitas
     def salgoDeLaCarcel
       tirar
       salgo = false
-      if(@ultimoResultado == 5)
+      if(@ultimoResultado >= 5)
         salgo = true
       end
       return salgo
