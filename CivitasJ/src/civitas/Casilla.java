@@ -29,7 +29,10 @@ public class Casilla {
     Casilla(String nombre){
         init();
         this.nombre = nombre;
-        tipo = TipoCasilla.DESCANSO;
+        if(nombre == "||||||CARCEL||||||")
+            tipo = TipoCasilla.CARCEL;
+        else
+            tipo = TipoCasilla.DESCANSO;
     }
     
     
@@ -116,8 +119,8 @@ public class Casilla {
      */
     private void informe(int actual, ArrayList<Jugador> todos){
         Diario di =Diario.getInstance();
-        di.ocurreEvento("el jugador "+ todos.get(actual).getNombre() + 
-                "ha caido en la casilla " + this.toString());
+        di.ocurreEvento("El jugador "+ todos.get(actual).getNombre() + 
+                " avanza hasta la casilla " + this.toString());
     }
     
     
@@ -159,7 +162,7 @@ public class Casilla {
         
         text = "\n nombre: "+ nombre +
                 "\n El tipo : " +tipo.toString();
-        if (carcel > 0)
+        if (tipo == TipoCasilla.CARCEL)
             text = text +"\n carcel: "+ Integer.toString(carcel);
         if (importe > 0)
             text = text + "\n el importe: "+ Float.toString(importe);
@@ -167,8 +170,8 @@ public class Casilla {
             text = text + "\n tutiloPropiedad" + tituloPropiedad.toString();
         if(sorpresa != null)
             text = text + "\n sorpresa: " + sorpresa.toString();
-        if(mazo != null)
-            text = text + "\n mazo: " + mazo.toString();       
+        //if(mazo != null)
+        //    text = text + "\n mazo: " + mazo.toString();       
         return text;
     }   
     
@@ -213,22 +216,24 @@ public class Casilla {
             recibeJugador_calle(actual, todos);
         else if (tipo == TipoCasilla.IMPUESTO)
             recibeJugador_impuesto(actual, todos);
-        else if (tipo == TipoCasilla.JUEZ)
+        else if (tipo == TipoCasilla.JUEZ){
+            System.out.println("El Juez te manda a la carcel!!");
             recibeJugador_juez(actual, todos);
-        else if (tipo == TipoCasilla.SORPRESA)
+        }else if (tipo == TipoCasilla.SORPRESA){
+            System.out.println("Has caido en una casilla sorpresa!!");
             recibeJugador_sorpresa(actual, todos);
-        else
+        }else
             informe(actual, todos);
     }
     
     void recibeJugador_calle(int actual, ArrayList<Jugador>todos){
         if(jugadorCorrecto(actual, todos)){
             informe(actual, todos);
-            Jugador jugador = new Jugador(todos.get(actual));
+            
             if(!tituloPropiedad.tienePropietario()){
-                jugador.puedeComprarCasilla();   
+                todos.get(actual).puedeComprarCasilla();   
             }else{
-                tituloPropiedad.tramitarAlquiler(jugador);
+                tituloPropiedad.tramitarAlquiler(todos.get(actual));
             }
         }    
     }
