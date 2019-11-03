@@ -18,6 +18,13 @@ require_relative "gestor_estados.rb"
 
 module Civitas
     class Civitas
+      
+#      /* *************AÑDIDO PARA USO DEL JUEGO EN LA P3****************************
+#     Creo este método para poder consultarlo en la pausa del controlador y saber 
+#     si inicia turno el jugador o esta en otro estado
+#     */
+      attr_reader :estado
+      
   #    /**
   #     * @brief Constructor
   #     *      • Inicializar el atributo jugadores creando y aniadiendo un jugador 
@@ -42,9 +49,8 @@ module Civitas
 
           @indiceJugadorActual = Dado.instance.quienEmpieza(@jugadores.size) 
           
-          @mazo = MazoSorpresas.new
-          @tablero = Tablero.new(5) #5 es la casilla de la carcel
-          
+          @mazo = MazoSorpresas.new(Dado.instance.debug)
+ 
           inicializarTablero(@mazo)
           
           inicializarMazoSorpresas(@tablero)
@@ -52,7 +58,7 @@ module Civitas
 
       
       
-#    /**
+#    /** Metodo eliminado en este juego dicho por la profe en clase
 #     * @brief muestra la info del jugador actual, si banca rota imprime ranking  
 #     */
 #    def actualizarInfo
@@ -77,58 +83,48 @@ module Civitas
 #     * 1 casilla parking
 #     */
     def inicializarTablero( mazo)
-       #@tablero = Tablero.new(5) #la posicion de la carcel es la q yo he dicho??????????????????
-        
-        #@tablero.aniadeCasilla(Casilla.new("SALIDA")); #se añade cuando se crea el tablero
+        @tablero = Tablero.new(5) #SALIDA se añade cuando se crea el tablero
         
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle Hipatia", 100, 100, 50, 50, 50))) #//string nom, float ab, float fr, float hb, float pc, float pe////dice que se aniadan las casillas que se van creando...
+        
+        @tablero.aniadeCasilla( Casilla.new_casillaSorpresa(mazo, "SORPRESA!! \n 
+                 sabes quien fue Mary Winston Jackson? fue una matematica e \n
+                 ingeniera aeroespacial. Trabajo para la NASA.Empezo como \n
+                 calculista en la division de Calculo del Area Oeste, y mas \n
+                 tarde llegaria a ser la primera ingeniera de color de la NASA."))
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Ada Lovelace", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Hertha Ayrton", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Hedy Lamarr", 100, 100, 50, 50, 50)))
+        @tablero.aniadeCasilla( Casilla.new_casillaSorpresa(mazo, "SORPRESA!!
+                 sabes quien fue Katherine Coleman Goble Johnson? \nuna fisica, cientifica 
+                 espacial y matematica estadounidense que contribuyo\n a la aeronautica 
+                 de los Estados Unidos y sus programas espaciales con\n la aplicacion 
+                 temprana de las computadoras electronicas digitales en\n la NASA. 
+                 Conocida por su precision en la navegacion astronomica,\n calculo 
+                 la trayectoria para el Proyecto Mercury y el vuelo del\n Apolo 11 
+                 a la Luna en 1969."))
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Rosalind Franklin", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Annie Easley", 100, 100, 50, 50, 50)))
+        @tablero.aniadeJuez()
+        @tablero.aniadeCasilla( Casilla.new_casillaSorpresa(mazo, "SORPRESA!! sabes quien fue Hedwig 
+                 Eva Maria Kiesler\n conocida como Hedy Lamarr,  fue una actriz 
+                 de cine e inventora\n austriaca naturalizada estadounidense, 
+                 inventora de la \nprimera version del espectro ensanchado que 
+                 permitiria las \ncomunicaciones inalambricas de larga distancia."))
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Anita Borg", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Valentina Tereshkova", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Jocelyn Bell Burnell", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Katherine Johnson ", 100, 100, 50, 50, 50)))
+        @tablero.aniadeCasilla( Casilla.new_casillaImpuesto(100, "Maria Goeppert-Mayer fue Premio 
+                 Nobel de Fisica\n por sus descubrimientos sobre la estructura 
+                 de capas nuclear.\n AHORA QUE LA CONOCES, PAGA TUS IMPUESTOS!"));
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Dorothy Vaughan", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Mary Jackson", 100, 100, 50, 50, 50)))
-        
-        @tablero.aniadeCasilla( Casilla.new_casillaSorpresa(mazo, "SORPRESA!! 
-                 sabes quien fue Mary Winston Jackson? fue una matematica e 
-                 ingeniera aeroespacial. Trabajo para la NASA.Empezo como 
-                 calculista en la division de Calculo del Area Oeste, y mas 
-                 tarde llegaria a ser la primera ingeniera de color de la NASA."))
-      
-        @tablero.aniadeCasilla( Casilla.new_casillaSorpresa(mazo, "SORPRESA!! 
-                 sabes quien fue Katherine Coleman Goble Johnson? una fisica, cientifica 
-                 espacial y matematica estadounidense que contribuyo a la aeronautica 
-                 de los Estados Unidos y sus programas espaciales con la aplicacion 
-                 temprana de las computadoras electronicas digitales en la NASA. 
-                 Conocida por su precision en la navegacion astronomica, calculo 
-                 la trayectoria para el Proyecto Mercury y el vuelo del Apolo 11 
-                 a la Luna en 1969."))
-        @tablero.aniadeCasilla( Casilla.new_casillaSorpresa(mazo, "SORPRESA!! sabes quien fue Hedwig 
-                 Eva Maria Kiesler conocida como Hedy Lamarr,  fue una actriz 
-                 de cine e inventora austriaca naturalizada estadounidense, 
-                 inventora de la primera version del espectro ensanchado que 
-                 permitiria las comunicaciones inalambricas de larga distancia."))
-        
-        @tablero.aniadeJuez()
-        
-        @tablero.aniadeCasilla(Casilla.new("||||||A LA CARCEL!!|||||| Como que no 
-                 conces al menos a 5 mujeres 
-                 cientificas importantes de la historia? "));
-        
-        @tablero.aniadeCasilla( Casilla.new_casillaImpuesto(100, "Maria Goeppert-Mayer fue Premio 
-                 Nobel de Fisica por sus descubrimientos sobre la estructura 
-                 de capas nuclear. AHORA QUE LA CONOCES, PAGA TUS IMPUESTOS!"));
-        
         @tablero.aniadeCasilla(Casilla.new("Karen Uhlenbeck es una matematica 
                  estadounidense especialista en ecuaciones en derivadas 
-                 parciales. En marzo de 2019 recibio el Premio Abel or sus 
-                 investigaciones con ecuaciones en derivadas parciales de 
-                 las formas del espacio en varias dimensiones.PUEDES ACCEDER 
+                 parciales. \nEn marzo de 2019 recibio el Premio Abel or sus 
+                 investigaciones\n con ecuaciones en derivadas parciales de 
+                 las formas del \nespacio en varias dimensiones.PUEDES ACCEDER 
                  AL PARKING"));
     end    
     
@@ -141,7 +137,11 @@ module Civitas
 #     * @return true si la ha construido
 #     */
     def construirCasa( ip)
-        return @jugadores.at(@indiceJugadorActual).construirCasa(ip)
+      ok = @jugadores.at(@indiceJugadorActual).construirCasa(ip)
+      if ok
+        puts "Has construido UNA CASA en la propiedad " + @tablero.getCasilla(@jugadores.at(@indiceJugadorActual).numCasillaActual).nombre
+      end
+        return ok
     end    
     
     
@@ -152,7 +152,11 @@ module Civitas
 #     * @return true si lo ha construido
 #     */    
     def construirHotel(ip)
-        return @jugadores.at(@indiceJugadorActual).construirHotel(ip)
+      ok = @jugadores.at(@indiceJugadorActual).construirHotel(ip)
+      if ok
+        puts "Has construido UN HOTEL en la propiedad " + @tablero.getCasilla(@jugadores.at(@indiceJugadorActual).numCasillaActual).nombre
+      end
+        return ok
     end       
     
     
@@ -180,6 +184,11 @@ module Civitas
                 return true
             end
         end
+        if fin
+          puts "***********FIN DEL JUEGO**********"
+          puts "**** "+ @jugadores.at(@indiceJugadorActual).nombre + " TE HAS ARRUINADO ****"
+        end
+      
         return fin
     end    
 
@@ -190,7 +199,7 @@ module Civitas
 #     * @return casilla en la que esta el jugador actualmente
 #     */
     def getCasillaActual
-        return @tablero.getCasilla(@jugadores.at(@indiceJugadorActual).numCasillaActual())
+        return @tablero.getCasilla(@jugadores.at(@indiceJugadorActual).numCasillaActual)
     end
     
     
@@ -210,7 +219,11 @@ module Civitas
 #     * @return true si la ha hipotecado
 #     */
     def hipotecar ( ip)
-        return @jugadores.at(@indiceJugadorActual).hipotecar(ip)
+      ok =  @jugadores.at(@indiceJugadorActual).hipotecar(ip)
+      if ok
+        puts "Has hipotecado la propiedad" + ip.to_s
+      end
+        return ok
     end
     
     
@@ -229,17 +242,19 @@ module Civitas
 #     */
     def inicializarMazoSorpresas( tablero )
 
-        @mazo.alMazo( Sorpresa.new(TipoSorpresa::IRCARCEL, tablero));
-        @mazo.alMazo( Sorpresa.new_sorpresaEvitaCarcel(TipoSorpresa::SALIRCARCEL, @mazo));
-        @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 5, "ve a la carcel"));
-        @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 4, "ve a la casilla 4"));
-        @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 8, "ve a la casilla 8"));
-        @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR, -100, "Paga a 100 monedas"));
-        @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR, 100, "Toma regalo!! 100 monedas mas!!"));
-        @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORCASAHOTEL, -1000, "Paga  1000 monedas por casaHotel"));
-        @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORCASAHOTEL, 1000, "Toma regalo!! 300 monedas por casaHotel"));
-        @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORJUGADOR, 100, "cada uno de tus compis te regalan 100 monedas"));
-        @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORJUGADOR, -100, "debes pagar a tu compi 100 monedas"));
+        
+      @mazo.alMazo( Sorpresa.new_sorpresaEvitaCarcel(TipoSorpresa::SALIRCARCEL, @mazo));
+      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORJUGADOR, 100, "Recibes una donación de 100 monedas de cada jugador"));  
+      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORJUGADOR, -1000, "Dona a los demas jugadores 1000 monedas."));
+      @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 15, "Ve a la casilla 15"));
+      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORCASAHOTEL, -1000, "Toma regalo!! ganas 1000 monedas por casaHotel"));
+      @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 8, "Ve a la casilla 8"));
+      @mazo.alMazo( Sorpresa.new(TipoSorpresa::IRCARCEL, tablero));  
+      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR, -1000, "Dona a 1000 monedas"));
+      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR, 500, "Recibes una donación de 500 monedas mas!!"));
+      @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 4, "ve a la casilla 4"));
+      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORCASAHOTEL, 1000, "Toma regalo!! 300 monedas por casaHotel"));      
+    
     end
     
     
@@ -267,6 +282,12 @@ module Civitas
         rankingJugadores = @jugadores;
         rankingJugadores.sort
         
+      puts "\n****** El ranking queda asi ********\n"
+      
+      for j in rankingJugadores
+        puts j.nombre +" "+ j.saldo.to_s
+      end
+      
         return rankingJugadores
     end
     
@@ -278,7 +299,13 @@ module Civitas
 #     * @return true si sale
 #     */ 
     def salirCarcelPagando
-        return @jugadores.at(@indiceJugadorActual).salirCarcelPagando
+        ok = @jugadores.at(@indiceJugadorActual).salirCarcelPagando
+        if(ok)
+            puts "\nSales de la carcel pagando\n"
+        else
+            puts "\nNO puedes salir de la carcel pagando\n" 
+        end
+        return ok
     end
     
     
@@ -288,7 +315,13 @@ module Civitas
 #     * @return true si sale
 #     */ 
     def salirCarcelTirando
-        return @jugadores.at(@indiceJugadorActual).salirCarcelTirando
+      ok = @jugadores.at(@indiceJugadorActual).salirCarcelTirando
+        if(ok)
+            puts "\n Has sacado 5!! Sales de la carcel\n"
+        else
+            puts "\nNO has sacado mas de 5, NO puedes salir de la carcel\n" 
+        end
+        return ok
     end    
     
     
@@ -298,7 +331,7 @@ module Civitas
 #     *          estado del gestor de estados
 #     */
     def siguientePasoCompletado( operacion)
-        @gestorEstados.siguienteEstado(@jugadores.at(@indiceJugadorActual), @estado, operacion)
+        @estado = @gestorEstados.siguienteEstado(@jugadores.at(@indiceJugadorActual), @estado, operacion)
     end
     
     
@@ -308,7 +341,12 @@ module Civitas
 #     * @return true si lo ha vendido
 #     */    
     def vender( ip)
-        return @jugadores.at(@indiceJugadorActual).vender(ip)
+      ok = @jugadores.at(@indiceJugadorActual).vender(ip)
+      if ok
+        puts "\n Has vendido la propiedad" + @tablero.getCasilla(ip).nombre+"\n"
+      end
+      
+      return ok
     end    
 
 
@@ -320,7 +358,11 @@ module Civitas
 #     * @return true si la ha cancelado
 #     */
     def cancelarHipoteca( ip)
-        return @jugadores.at(@indiceJugadorActual).cancelarHipoteca(ip)
+      ok = @jugadores.at(@indiceJugadorActual).cancelarHipoteca(ip)
+      if ok
+        puts "Has cancelado la hipoteca de la propiedad" + @tablero.at(ip).nombre
+      end
+        return ok
     end    
     
     
@@ -338,6 +380,7 @@ module Civitas
       jugadorActual.moverACasilla(posicionNueva)
       casilla.recibeJugador(@indiceJugadorActual, @jugadores);
       contabilizarPasosPorSalida(jugadorActual)
+      puts "----- Puedes ir a la casilla: " + jugadorActual.numCasillaActual.to_s + " "+ casilla.nombre + " -------\n"
     end
     
 
@@ -366,11 +409,16 @@ module Civitas
         res = false
         
         jugadorActual = @jugadores.at(@indiceJugadorActual)
-        numCasillaActual = jugadorActual.getNumCasillaActual
+        numCasillaActual = jugadorActual.numCasillaActual
         casilla = @tablero.getCasilla(numCasillaActual)
         titulo = casilla.tituloPropiedad
         res =jugadorActual.comprar(titulo)
-        
+        if (!res)
+          puts "\n No puedes comprar :( \n"
+        else 
+          puts "\n Propiedad comprada! :) \n" 
+        end
+
         return res
     end
     

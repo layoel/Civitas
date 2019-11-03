@@ -316,11 +316,12 @@ public class Civitas {
      * @return true si sale
      */ 
     public Boolean salirCarcelPagando(){
-        if(jugadores.get(indiceJugadorActual).salirCarcelPagando())
+        Boolean ok = jugadores.get(indiceJugadorActual).salirCarcelPagando();
+        if(ok)
             System.out.println("\nSales de la carcel pagando\n");
         else
             System.out.println("\nNO puedes salir de la carcel pagando\n"); 
-        return jugadores.get(indiceJugadorActual).salirCarcelPagando();
+        return ok;
     }
     
     
@@ -330,11 +331,12 @@ public class Civitas {
      * @return true si sale
      */ 
     public Boolean salirCarcelTirando(){
-        if(jugadores.get(indiceJugadorActual).salirCarcelTirando())
+        Boolean ok = jugadores.get(indiceJugadorActual).salirCarcelTirando();
+        if(ok)
             System.out.println("\n Has sacado 5!! Sales de la carcel\n");
          else
             System.out.println("\nNO has sacado mas de 5, NO puedes salir de la carcel\n"); 
-        return jugadores.get(indiceJugadorActual).salirCarcelTirando();
+        return ok;
     }    
     
     
@@ -354,9 +356,10 @@ public class Civitas {
      * @return true si lo ha vendido
      */    
     public Boolean vender(int ip){
-        if(jugadores.get(indiceJugadorActual).vender(ip))
+        Boolean ok = jugadores.get(indiceJugadorActual).vender(ip);
+        if(ok)
             System.out.println("\n Has vendido la propiedad" + tablero.getCasilla(ip).getNombre()+"\n");
-        return jugadores.get(indiceJugadorActual).vender(ip);
+        return ok;
     }
     
     
