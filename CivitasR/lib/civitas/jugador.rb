@@ -268,7 +268,7 @@ module Civitas
           @numCasillaActual = numCasilla
           @puedeComprar = false
           Diario.instance.ocurre_evento("El jugador " +
-              @nombre+ " se mueve a la casilla "+@numCasilla)
+              @nombre+ " se mueve a la casilla "+ numCasilla.to_s)
           ok = true
         end
         return ok
@@ -384,7 +384,7 @@ module Civitas
   #     */
       def pasaPorSalida
         ok = true 
-        modificarSaldo(getPremioPasoSalida)
+        modificarSaldo(@@PasoPorSalida)
         Diario.instance.ocurre_evento("El jugador "+
           @nombre + "ha pasado por salida, incrementa su saldo en "+
           @@PasoPorSalida)
@@ -440,7 +440,7 @@ module Civitas
                   if(puedoGastar(precio))
                       result= titulo.comprar(self)
                       if(result)
-                          @propiedades.add(titulo)
+                          @propiedades.push(titulo)
                           Diario.instance.ocurre_evento("El jugador "+ @nombre+ " compra la propiedad " + @titulo.toString())
                       end
                   end
@@ -464,8 +464,7 @@ module Civitas
                 if(puedoEdificarCasa)
                     result = propiedad.construirCasa(self)
                     if(result)
-                    Diario.instance.ocurre_evento("El jugador "+ nombre+ " construye casa en la propiedad "+ Integer.toString(ip));
-                    
+                    Diario.instance.ocurre_evento("El jugador "+ @nombre+ " construye casa en la propiedad "+ @propiedades.at(ip).nombre)
                     end
                 end
             end
@@ -496,10 +495,10 @@ module Civitas
                 end
                 if(puedoEdificarHotel)
                     result = propiedad.construirHotel(self)
-                    int casasPorHotel = @@CasasPorHotel
-                    propiedad.derruirCasas(casasPorHotel, self)
+                    #casasPorHotel = @@CasasPorHotel
+                    propiedad.derruirCasas(@@CasasPorHotel, self)
                 end
-                Diario.instance.ocurre_evento("El jugador "+ @nombre+ " construye hotel en la propiedad "+ ip.to_s)
+                Diario.instance.ocurre_evento("El jugador "+ @nombre+ " construye hotel en la propiedad "+ ip.to_s+ @propiedades.at(ip).nombre)
             end
         end
         return result
@@ -528,10 +527,15 @@ module Civitas
   #     */
       def puedoEdificarHotel(propiedad)
           ok = false 
-          if(puedoGastar(propiedad.precioEdificar))
+          precio = propiedad.precioEdificar
+          if(puedoGastar(precio))
               if(propiedad.numHoteles < @@HotelesMax)
+                if(propiedad.numCasas >= @@CasasPorHotel)
                   ok = true
+                end
               end
+          else
+            puts "No puedes construir un nuevo Hotel"
           end
           return ok
       end    
@@ -547,7 +551,7 @@ module Civitas
         if (@saldo <= 0.0)
             ok = true
         end
-        return ok;
+      return ok;
     end
      
     
@@ -565,14 +569,7 @@ module Civitas
         return ok
     end
     
-    
-#    /**
-#     * @brief Consultor del premio que se obtiene por pasar por salida
-#     * @return PremioPasoSalida dinero que se le da al jugador.
-#     */
-    def getPremioPasoSalida
-      return @@PasoPorSalida
-    end
+
     
     
 #    /**
@@ -615,14 +612,14 @@ module Civitas
             text = text + "\n Tiene salvoconducto?: " + @salvoconducto.to_s
         end
         if (@propiedades.size>0)
-            text = text+ "\n Sus propiedades :"+ @propiedades.toString
+            text = text+ "\n Tienes :"+ @propiedades.size + " propiedades"
         end
-        text = text+ "\n El HotelesMax " + @@HotelesMax.to_s +
-                "\n Su saldo inicial: " + @@SaldoInicial.to_s+
-                "\n CasasMax "+ @@CasasMax.to_s+
-                "\n CasasPorHotel "+ @@CasasPorHotel.to_s+
-                "\n PasoPorSalida "+ @@PasoPorSalida.to_s+
-                "\n PrecioLibertad " + @@PrecioLibertad.to_s
+#        text = text+ "\n El HotelesMax " + @@HotelesMax.to_s +
+#                "\n Su saldo inicial: " + @@SaldoInicial.to_s+
+#                "\n CasasMax "+ @@CasasMax.to_s+
+#                "\n CasasPorHotel "+ @@CasasPorHotel.to_s+
+#                "\n PasoPorSalida "+ @@PasoPorSalida.to_s+
+#                "\n PrecioLibertad " + @@PrecioLibertad.to_s
         return text
       end
     
