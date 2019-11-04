@@ -26,7 +26,7 @@ module Civitas
     # /**
     # * @brief inicia sorpresas y cartas especiales barajada y usadas 
     # */
-    attr_reader :ultimaSorpresa
+    attr_reader :ultimaSorpresa, :sorpresas
     
     def init
        @sorpresas = Array.new

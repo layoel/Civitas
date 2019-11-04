@@ -65,11 +65,17 @@ public class MazoSorpresas {
      */
     MazoSorpresas(Boolean d){
         debug = d;
+        ultimaSorpresa = null;
         init();
         if (debug){
-        //informo a traves de diario
+           Diario di = Diario.getInstance();
+           di.ocurreEvento("MazoSorpresasas inicializado en modo debug");
         }
     
+    }
+
+    public ArrayList<Sorpresa> getSorpresas() { //creo este get para poder hacer el shufle cuando creo los mazos de sorpresas
+        return sorpresas;
     }
     
     /**
@@ -78,7 +84,7 @@ public class MazoSorpresas {
      */
     void alMazo(Sorpresa s){
     
-        if (!barajada && !debug)
+        if (!barajada)
             sorpresas.add(s);
         
     }
