@@ -1,5 +1,7 @@
 package civitas;
 
+import juegoTexto.OperacionesJuego;
+
 class GestorEstados {
   EstadosJuego estadoInicial() {
     return (EstadosJuego.INICIO_TURNO);
