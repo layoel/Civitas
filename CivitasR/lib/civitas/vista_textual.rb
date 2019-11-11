@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-require "byebug"
+#require "byebug"
 require_relative 'operaciones_juego.rb'
 require 'io/console'
 require_relative "diario.rb"
@@ -106,9 +106,6 @@ module Civitas
       lista << "5 TERMINAR\n"
       #byebug
       opcion1 = menu("\n Ahora puedes gestionar tus propiedades, ¿Que quieres hacer?:", lista)
-      puts "*****************************probando gestionar"
-      puts opcion1.inspect
-      puts lista.inspect
      
       #//pregunta la propiedad a la que aplicar esa gestion inmobiliaria
       prop = Array.new
@@ -118,10 +115,13 @@ module Civitas
         i = i + 1
       end
       
-      opcion = menu("Elige el numero de propiedad para realizar la gestion:", prop)
-      
       @iGestion= opcion1;
-      @iPropiedad = opcion;
+      
+      if opcion1 != 5
+        opcion = menu("Elige el numero de propiedad para realizar la gestion:", prop)
+        @iPropiedad = opcion;
+      end
+      
       
     end
 

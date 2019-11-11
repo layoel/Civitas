@@ -4,7 +4,7 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
-require "byebug"
+#require "byebug"
 require_relative "operaciones_juego.rb"
 require_relative "dado.rb"
 require_relative "diario.rb"

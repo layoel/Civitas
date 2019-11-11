@@ -1,6 +1,6 @@
 # encoding: UTF-8
 
-require "byebug"
+#require "byebug"
     # /**
     #*@brief Representa el tablero del juego imponiendo restricciones 
     #* sobre el mismo en las reglas del juego
