@@ -29,7 +29,7 @@ public class Sorpresa {
             init();
             this.tipo = tipo;
             this.tablero = tablero;
-            texto = "ve a la carcel";
+            texto = "Vas a la carcel";
             //mazo= null; //en init
             //valor = -1;//en init
         }
@@ -74,6 +74,7 @@ public class Sorpresa {
      */
     Sorpresa(TipoSorpresa tipo, MazoSorpresas mazo){
         init();
+        texto = "Tienes un salvoconducto";
         this.tipo = tipo;
         this.mazo = mazo;
         
@@ -114,7 +115,7 @@ public class Sorpresa {
      */
     private void informe(int actual, ArrayList<Jugador> todos){
         Diario di = Diario.getInstance();
-        di.ocurreEvento("se esta aplicando la sorpresa "+ texto+" al jugador: "+ todos.get(actual).getNombre());
+        di.ocurreEvento("se esta aplicando la sorpresa: "+ texto+" al jugador: "+ todos.get(actual).getNombre());
     }
     
     
@@ -158,7 +159,7 @@ public class Sorpresa {
             int tirada = tablero.calcularTirada(casillaActual, valor);
             int nuevaPos = tablero.nuevaPosicion(casillaActual, tirada);
             todos.get(actual).moverACasilla(nuevaPos);
-            tablero.getCasilla(nuevaPos).recibeJugador_sorpresa(actual, todos);
+            tablero.getCasilla(nuevaPos).recibeJugador(actual, todos);
         }
     }
     
@@ -223,12 +224,20 @@ public class Sorpresa {
     private void aplicarAJugador_porJugador(int actual, ArrayList<Jugador> todos){
         if (jugadorCorrecto(actual, todos)){
             informe(actual, todos);
-            Sorpresa s = new Sorpresa(TipoSorpresa.PAGARCOBRAR, valor*-1, "devuelve la pasta!");
+            Sorpresa s;
+            if (valor<0)
+                s = new Sorpresa(TipoSorpresa.PAGARCOBRAR, valor*-1, "Jugador actual hace una donación ");
+            else
+                s = new Sorpresa(TipoSorpresa.PAGARCOBRAR, valor*-1, "Jugador actual recibe una donación gracias ");
             for (int i=0; i<todos.size(); i++){
                 if(i != actual)
                     s.aplicarAJugador(i,todos);
             }
-            Sorpresa s1 = new Sorpresa(TipoSorpresa.PAGARCOBRAR, valor*(todos.size()-1), "tus compis te regalan pasta!");
+            Sorpresa s1;
+            if(valor<0)
+                s1 = new Sorpresa(TipoSorpresa.PAGARCOBRAR, valor*(todos.size()-1), "Has hecho una donación.");
+            else
+                s1= new Sorpresa(TipoSorpresa.PAGARCOBRAR, valor*(todos.size()-1), "Has recibido una donación."); 
             s1.aplicarAJugador(actual,todos);
             
         }

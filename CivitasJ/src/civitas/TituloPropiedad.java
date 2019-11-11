@@ -190,7 +190,7 @@ public class TituloPropiedad {
     /**
      *@brief consulta el nombre del titulo de propiedad
      */
-    String getNombre(){
+    public String getNombre(){
         return nombre;
     }
     
@@ -319,7 +319,7 @@ public class TituloPropiedad {
                 " \n precioCompra: " + Float.toString(precioCompra)+ 
                 " \n precioEdificar: " + Float.toString(precioEdificar);
         if (propietario != null)
-                mensaje = mensaje +" \n propietario: " + propietario.toString();
+                mensaje = mensaje +" \n propietario: " + propietario.getNombre();
         
         return mensaje;
     }
@@ -332,7 +332,7 @@ public class TituloPropiedad {
     void tramitarAlquiler(Jugador jugador){
         
         if(tienePropietario())
-            if(esEsteElPropietario(jugador)){
+            if(!esEsteElPropietario(jugador)){
                 float precio = getPrecioAlquiler();
                 jugador.pagaAlquiler(precio);
                 propietario.recibe(precio);

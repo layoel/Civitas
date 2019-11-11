@@ -17,6 +17,7 @@ public enum TipoCasilla {
     CALLE,
     SORPRESA,
     JUEZ,
+    CARCEL,
     IMPUESTO,
     DESCANSO
 }
