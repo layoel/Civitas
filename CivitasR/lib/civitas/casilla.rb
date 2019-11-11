@@ -1,13 +1,16 @@
+# encoding: UTF-8
+
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
-
+# require "byebug"
 require_relative "tipocasilla.rb"
 require_relative "titulo_propiedad.rb"
 require_relative "mazo_sorpresas.rb"
 require_relative "sorpresa.rb"
 require_relative "tiposorpresa.rb"
 require_relative "diario.rb"
+
 module Civitas
  # /**
  #*
@@ -185,7 +188,7 @@ module Civitas
         text = text + " \n tutiloPropiedad" + @tituloPropiedad.toString
       end
       if@sorpresa != nil
-            text = text + "\n sorpresa: " + @sorpresa.toString()
+            text = text + "\n sorpresa: " + @sorpresa.texto
       end
       #mazo no tiene toString
 #      if @mazo != nil
@@ -247,6 +250,7 @@ module Civitas
     
     
     def recibeJugador_sorpresa( actual, todos)
+      #byebug
         if(jugadorCorrecto(actual, todos))
             sorpresa = @mazo.siguiente
             informe(actual, todos)
@@ -320,6 +324,6 @@ module Civitas
     
   end
   
-  Casilla.main
+#  Casilla.main
   
 end

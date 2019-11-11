@@ -1,3 +1,6 @@
+# encoding: UTF-8
+
+#require "byebug"
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
@@ -80,7 +83,6 @@ module Civitas
     # */
     def cancelarHipoteca(jugador)
         result = false;
-        
         if (@hipotecado)
           if (esEsteElPropietario(jugador))
             result = jugador.paga(getImporteCancelarHipoteca)
@@ -197,7 +199,7 @@ module Civitas
     # *@brief Cuanto es la hipoteca de este titulo de propiedad
     # */
     def getImporteHipoteca
-      return hipotecaBase
+      return @hipotecaBase
     end     
     # getNombre usa el attreader
     
@@ -291,7 +293,9 @@ module Civitas
                 " \n precioCompra:" + @precioCompra.to_s+ 
                 " \n precioEdificar: " + @precioEdificar.to_s
               if @propietario != nil
-                mensaje = mensaje + " \n propietario: " + @propietario.to_s
+                mensaje = mensaje + " \n propietario: " + @propietario.nombre
+              else
+                mensaje = mensaje + " \n Aun no tiene propietario\n"
               end
         return mensaje;
     end
@@ -354,6 +358,6 @@ module Civitas
     private :esEsteElPropietario, :getImporteHipoteca, :propietarioEncarcelado,
             :getPrecioAlquiler, :getPrecioVenta
     
-    TituloPropiedad.main
+    #TituloPropiedad.main
   end
 end

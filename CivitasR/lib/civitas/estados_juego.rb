@@ -1,3 +1,5 @@
+# encoding: UTF-8
+#require "byebug"
 module Civitas
   module Estados_juego
     

@@ -1,3 +1,5 @@
+# encoding: UTF-8
+#require "byebug"
 require_relative 'diario'
 require_relative 'operaciones_juego'
 
@@ -27,10 +29,10 @@ module Civitas
         if (jugador.encarcelado)
           op = Operaciones_juego::PASAR_TURNO
         else
-          if (jugador.puede_comprar)
+          if (jugador.puedeComprar)
             op = Operaciones_juego::COMPRAR
           else
-            if (jugador.tiene_algo_que_gestionar)
+            if (jugador.tieneAlgoQueGestionar)
               op = Operaciones_juego::GESTIONAR
             else
               op = Operaciones_juego::PASAR_TURNO
@@ -39,7 +41,7 @@ module Civitas
         end
 
       when Estados_juego::DESPUES_COMPRAR
-        if (jugador.tiene_algo_que_gestionar)
+        if (jugador.tieneAlgoQueGestionar)
           op = Operaciones_juego::GESTIONAR
         else
           op = Operaciones_juego::PASAR_TURNO
@@ -54,7 +56,7 @@ module Civitas
 
 
 
-    def siguiente_estado(jugador,estado,operacion)
+    def siguienteEstado(jugador,estado,operacion)
       siguiente = nil
 
       case estado
@@ -87,7 +89,7 @@ module Civitas
 
 
       when Estados_juego::DESPUES_COMPRAR
-        #if (jugador.tiene_algo_que_gestionar)
+        #if (jugador.tieneAlgoQueGestionar)
         if (operacion==Operaciones_juego::GESTIONAR)
           siguiente = Estados_juego::DESPUES_GESTIONAR
         #  end

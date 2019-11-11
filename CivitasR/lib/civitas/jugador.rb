@@ -1,3 +1,5 @@
+# encoding: UTF-8
+#require "byebug"
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
@@ -251,7 +253,7 @@ module Civitas
         ok = true 
         @saldo = @saldo + cantidad
         Diario.instance.ocurre_evento("El jugador " + @nombre +
-            " ha modificado su saldo a: "+@saldo)
+            " ha modificado su saldo a: "+@saldo.to_s)
         return ok
       end   
 
@@ -304,7 +306,7 @@ module Civitas
               Diario.instance.ocurre_evento("el jugador "+ 
                 @nombre+ " ha vendido la propiedad "+
                 @propiedades.at(ip).nombre)
-              @propiedades.remove(ip) 
+                @propiedades.delete_at(ip)
             end
           end
         end
@@ -346,6 +348,7 @@ module Civitas
   #     * @return ok true si puede salir pagando 
   #     */
       def salirCarcelPagando
+        #byebug
         ok = false 
         if(@encarcelado && puedeSalirCarcelPagando)
           paga(@@PrecioLibertad)
@@ -353,7 +356,7 @@ module Civitas
           ok = true
           Diario.instance.ocurre_evento("El jugador "+ 
             @nombre+ "sale de la carcel pagando "+ 
-            @@PrecioLibertad)
+            @@PrecioLibertad.to_s)
         end
           return ok;
       end
@@ -418,7 +421,7 @@ module Civitas
                 cantidad = propiedad.getImporteCancelarHipoteca()
                 puedoGastar = puedoGastar(cantidad)
                 if(puedoGastar)
-                    result = @propiedades.get(ip).cancelarHipoteca(this)
+                    result = @propiedades.at(ip).cancelarHipoteca(self)
                     if(result)
                       Diario.instance().ocurre_evento("El jugador " + @nombre + " cancela la hipoteca de la propiedad " + ip.to_s)
                     end
@@ -436,12 +439,12 @@ module Civitas
           result = false 
           if(!@encarcelado)
               if(@puedeComprar)
-                  float precio = titulo.precioCompra
+                  precio = titulo.precioCompra
                   if(puedoGastar(precio))
                       result= titulo.comprar(self)
                       if(result)
                           @propiedades.push(titulo)
-                          Diario.instance.ocurre_evento("El jugador "+ @nombre+ " compra la propiedad " + @titulo.toString())
+                          Diario.instance.ocurre_evento("El jugador "+ @nombre+ " compra la propiedad " + titulo.nombre)
                       end
                   end
               end
@@ -603,16 +606,16 @@ module Civitas
 #     */
     def toString
       
-        text = "El jugador "+ @nombre+ 
-          "\n Esta encarcelado? "+ @encarcelado.to_s+
-                "\n Esta en la casilla " + @numCasillaActual.to_s+ 
-                "\n Puede comprar? "+ @puedeComprar.to_s+ 
-                "\n Su saldo es " + @saldo.to_s
+        text =         "\nEl jugador "+ @nombre
+        text = text +  "\n Esta encarcelado? "+ @encarcelado.to_s
+        text = text +  "\n Esta en la casilla " + @numCasillaActual.to_s 
+        text = text +  "\n Puede comprar? "+ @puedeComprar.to_s
+        text = text +  "\n Su saldo es " + @saldo.to_s
         if (@salvoconducto != nil)
             text = text + "\n Tiene salvoconducto?: " + @salvoconducto.to_s
         end
         if (@propiedades.size>0)
-            text = text+ "\n Tienes :"+ @propiedades.size + " propiedades"
+          text = text+ "\n Tienes :"+ @propiedades.size.to_s + " propiedades"
         end
 #        text = text+ "\n El HotelesMax " + @@HotelesMax.to_s +
 #                "\n Su saldo inicial: " + @@SaldoInicial.to_s+
@@ -663,14 +666,10 @@ module Civitas
       
     end
       
-      private :getPremioPasoSalida, :existeLaPropiedad, :perderSalvoConducto, 
-        :puedeSalirCarcelPagando,  :puedoEdificarCasa, :CasasMax,
-        :puedoEdificarHotel, :puedoGastar, :PrecioLibertad,
-        :saldo, :puedeComprar
-      protected :HotelesMax, :CasasMax, :CasasPorHotel,
-        :encarcelado, 
-        :debeSerEncarcelado, :propiedades,
-        :saldo
+      private :existeLaPropiedad, :perderSalvoConducto, 
+        :puedeSalirCarcelPagando,  :puedoEdificarCasa,
+        :puedoEdificarHotel, :puedoGastar
+      protected :debeSerEncarcelado
      
     #Jugador.main
   end

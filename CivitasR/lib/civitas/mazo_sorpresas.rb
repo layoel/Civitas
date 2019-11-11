@@ -1,3 +1,7 @@
+# encoding: UTF-8
+#
+#require "byebug"
+require_relative "sorpresa.rb"
 #/**
 # *
 # * @author ELVIRA
@@ -40,7 +44,7 @@ module Civitas
     # * @brief constructor con parametro debug y por defecto
     # */
     
-    def initialize( debu = false )  
+    def initialize( debu = false ) 
       @debug = debu
       @ultimaSorpresa = nil
       init
@@ -90,7 +94,8 @@ module Civitas
     # */
     
     def inhabilitarCartaEspecial (sorpresa)
-      s = Sorpresa.new
+      #byebug
+      s = Sorpresa.new(nil, nil)
       unless ((s = @sorpresas.find(sorpresa)) == nil)
         @sorpresas.delete(s)
         @cartasEspeciales << sorpresa

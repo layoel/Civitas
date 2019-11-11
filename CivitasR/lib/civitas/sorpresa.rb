@@ -1,20 +1,36 @@
+# encoding: UTF-8
+#require "byebug"
+require_relative "jugador.rb"
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
 module Civitas
   
-end
 class Sorpresa
-  
-  #attr_accessor :tipo, :tablero, :valor, :mazo, :texto,
+  #los necesito para poder acceder al objeto y asignar valores
+  attr_accessor :tipo, :tablero, :valor, :mazo, :texto
     # /**
     #  *@brief Inicializa los  valores valor mazo y tablero
     # */
+
+  #      /**
+#     * @brief Constructor de la sorpresa que envia a la carcel
+#     * @param tipo 
+#     * @param tablero
+#     */
+    def initialize(tipo,tablero)
+      init()
+      @tipo = tipo
+      @tablero = tablero
+      @texto = "ve a la carcel"
+    end
+    
     def init
         @valor = -1
         @mazo = nil
         @tablero = nil
+      
     end
 
 #     /**
@@ -43,6 +59,7 @@ class Sorpresa
         s= new(tipo, nil)
         s.valor = valor
         s.texto = texto
+        return s
     end
     
     
@@ -52,23 +69,13 @@ class Sorpresa
 #     * @param mazo
 #     */
     def self.new_sorpresaEvitaCarcel(tipo, mazo)
-        s=new(tipo, nil)
+        s = new(tipo, nil)
         s.mazo = mazo
         s.texto = "Salvoconducto"
+        return s
     end
     
-#      /**
-#     * @brief Constructor de la sorpresa que envia a la carcel
-#     * @param tipo 
-#     * @param tablero
-#     */
-    def initialize(tipo,tablero)
-      init()
-      @tipo = tipo
-      @tablero = tablero
-      @texto = "ve a la carcel"
-    end
-    
+ 
     
     
 #    /**
@@ -103,7 +110,6 @@ class Sorpresa
 #     * @param todos la lista de jugadores
 #     */
     def aplicarAJugador(actual, todos)
-
          if (@tipo == TipoSorpresa::IRCARCEL)
              aplicarAJugador_irCarcel(actual, todos)
          end
@@ -142,7 +148,7 @@ class Sorpresa
             tirada = @tablero.calcularTirada(casillaActual, @valor)
             nuevaPos = @tablero.nuevaPosicion(casillaActual, tirada)
             todos.at(actual).moverACasilla(nuevaPos)
-            @tablero.getCasilla(nuevaPos).recibeJugador_sorpresa(actual, todos)
+            @tablero.getCasilla(nuevaPos).recibeJugador(actual, todos)
         end
     end
    
@@ -167,7 +173,7 @@ class Sorpresa
 #     * @param actual indice del jugador que tiene el turno
 #     * @param todos lista de jugadores 
 #     */
-    def aplicarAJugador_pagarCobrar(actual, todos)
+    def aplicarAJugador_pagarCobrar(actual, todos) 
         if (jugadorCorrecto(actual, todos))
             informe(actual, todos)
             todos.at(actual).modificarSaldo(@valor)
@@ -213,7 +219,7 @@ class Sorpresa
                 end
                 i=i+1
             end
-            Sorpresa s1 = Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR, @valor*(todos.size-1), "tus compis te regalan pasta!")
+            s1 = Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR, @valor*(todos.size-1), "tus compis te regalan pasta!")
             s1.aplicarAJugador(actual,todos);
 
         end
@@ -232,18 +238,15 @@ class Sorpresa
         if (jugadorCorrecto(actual, todos))
             informe(actual, todos)
             latienen = false
-            i=0    
-            if(todos.at(i).tieneSalvoconducto())
-                    latienen = true;
-            end
-            while (i< todos.size() && !latienen)
-                i=i+1
-                if(todos.at(i).tieneSalvoconducto())
-                    latienen = true;
-                end
+            z=0    
+            while (z< todos.size() && !latienen)
+              if(todos.at(z).tieneSalvoconducto)
+                latienen = true;
+              end
+              z=z+1
             end
             if(!latienen)
-                Sorpresa s = Sorpresa.new_sorpresaEvitaCarcel(TipoSorpresa::SALIRCARCEL, @mazo)
+                s = Sorpresa.new_sorpresaEvitaCarcel(TipoSorpresa::SALIRCARCEL, @mazo)
                 todos.at(actual).obtenerSalvoconducto(s)
                 s.salirDelMazo
             end
@@ -288,4 +291,5 @@ class Sorpresa
         :aplicarAJugador_porJugador, :aplicarAJugador_salirCarcel, 
         :informe, :init
 
+end
 end

@@ -1,9 +1,11 @@
+# encoding: UTF-8
+
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 require 'singleton'
 require 'securerandom'
-
+#require "byebug"
 module Civitas
   class Dado
     
@@ -45,7 +47,7 @@ module Civitas
       unless(@debug)
         @ultimoResultado = @random.rand(1..6)
       end
-      puts "*-*-*-*-*-*-* Tirando el dado sacas: " + @ultimoResultado + " *-*-*-*-*-*-*-*\n"
+      puts "*-*-*-*-*-*-* Tirando el dado sacas: " + @ultimoResultado.to_s + " *-*-*-*-*-*-*-*\n"
       return @ultimoResultado
     end
     

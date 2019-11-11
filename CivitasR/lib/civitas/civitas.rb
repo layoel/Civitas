@@ -1,7 +1,10 @@
+# encoding: UTF-8
+
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
-# encoding: UTF-8
+#
+require "byebug"
 require_relative "casilla"
 require_relative "dado.rb"
 require_relative "diario.rb"
@@ -40,10 +43,14 @@ module Civitas
   #     */
       def initialize(nombres)
           @jugadores = Array.new
-          for i in 0..nombres.size do
-            @jugadores.push(Jugador.new(nombres.at(i)))
-          end
+         # for i in 0..nombres.size do
+         #   @jugadores.push(Jugador.new(nombres.at(i)))
+          #end
 
+          nombres.each do |nombre|
+            @jugadores << Jugador.new(nombre)
+          end
+        
           @gestorEstados = Gestor_estados.new
           @estado = @gestorEstados.estado_inicial
 
@@ -84,7 +91,7 @@ module Civitas
 #     */
     def inicializarTablero( mazo)
         @tablero = Tablero.new(5) #SALIDA se añade cuando se crea el tablero
-        
+         
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle Hipatia", 100, 100, 50, 50, 50))) #//string nom, float ab, float fr, float hb, float pc, float pe////dice que se aniadan las casillas que se van creando...
         
         @tablero.aniadeCasilla( Casilla.new_casillaSorpresa(mazo, "SORPRESA!! \n 
@@ -105,7 +112,7 @@ module Civitas
                  a la Luna en 1969."))
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Rosalind Franklin", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Annie Easley", 100, 100, 50, 50, 50)))
-        @tablero.aniadeJuez()
+       
         @tablero.aniadeCasilla( Casilla.new_casillaSorpresa(mazo, "SORPRESA!! sabes quien fue Hedwig 
                  Eva Maria Kiesler\n conocida como Hedy Lamarr,  fue una actriz 
                  de cine e inventora\n austriaca naturalizada estadounidense, 
@@ -126,6 +133,7 @@ module Civitas
                  investigaciones\n con ecuaciones en derivadas parciales de 
                  las formas del \nespacio en varias dimensiones.PUEDES ACCEDER 
                  AL PARKING"));
+      @tablero.aniadeJuez()
     end    
     
     
@@ -242,18 +250,17 @@ module Civitas
 #     */
     def inicializarMazoSorpresas( tablero )
 
-        
       @mazo.alMazo( Sorpresa.new_sorpresaEvitaCarcel(TipoSorpresa::SALIRCARCEL, @mazo));
-      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORJUGADOR, 100, "Recibes una donación de 100 monedas de cada jugador"));  
-      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORJUGADOR, -1000, "Dona a los demas jugadores 1000 monedas."));
-      @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 15, "Ve a la casilla 15"));
-      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORCASAHOTEL, -1000, "Toma regalo!! ganas 1000 monedas por casaHotel"));
-      @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 8, "Ve a la casilla 8"));
+      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORJUGADOR, 100, 'Recibes una donación de 100 monedas de cada jugador'));  
+      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORJUGADOR, -1000, 'Dona a los demas jugadores 1000 monedas.'));
+      @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 15, 'Ve a la casilla 15'));
+      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORCASAHOTEL, 1000, 'Toma regalo ganas 1000 monedas por casaHotel'));
+      @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 8, 'Ve a la casilla 8'));
       @mazo.alMazo( Sorpresa.new(TipoSorpresa::IRCARCEL, tablero));  
-      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR, -1000, "Dona a 1000 monedas"));
-      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR, 500, "Recibes una donación de 500 monedas mas!!"));
-      @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 4, "ve a la casilla 4"));
-      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORCASAHOTEL, 1000, "Toma regalo!! 300 monedas por casaHotel"));      
+      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR, -1000, 'Dona a 1000 monedas'));
+      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR, 500, 'Recibes una donación de 500 monedas mas'));
+      @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 4, 've a la casilla 4'));
+      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORCASAHOTEL, -500, 'Has pensado donar a la ciencia 500 monedas por casaHotel'));      
     
     end
     
@@ -360,7 +367,7 @@ module Civitas
     def cancelarHipoteca( ip)
       ok = @jugadores.at(@indiceJugadorActual).cancelarHipoteca(ip)
       if ok
-        puts "Has cancelado la hipoteca de la propiedad" + @tablero.at(ip).nombre
+        puts "Has cancelado la hipoteca de la propiedad" + @tablero.casillas.at(ip).nombre
       end
         return ok
     end    
@@ -388,12 +395,12 @@ module Civitas
 #     *@brief  
 #     */    
     def siguientePaso
-        jugadorActual = @jugadores.get(indiceJugadorActual)
-        OperacionesJuego operacion = @gestorEstados.operacionesPermitidas(jugadorActual,@estado )
-        if(operacion == OperacionesJuego::PASAR_TURNO)
+        jugadorActual = @jugadores.at(@indiceJugadorActual)
+        operacion = @gestorEstados.operaciones_permitidas(jugadorActual,@estado )
+        if(operacion == Operaciones_juego::PASAR_TURNO)
             pasarTurno
             siguientePasoCompletado(operacion);
-        elsif(operacion == OperacionesJuego::AVANZAR)
+        elsif(operacion == Operaciones_juego::AVANZAR)
             avanzaJugador
             siguientePasoCompletado(operacion)
         end

@@ -1,3 +1,5 @@
+# encoding: UTF-8
+#require "byebug"
 require 'singleton'
 module Civitas
   class Diario
