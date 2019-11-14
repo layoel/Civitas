@@ -612,7 +612,7 @@ module Civitas
         text = text +  "\n Puede comprar? "+ @puedeComprar.to_s
         text = text +  "\n Su saldo es " + @saldo.to_s
         if (@salvoconducto != nil)
-            text = text + "\n Tiene salvoconducto?: " + @salvoconducto.to_s
+          text = text + "\n Tiene salvoconducto?: si, tiene la sorpresa de tipo " + @salvoconducto.tipo.to_s
         end
         if (@propiedades.size>0)
           text = text+ "\n Tienes :"+ @propiedades.size.to_s + " propiedades"
