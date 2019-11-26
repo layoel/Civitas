@@ -29,7 +29,7 @@ public class Tablero {
     private int porSalida;
     private Boolean tieneJuez;
     
-    private static String nombre;
+    private static String nombre = "Civitas";
    
     /**
      * @brief Constructor
@@ -107,11 +107,11 @@ public class Tablero {
      * @return porSalida
      */
     int getPorSalida(){
-        
+        int anterior = porSalida;
         if (porSalida > 0)
             porSalida = porSalida-1;
         
-        return porSalida;
+        return anterior;
     }
     
     
@@ -137,7 +137,7 @@ public class Tablero {
     void añadeJuez(){
         
         if(!tieneJuez){
-            Casilla juez = new Casilla(numCasillaCarcel,"Juez");
+            Casilla juez = new CasillaJuez(numCasillaCarcel,"Juez");
             casillas.add(juez);
             tieneJuez = !tieneJuez;
         }    
@@ -209,10 +209,10 @@ public class Tablero {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println(TipoCasilla.CALLE);
-    }
+//    public static void main(String[] args) {
+//        // TODO code application logic here
+//        System.out.println(TipoCasilla.CALLE);
+//    }
 
     
 }

@@ -298,7 +298,7 @@ public class Jugador implements Comparable<Jugador>{
             numCasillaActual = numCasilla;
             puedeComprar = false;
             Diario di = Diario.getInstance();
-            di.ocurreEvento("El jugador " + nombre+ " avanza a la casilla "+numCasilla);
+            di.ocurreEvento("El jugador " + nombre+ " avanza a la casilla "+ numCasilla);
             ok = true;
         }
         return ok;

@@ -226,50 +226,50 @@ public class Civitas {
     private void inicializarTablero( MazoSorpresas mazo){
         tablero = new Tablero(5); //la posicion de la carcel es la q yo he dicho por defecto crea la casilla de salida
         
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle Hipatia", 100, 100, 50, 50, 50)));//string nom, float ab, float fr, float hb, float pc, float pe////dice que se añadan las casillas que se van creando...
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Mary Jackson", 1000, 1000, 500, 500, 500)));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle Hipatia", 100, 100, 50, 50, 50), "Calle Hipatia"));//string nom, float ab, float fr, float hb, float pc, float pe////dice que se añadan las casillas que se van creando...
+    //    tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Mary Jackson", 1000, 1000, 500, 500, 500), "Calle  Mary Jackson"));
         tablero.añadeJuez();
-        tablero.añadeCasilla(new Casilla(mazo, "SORPRESA!! ¿sabes quien fue Mary Winston Jackson? \n"
-                + "fue una matemática e ingeniera aeroespacial estadounidense, \n"
-                + "que trabajó para el Comité Consejero Nacional para la \n"
-                + "Aeronáutica (NACA), que más tarde se transformaría en la NASA.\n"
-                + " Trabajó en el Centro de Investigación de Langley la mayor parte\n"
-                + " de su vida, empezando como calculista en la división de Cálculo \n"
-                + "del Área Oeste, y más tarde llegaría a ser la primera ingeniera \n"
-                + "de color de la NASA. Tras 34 años en la NASA, Jackson alcanzó\n"
-                + " el puesto más alto posible para ingenieros. COGE UNA CARTA SORPRESA"));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Ada Lovelace", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Hertha Ayrton", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Hedy Lamarr", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(mazo, "SORPRESA!! ¿sabes quien fue \n"
-                + "Katherine Coleman Goble Johnson una física, científica \n"
-                + "espacial y matemática estadounidense que contribuyó a la \n"
-                + "aeronáutica de los Estados Unidos y sus programas espaciales \n"
-                + "con la aplicación temprana de las computadoras electrónicas \n"
-                + "digitales en la NASA. Conocida por su precisión en la \n"
-                + "navegación astronómica, calculó la trayectoria para el \n"
-                + "Proyecto Mercury y el vuelo del Apolo 11 a la Luna en 1969. COGE UNA CARTA SORPRESA"));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Rosalind Franklin", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Annie Easley", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(mazo, "SORPRESA!! ¿sabes quien fue Hedwig \n"
-                + "Eva Maria Kiesler? conocida como Hedy Lamarr,  fue una actriz \n"
-                + "de cine e inventora austriaca naturalizada estadounidense, \n"
-                + "inventora de la primera versión del espectro ensanchado que \n"
-                + "permitiría las comunicaciones inalámbricas de larga distancia.COGE UNA CARTA SORPRESA"));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Anita Borg", 100, 100, 50, 50, 50)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Katherine Johnson ", 1000, 1000, 500, 500, 500)));
-        tablero.añadeCasilla(new Casilla((float)10000.0, "Maria Goeppert-Mayer fue Premio \n"
-                + "Nobel de Física por sus descubrimientos sobre la estructura \n"
-                + "de capas nuclear. AHORA QUE LA CONOCES, PAGA TUS IMPUESTOS!"));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Valentina Tereshkova", 1000, 1000, 500, 500, 500)));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Dorothy Vaughan", 1000, 1000, 500, 500, 500)));
-        tablero.añadeCasilla(new Casilla("Karen Uhlenbeck es una matemática \n"
-                + "estadounidense especialista en ecuaciones en derivadas \n"
-                + "parciales. En marzo de 2019 recibió el Premio Abel or sus \n"
-                + "investigaciones con ecuaciones en derivadas parciales de \n"
-                + "las formas del espacio en varias dimensiones.PUEDES ACCEDER \n"
-                + "AL PARKING"));
-        tablero.añadeCasilla(new Casilla(new TituloPropiedad("Calle  Jocelyn Bell Burnell", 1000, 1000, 500, 500, 500)));
+    //    tablero.añadeCasilla(new CasillaSorpresa(mazo, "SORPRESA!! ¿sabes quien fue Mary Winston Jackson? \n"
+     //           + "fue una matemática e ingeniera aeroespacial estadounidense, \n"
+      //          + "que trabajó para el Comité Consejero Nacional para la \n"
+       //         + "Aeronáutica (NACA), que más tarde se transformaría en la NASA.\n"
+      //          + " Trabajó en el Centro de Investigación de Langley la mayor parte\n"
+       //         + " de su vida, empezando como calculista en la división de Cálculo \n"
+        //        + "del Área Oeste, y más tarde llegaría a ser la primera ingeniera \n"
+         ////       + "de color de la NASA. Tras 34 años en la NASA, Jackson alcanzó\n"
+           //     + " el puesto más alto posible para ingenieros. COGE UNA CARTA SORPRESA"));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Ada Lovelace", 100, 100, 50, 50, 50),"Calle  Ada Lovelace"));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Hertha Ayrton", 100, 100, 50, 50, 50), "Calle  Hertha Ayrton"));
+        //tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Hedy Lamarr", 100, 100, 50, 50, 50), "Calle  Hedy Lamarr"));
+       // tablero.añadeCasilla(new CasillaSorpresa(mazo, "SORPRESA!! ¿sabes quien fue \n"
+       //         + "Katherine Coleman Goble Johnson una física, científica \n"
+        //        + "espacial y matemática estadounidense que contribuyó a la \n"
+        //        + "aeronáutica de los Estados Unidos y sus programas espaciales \n"
+        //        + "con la aplicación temprana de las computadoras electrónicas \n"
+        //        + "digitales en la NASA. Conocida por su precisión en la \n"
+        ////        + "navegación astronómica, calculó la trayectoria para el \n"
+        //        + "Proyecto Mercury y el vuelo del Apolo 11 a la Luna en 1969. COGE UNA CARTA SORPRESA"));
+        //tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Rosalind Franklin", 100, 100, 50, 50, 50), "Calle  Rosalind Franklin"));
+        //tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Annie Easley", 100, 100, 50, 50, 50), "Calle  Annie Easley"));
+        //tablero.añadeCasilla(new CasillaSorpresa(mazo, "SORPRESA!! ¿sabes quien fue Hedwig \n"
+        //        + "Eva Maria Kiesler? conocida como Hedy Lamarr,  fue una actriz \n"
+        //        + "de cine e inventora austriaca naturalizada estadounidense, \n"
+        //        + "inventora de la primera versión del espectro ensanchado que \n"
+        //        + "permitiría las comunicaciones inalámbricas de larga distancia.COGE UNA CARTA SORPRESA"));
+        //tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Anita Borg", 100, 100, 50, 50, 50), "Calle  Anita Borg"));
+        //tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Katherine Johnson ", 1000, 1000, 500, 500, 500), "Calle  Katherine Johnson "));
+        //tablero.añadeCasilla(new CasillaImpuesto((float)1000.0, "Maria Goeppert-Mayer fue Premio \n"
+        ////        + "Nobel de Física por sus descubrimientos sobre la estructura \n"
+        //        + "de capas nuclear. AHORA QUE LA CONOCES, PAGA TUS IMPUESTOS!"));
+        //tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Valentina Tereshkova", 1000, 1000, 500, 500, 500), "Calle  Valentina Tereshkova"));
+        //tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Dorothy Vaughan", 1000, 1000, 500, 500, 500), "Calle  Dorothy Vaughan"));
+        //tablero.añadeCasilla(new Casilla("Karen Uhlenbeck es una matemática \n"
+        //        + "estadounidense especialista en ecuaciones en derivadas \n"
+        //        + "parciales. En marzo de 2019 recibió el Premio Abel or sus \n"
+        //        + "investigaciones con ecuaciones en derivadas parciales de \n"
+        //        + "las formas del espacio en varias dimensiones.PUEDES ACCEDER \n"
+        //        + "AL PARKING"));
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Jocelyn Bell Burnell", 1000, 1000, 500, 500, 500), "Calle  Jocelyn Bell Burnell"));
     
         
     }    
