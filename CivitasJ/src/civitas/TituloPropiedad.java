@@ -364,22 +364,22 @@ public class TituloPropiedad {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println(TipoCasilla.CALLE);
-       Jugador j1 = new Jugador("alicia");
-
-      TituloPropiedad tit = new TituloPropiedad("mititulo", 100, 100, 100, 111, 111);
-      System.out.println(j1.getPropiedades().toString());
-      tit.actualizaPropietarioPorConversion(j1);
-     
-
-      System.out.println( tit.toString());
-      System.out.println(tit.getImporteCancelarHipoteca());
-      if (tit.tienePropietario())
-        System.out.println("si tiene propietario");
-      else 
-        System.out.println( "no tiene propietario");
-    }
+//    public static void main(String[] args) {
+//        // TODO code application logic here
+//        System.out.println(TipoCasilla.CALLE);
+//       Jugador j1 = new Jugador("alicia");
+//
+//      TituloPropiedad tit = new TituloPropiedad("mititulo", 100, 100, 100, 111, 111);
+//      System.out.println(j1.getPropiedades().toString());
+//      tit.actualizaPropietarioPorConversion(j1);
+//     
+//
+//      System.out.println( tit.toString());
+//      System.out.println(tit.getImporteCancelarHipoteca());
+//      if (tit.tienePropietario())
+//        System.out.println("si tiene propietario");
+//      else 
+//        System.out.println( "no tiene propietario");
+//    }
     
 }

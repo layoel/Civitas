@@ -378,7 +378,7 @@ public class Jugador implements Comparable<Jugador>{
      * @brief se marca cmo usada la sorpresa y se hace nula.
      */
     private void perderSalvoConducto(){
-        salvoconducto.usada();
+        ((SorpresaSalirCarcel)salvoconducto).usada();
         salvoconducto = null;
     }
     
@@ -718,37 +718,37 @@ public class Jugador implements Comparable<Jugador>{
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println(TipoCasilla.CALLE);
-        Jugador j1 = new Jugador("Elvira");
-        Jugador j2 = j1;
-        
-        if(j1.compareTo(j2)== 0)
-            System.out.println("tienen el mismo saldo");
-        else if (j1.compareTo(j2)== 1)
-            System.out.println("j1 tiene mas pasta");
-        else
-            System.out.println("j2 tiene mas pasta");
-         System.out.println(j1.getSaldo());
-        System.out.println(j2.getSaldo());
-        System.out.println(j2.getNombre());
-        System.out.println(j2.getHotelesMax());
-        System.out.println(j2.getPuedeComprar());
-        j2.modificarSaldo(70000);
-        System.out.println(j2.getSaldo());
-        j2.paga(70000);
-        System.out.println(j2.getSaldo());
-        j2.pagaAlquiler(500);
-        System.out.println(j2.getSaldo());
-        j2.pagaImpuesto(100);
-        System.out.println(j2.getSaldo());
-        j2.recibe(100);
-        System.out.println(j2.getSaldo());
-        System.out.println(j2.tieneSalvoconducto());
-
-
-
-    }
+//    public static void main(String[] args) {
+//        // TODO code application logic here
+//        System.out.println(TipoCasilla.CALLE);
+//        Jugador j1 = new Jugador("Elvira");
+//        Jugador j2 = j1;
+//        
+//        if(j1.compareTo(j2)== 0)
+//            System.out.println("tienen el mismo saldo");
+//        else if (j1.compareTo(j2)== 1)
+//            System.out.println("j1 tiene mas pasta");
+//        else
+//            System.out.println("j2 tiene mas pasta");
+//         System.out.println(j1.getSaldo());
+//        System.out.println(j2.getSaldo());
+//        System.out.println(j2.getNombre());
+//        System.out.println(j2.getHotelesMax());
+//        System.out.println(j2.getPuedeComprar());
+//        j2.modificarSaldo(70000);
+//        System.out.println(j2.getSaldo());
+//        j2.paga(70000);
+//        System.out.println(j2.getSaldo());
+//        j2.pagaAlquiler(500);
+//        System.out.println(j2.getSaldo());
+//        j2.pagaImpuesto(100);
+//        System.out.println(j2.getSaldo());
+//        j2.recibe(100);
+//        System.out.println(j2.getSaldo());
+//        System.out.println(j2.tieneSalvoconducto());
+//
+//
+//
+//    }
     
 }

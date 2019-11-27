@@ -142,13 +142,13 @@ public class MazoSorpresas {
             }
     }
 
-    /*******************____MAIN PRUEBA___*************************************/
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println(TipoCasilla.CALLE);
-    }    
+//    /*******************____MAIN PRUEBA___*************************************/
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String[] args) {
+//        // TODO code application logic here
+//        System.out.println(TipoCasilla.CALLE);
+//    }    
     
 }
