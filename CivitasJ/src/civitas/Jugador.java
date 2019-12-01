@@ -17,15 +17,15 @@ public class Jugador implements Comparable<Jugador>{
     static protected int CasasPorHotel = 4;
     protected Boolean encarcelado;
     static protected int HotelesMax = 4;
-    private String nombre;
-    private int numCasillaActual;
+    protected String nombre;
+    protected int numCasillaActual;
     static protected float PasoPorSalida = 1000;
     static protected float PrecioLibertad = 200;
-    private Boolean puedeComprar;
-    private float saldo;
-    static private float SaldoInicial= 7500;
-    private ArrayList<TituloPropiedad> propiedades;
-    private Sorpresa salvoconducto;
+    protected Boolean puedeComprar;
+    protected float saldo;
+    static private float SaldoInicial= 75000;
+    protected ArrayList<TituloPropiedad> propiedades;
+    protected Sorpresa salvoconducto;
     
     
     /**
@@ -150,7 +150,7 @@ public class Jugador implements Comparable<Jugador>{
      * @param ip identificador de la propiedad
      * @return ok true si existe
      */
-    private Boolean existeLaPropiedad(int ip){
+     Boolean existeLaPropiedad(int ip){ //cambio la visibilidad de private a paquete
         Boolean ok = false; 
         if (ip < propiedades.size())
             ok = true;
@@ -164,7 +164,7 @@ public class Jugador implements Comparable<Jugador>{
      * @brief consultor de CasasMax
      * @return numero maximo de casas
      */
-    private int getCasasMax(){
+    protected int getCasasMax(){
         return CasasMax;
     }
     
@@ -184,7 +184,7 @@ public class Jugador implements Comparable<Jugador>{
      * @brief Consultor de Hoteles max
      * @return numero maximo de hoteles
      */
-    private int getHotelesMax(){
+    protected int getHotelesMax(){
         return HotelesMax;
     }
     
@@ -377,7 +377,7 @@ public class Jugador implements Comparable<Jugador>{
     /**
      * @brief se marca cmo usada la sorpresa y se hace nula.
      */
-    private void perderSalvoConducto(){
+    protected void perderSalvoConducto(){
         ((SorpresaSalirCarcel)salvoconducto).usada();
         salvoconducto = null;
     }
@@ -418,7 +418,7 @@ public class Jugador implements Comparable<Jugador>{
      * @brief comprueba el saldo del jugador
      * @return ok si el saldo es el que necesita para comprar
      */
-    private Boolean puedoGastar(float precio){
+    protected Boolean puedoGastar(float precio){
         Boolean ok = false; 
         if (!isEncarcelado() && (saldo >= precio))
             ok = true;
@@ -666,17 +666,17 @@ public class Jugador implements Comparable<Jugador>{
             Boolean puedoEdificarHotel = puedoEdificarHotel(propiedad);
             float precio = propiedad.getPrecioEdificar();
             if(puedoGastar(precio)){
-                if(propiedad.getNumHoteles()<=getHotelesMax()){
+                if(propiedad.getNumHoteles()<getHotelesMax()){
                     if(propiedad.getNumCasas() >= getCasasPorHotel()){
                         puedoEdificarHotel = true;
                     }
                 }                       
             }
             if(puedoEdificarHotel){
-                result=propiedad.construirHotel(this);
+                result = propiedad.construirHotel(this);
                 int casasPorHotel = getCasasPorHotel();
                 propiedad.derruirCasas(casasPorHotel, this);
-            }else System.out.println("Necesitas 4 casas para construir un nuevo Hotel! :) ");
+            }else System.out.println("Necesitas 4 casas para construir un nuevo Hotel, y poder ser solvente para pagar la construccion! :) ");
             Diario.getInstance().ocurreEvento("El jugador "+ nombre+ " construye hotel en la propiedad "+ Integer.toString(ip)+" "+ propiedades.get(ip).getNombre());
             
         }
@@ -684,14 +684,15 @@ public class Jugador implements Comparable<Jugador>{
         return result;
     }
     
-        /**
+    /**
      * @brief
+     * @param propiedad
      */
-    private Boolean puedoEdificarCasa(TituloPropiedad propiedad){
+    protected Boolean puedoEdificarCasa(TituloPropiedad propiedad){
         Boolean ok = false; 
         float precio = propiedad.getPrecioEdificar();
         if(puedoGastar(propiedad.getPrecioEdificar()))
-            if(propiedad.getNumCasas()< CasasMax)
+            if(propiedad.getNumCasas()<= getCasasMax())
                 ok = true;
         return ok;
     } 
@@ -705,7 +706,7 @@ public class Jugador implements Comparable<Jugador>{
         Boolean ok = false; 
         float precio= propiedad.getPrecioEdificar();
         if(puedoGastar(precio)){
-            if(propiedad.getNumHoteles()< getHotelesMax())
+            if(propiedad.getNumHoteles()<= getHotelesMax())
                 if(propiedad.getNumCasas()>=getCasasPorHotel())
                     ok = true;
         }else

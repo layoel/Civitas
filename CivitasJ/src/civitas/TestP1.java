@@ -10,6 +10,29 @@ import java.util.ArrayList;
  * @author ELVIRA
  */
 public class TestP1 {
+    
+    public static void main (String args[]){
+
+        ArrayList<String> names = new ArrayList<>();
+        names.add("alicia");
+        names.add("oli");
+        Civitas juego = new Civitas(names);
+    
+        Jugador j1 = new Jugador ("alicia");
+        
+        TituloPropiedad prop = new TituloPropiedad("Calle Hipatia", 100, 100, 50, 50, 50);
+        
+        j1.getPropiedades().add(prop);
+    
+        System.out.println(j1.toString());
+        
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+        
+        Jugador j2 = new JugadorEspeculador(j1, 100);
+        
+        System.out.println(j2.toString());
+    
+    }
 //    public static void main (String args[]){
 //    
 //        Dado d = Dado.getInstance(); //creo el dado
