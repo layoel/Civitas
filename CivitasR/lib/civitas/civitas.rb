@@ -5,7 +5,11 @@
 # and open the template in the editor.
 #
 #require "byebug"
-require_relative "casilla"
+require_relative "casilla_calle.rb"
+require_relative "casilla_impuesto.rb"
+require_relative "casilla_juez.rb"
+require_relative "casilla_sorpresa.rb"
+require_relative "casilla.rb"
 require_relative "dado.rb"
 require_relative "diario.rb"
 require_relative "estados_juego.rb"
@@ -14,10 +18,13 @@ require_relative "jugador.rb"
 require_relative "mazo_sorpresas.rb"
 require_relative "sorpresa.rb"
 require_relative "tablero.rb"
-require_relative "tipocasilla.rb"
 require_relative "tiposorpresa.rb"
 require_relative "titulo_propiedad.rb"
 require_relative "gestor_estados.rb"
+require_relative "casilla_calle.rb"
+require_relative "casilla_impuesto.rb"
+require_relative "casilla_sorpresa.rb"
+require_relative "casilla_juez.rb"
 
 module Civitas
     class Civitas
@@ -63,21 +70,6 @@ module Civitas
           inicializarMazoSorpresas(@tablero)
       end
 
-      
-      
-#    /** Metodo eliminado en este juego dicho por la profe en clase
-#     * @brief muestra la info del jugador actual, si banca rota imprime ranking  
-#     */
-#    def actualizarInfo
-#        puts @jugadores.at(@indiceJugadorActual).nombre
-#        @jugadores.each do |j|
-#            if(j.enBancarrota)
-#                ranking();
-#            end
-#        end
-#    end 
-      
-    
     
 #    /**
 #     *@brief crea el tablero indica la pos de la carcel y aniade las casillas 
@@ -91,49 +83,51 @@ module Civitas
 #     */
     def inicializarTablero( mazo)
         @tablero = Tablero.new(5) #SALIDA se añade cuando se crea el tablero
-         
-        @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle Hipatia", 100, 100, 50, 50, 50))) #//string nom, float ab, float fr, float hb, float pc, float pe////dice que se aniadan las casillas que se van creando...
-        
-        @tablero.aniadeCasilla( Casilla.new_casillaSorpresa(mazo, "SORPRESA!! \n 
+        @tablero.aniadeCasilla(Casilla.new("Karen Uhlenbeck es una matematica 
+                 estadounidense especialista en ecuaciones en derivadas 
+                 parciales. \nEn marzo de 2019 recibio el Premio Abel or sus 
+                 investigaciones\n con ecuaciones en derivadas parciales de 
+                 las formas del \nespacio en varias dimensiones.PUEDES ACCEDER 
+                 AL PARKING")); 
+        @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle Hipatia", 100, 100, 50, 50, 50))) #//string nom, float ab, float fr, float hb, float pc, float pe////dice que se aniadan las casillas que se van creando...
+       
+        @tablero.aniadeCasilla( CasillaSorpresa.new(mazo, "SORPRESA!! \n 
                  sabes quien fue Mary Winston Jackson? fue una matematica e \n
                  ingeniera aeroespacial. Trabajo para la NASA.Empezo como \n
                  calculista en la division de Calculo del Area Oeste, y mas \n
-                 tarde llegaria a ser la primera ingeniera de color de la NASA."))
-        @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Ada Lovelace", 100, 100, 50, 50, 50)))
-        @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Hertha Ayrton", 100, 100, 50, 50, 50)))
-        @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Hedy Lamarr", 100, 100, 50, 50, 50)))
-        @tablero.aniadeCasilla( Casilla.new_casillaSorpresa(mazo, "SORPRESA!!
+                 tarde llegaria a ser la primera ingeniera de color de la NASA. COGE UNA CARTA SORPRESA"))
+        @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Ada Lovelace", 100, 100, 50, 50, 50)))
+        
+       @tablero.aniadeJuez()
+       @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Hertha Ayrton", 100, 100, 50, 50, 50)))
+        @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Hedy Lamarr", 100, 100, 50, 50, 50)))
+        @tablero.aniadeCasilla( CasillaSorpresa.new(mazo, "SORPRESA!!
                  sabes quien fue Katherine Coleman Goble Johnson? \nuna fisica, cientifica 
                  espacial y matematica estadounidense que contribuyo\n a la aeronautica 
                  de los Estados Unidos y sus programas espaciales con\n la aplicacion 
                  temprana de las computadoras electronicas digitales en\n la NASA. 
                  Conocida por su precision en la navegacion astronomica,\n calculo 
                  la trayectoria para el Proyecto Mercury y el vuelo del\n Apolo 11 
-                 a la Luna en 1969."))
-        @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Rosalind Franklin", 100, 100, 50, 50, 50)))
-        @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Annie Easley", 100, 100, 50, 50, 50)))
+                 a la Luna en 1969. COGE UNA CARTA SORPRESA"))
+        @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Rosalind Franklin", 100, 100, 50, 50, 50)))
+        @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Annie Easley", 100, 100, 50, 50, 50)))
        
-        @tablero.aniadeCasilla( Casilla.new_casillaSorpresa(mazo, "SORPRESA!! sabes quien fue Hedwig 
+        @tablero.aniadeCasilla( CasillaSorpresa.new(mazo, "SORPRESA!! sabes quien fue Hedwig 
                  Eva Maria Kiesler\n conocida como Hedy Lamarr,  fue una actriz 
                  de cine e inventora\n austriaca naturalizada estadounidense, 
                  inventora de la \nprimera version del espectro ensanchado que 
-                 permitiria las \ncomunicaciones inalambricas de larga distancia."))
-        @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Anita Borg", 100, 100, 50, 50, 50)))
-        @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Valentina Tereshkova", 100, 100, 50, 50, 50)))
-        @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Jocelyn Bell Burnell", 100, 100, 50, 50, 50)))
-        @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Katherine Johnson ", 100, 100, 50, 50, 50)))
-        @tablero.aniadeCasilla( Casilla.new_casillaImpuesto(100, "Maria Goeppert-Mayer fue Premio 
+                 permitiria las \ncomunicaciones inalambricas de larga distancia. COGE UNA CARTA SORPRESA"))
+        @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Anita Borg", 100, 100, 50, 50, 50)))
+        @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Valentina Tereshkova", 100, 100, 50, 50, 50)))
+        @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Jocelyn Bell Burnell", 100, 100, 50, 50, 50)))
+        @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Katherine Johnson ", 100, 100, 50, 50, 50)))
+        @tablero.aniadeCasilla( CasillaImpuesto.new(100, "Maria Goeppert-Mayer fue Premio 
                  Nobel de Fisica\n por sus descubrimientos sobre la estructura 
                  de capas nuclear.\n AHORA QUE LA CONOCES, PAGA TUS IMPUESTOS!"));
-        @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Dorothy Vaughan", 100, 100, 50, 50, 50)))
-        @tablero.aniadeCasilla(Casilla.new_casillaTitulo( TituloPropiedad.new("Calle  Mary Jackson", 100, 100, 50, 50, 50)))
-        @tablero.aniadeCasilla(Casilla.new("Karen Uhlenbeck es una matematica 
-                 estadounidense especialista en ecuaciones en derivadas 
-                 parciales. \nEn marzo de 2019 recibio el Premio Abel or sus 
-                 investigaciones\n con ecuaciones en derivadas parciales de 
-                 las formas del \nespacio en varias dimensiones.PUEDES ACCEDER 
-                 AL PARKING"));
-      @tablero.aniadeJuez()
+        @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Dorothy Vaughan", 100, 100, 50, 50, 50)))
+        @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Mary Jackson", 100, 100, 50, 50, 50)))
+        
+      
     end    
     
     

@@ -47,7 +47,9 @@ class Controlador
                 ############################MIRAR LOS CASE QUE QUIZAS ESTEN MAL##################
                 if(operacion == Operaciones_juego::GESTIONAR) #//Si la operación es gestionar
                     @vista.gestionar()  #//indicar a la@vista que ejecute el método gestionar
-                    lista_GestionesInmobiliarias =[GestionesInmobiliarias::VENDER, GestionesInmobiliarias::HIPOTECAR, GestionesInmobiliarias::CANCELAR_HIPOTECA, GestionesInmobiliarias::CONSTRUIR_CASA, GestionesInmobiliarias::CONSTRUIR_HOTEL , GestionesInmobiliarias::TERMINAR]
+                    
+                    lista_GestionesInmobiliarias =[GestionesInmobiliarias::VENDER, GestionesInmobiliarias::HIPOTECAR, GestionesInmobiliarias::CANCELAR_HIPOTECA, GestionesInmobiliarias::CONSTRUIR_CASA, GestionesInmobiliarias::CONSTRUIR_HOTEL, GestionesInmobiliarias::TERMINAR]
+                    
                     gestion = lista_GestionesInmobiliarias[@vista.getGestion()]  #//se consultan los indices de gestion
                     propiedad = @vista.getPropiedad()  #//se consultan los índices de propiedad
                     opInmobiliaria = OperacionInmobiliaria.new(gestion,propiedad)  #//se crea un objeto OperacionInmobiliaria

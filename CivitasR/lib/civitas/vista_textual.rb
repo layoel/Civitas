@@ -94,7 +94,7 @@ module Civitas
       opcion = menu("¿Quieres comprar la calle?", ["si", "no"]) 
       return lista_Respuestas[opcion].to_s
     end
-
+    
     def gestionar
       # //pregunta el numero de gestion inmobiliaria
       lista = Array.new
@@ -117,14 +117,14 @@ module Civitas
       
       @iGestion= opcion1;
       
-      if opcion1 != 5
+      if opcion1 < 5 
         opcion = menu("Elige el numero de propiedad para realizar la gestion:", prop)
         @iPropiedad = opcion;
       end
       
       
     end
-
+#############################33
     
     
     def getGestion ## TAMBIEN SE PUEDE HACER CON ATTR READER :IGESTION

@@ -10,6 +10,9 @@
     #* @param porSalida numero de veces que se ha pasado por la salida en un turno
     #* @param tieneJuez si el tablero tiene o no casilla de ese tipo
     #*/
+    
+require_relative "casilla_juez.rb"
+
 module Civitas
   
   class Tablero
@@ -93,12 +96,12 @@ module Civitas
     # */
     
     def getPorSalida
+      por_salida_anterior = @porSalida
+      
       if @porSalida > 0
-        por_salida_anterior = @porSalida
         @porSalida = @porSalida -1
-      else
-        por_salida_anterior = @porSalida 
       end
+      
       return por_salida_anterior
     end
     
@@ -126,7 +129,7 @@ module Civitas
     
     def aniadeJuez
       unless(@tieneJuez)
-        @casillas << Casilla.new_casillaJuez(@numCasillaCarcel,"Juez, yo voy a juzgar tus 
+        @casillas << CasillaJuez.new(@numCasillaCarcel,"Juez, yo voy a juzgar tus 
                       conocimientos sobre mujeres importantes en la ciencia")
         @tieneJuez = true
       end

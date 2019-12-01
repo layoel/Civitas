@@ -99,7 +99,7 @@ module Civitas
       unless ((s = @sorpresas.find(sorpresa)) == nil)
         @sorpresas.delete(s)
         @cartasEspeciales << sorpresa
-        Diario.instance.ocurre_evento("se ha inhabilitado una carta especial "+ sorpresa.to_s)
+        Diario.instance.ocurre_evento("se ha inhabilitado una carta especial "+ sorpresa.toString)
       end
     end
     
@@ -110,11 +110,11 @@ module Civitas
     # */
     
     def habilitarCartaEspecial (sorpresa)
-      s =Sorpresa.new
+      
       unless ((s = @cartasEspeciales.find(sorpresa)) == nil)
         @cartasEspeciales.delete(s)
         @sorpresas << sorpresa
-        Diario.instance.ocurre_evento("se ha habilitado una carta sorpresa "+ sorpresa.to_s)
+        Diario.instance.ocurre_evento("se ha habilitado una carta sorpresa "+ sorpresa.toString)
       end
     end
     

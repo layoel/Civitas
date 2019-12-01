@@ -79,7 +79,6 @@ module Civitas
       end
 
 
-
   #  /**
   #   * @brief constructor de copia de jugador
   #   * @param otro jugador al que copia
