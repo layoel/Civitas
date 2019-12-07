@@ -42,7 +42,6 @@ public class CasillaSorpresa extends Casilla{
     @Override
     public String toString(){
         String text = super.toString() +
-        "\n El tipo : SORPRESA" +
         "\n LA SORPRESA CONTIENE: " + getSorpresa().toString();
         //if(mazo != null) //mazo no tiene tostring
         //    text = text + "\n mazo: " + mazo.toString();       

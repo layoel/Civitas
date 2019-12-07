@@ -21,7 +21,7 @@ public class CasillaJuez extends Casilla{
      */ 
     CasillaJuez (int numCarcel, String nombre){
         super(nombre);
-        setCarcel(numCarcel);
+        Casilla.setCarcel(numCarcel);
         //tipo = TipoCasilla.JUEZ;
     }
     
@@ -50,7 +50,7 @@ public class CasillaJuez extends Casilla{
         
         text = text +
                "\n El tipo : JUEZ";
-        text = text +"\n carcel: "+ Integer.toString(getCarcel());
+        text = text +"\n carcel: "+ Integer.toString(Casilla.getCarcel());
               
         return text;
     }   

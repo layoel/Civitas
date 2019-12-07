@@ -28,53 +28,23 @@ public class JugadorEspeculador extends Jugador{
         for(TituloPropiedad p : otro.propiedades)
             p.actualizaPropietarioPorConversion(this);
     }
-    
-  /**
-     * @brief consultor de CasasMax
-     * @return numero maximo de casas
-     */
-    @Override
-    protected int getCasasMax(){
-        return  FactorEspeculador * CasasMax;
-    }
-  
-    
-    /**
-     * @brief Consultor de Hoteles max
-     * @return numero maximo de hoteles
-     */
-    @Override
-    protected int getHotelesMax(){
-        return FactorEspeculador * HotelesMax;
-    }
-    
-    
-    
-    /**
-     * @brief encarcela al jugador si no tiene salvoconducto para evitar la carcel
-     * @return ok true si debe ser encarcelado
-     */
-    @Override
-    protected Boolean debeSerEncarcelado(){
-        Boolean ok = false; //si ya está encarcelado o bien tiene salvoconducto
-        if (!isEncarcelado()){
-            if(!tieneSalvoconducto()){
-                if(getSaldo()> fianza)
-                    ok = paga(fianza); 
-                if(ok){
-                    ok = false; //ha pagado la fianza ya no va a la carcel
-                    Diario di = Diario.getInstance();
-                   di.ocurreEvento("El jugador "+ nombre + " HA PAGADO LA FIANZA y se libra de la carcel.\n");
-                }
-            }
-            else {
-                perderSalvoConducto();
+
+    @Override 
+    Boolean encarcelar(int numCasillaCarcel){ 
+        if(debeSerEncarcelado())
+            if (saldo>fianza) {
+                System.out.println("No vas a la carcel porgue pagas la fianza");
+                paga(fianza);
+                encarcelado=false;
+                
                 Diario di = Diario.getInstance();
-                di.ocurreEvento("El jugador "+ nombre + " se libra de la carcel.\n");
+                di.ocurreEvento("El jugador especulador "+ nombre + " paga fianza para librarse de la carcel.\n");
             }
-        }
-        return ok;
-    }    
+        else
+            super.encarcelar(numCasillaCarcel);
+        return encarcelado;
+    }
+    
     
     /**
      * @brief Modificador de saldo
@@ -94,6 +64,7 @@ public class JugadorEspeculador extends Jugador{
     }
     
     
+    
     /*
      * @brief El jugadorEspeculador paga la mitad de impuesto
      * @return ok true si lo ha pagado.
@@ -110,24 +81,37 @@ public class JugadorEspeculador extends Jugador{
     
     /**
      * @brief
-     * @param titulo
-     * @return result
+     * @param propiedad
+     * @return ok
      */
-    Boolean comprar(TituloPropiedad titulo){
-        Boolean result = false; 
-        if(!encarcelado)
-            if(puedeComprar){
-                float precio = titulo.getPrecioCompra();
-                if(puedoGastar(precio)){
-                    result= titulo.comprar(this);
-                    if(result){
-                        propiedades.add(titulo);
-                        Diario.getInstance().ocurreEvento("El jugador "+ nombre+ " compra la propiedad " + titulo.toString() );
-                    }
-                }
-                    
-            }
-        return result;
+    @Override
+    protected Boolean puedoEdificarCasa(TituloPropiedad propiedad){
+        Boolean ok = false; 
+        float precio = propiedad.getPrecioEdificar();
+        if(puedoGastar(propiedad.getPrecioEdificar()))
+            if(propiedad.getNumCasas()< getCasasMax()*FactorEspeculador)
+                ok = true;
+        return ok;
+    } 
+    
+    
+    
+    /**
+     * @brief
+     * @param propiedad
+     * @return
+     */
+    @Override
+    protected Boolean puedoEdificarHotel(TituloPropiedad propiedad){
+        Boolean ok = false; 
+        float precio= propiedad.getPrecioEdificar();
+        if(puedoGastar(precio)){
+            if(propiedad.getNumHoteles()< getHotelesMax()*FactorEspeculador)
+                if(propiedad.getNumCasas()>=getCasasPorHotel())
+                    ok = true;
+        }else
+            System.out.println("No puedes construir un nuevo hotel");
+        return ok;
     }
 
     /**

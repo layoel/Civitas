@@ -692,7 +692,7 @@ public class Jugador implements Comparable<Jugador>{
         Boolean ok = false; 
         float precio = propiedad.getPrecioEdificar();
         if(puedoGastar(propiedad.getPrecioEdificar()))
-            if(propiedad.getNumCasas()<= getCasasMax())
+            if(propiedad.getNumCasas()< getCasasMax())
                 ok = true;
         return ok;
     } 
@@ -702,11 +702,11 @@ public class Jugador implements Comparable<Jugador>{
     /**
      * @brief
      */
-    private Boolean puedoEdificarHotel(TituloPropiedad propiedad){
+    protected Boolean puedoEdificarHotel(TituloPropiedad propiedad){
         Boolean ok = false; 
         float precio= propiedad.getPrecioEdificar();
         if(puedoGastar(precio)){
-            if(propiedad.getNumHoteles()<= getHotelesMax())
+            if(propiedad.getNumHoteles()< getHotelesMax())
                 if(propiedad.getNumCasas()>=getCasasPorHotel())
                     ok = true;
         }else

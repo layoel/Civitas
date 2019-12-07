@@ -69,19 +69,6 @@ public class Civitas {
     }
      
     
-     /** Metodo eliminado en este juego dicho por la profe en clase
-     * @brief muestra la info del jugador actual, si banca rota imprime ranking  
-     */
-//    public void actualizarInfo(){
-//        System.out.println(jugadores.get(indiceJugadorActual).toString());
-//        for(Jugador j : jugadores)
-//            if(j.enBancarrota())
-//                ranking();
-//    }
-    
-    
-    
-    
     /**
      * @brief igual que el metodo cancelar hipoteca de jugador
      * @param ip el identificador de la propiedad
@@ -201,12 +188,13 @@ public class Civitas {
     private void inicializarMazoSorpresas( Tablero tablero ){
        
         mazo.alMazo(new SorpresaEspeculador(100, "Te conviertes en un jugador especulador ¡Ahora tienes privilegios!"));
-        mazo.alMazo(new SorpresaSalirCarcel(mazo));
+        
         mazo.alMazo(new SorpresaPorJugador(100, "Recibes una donación de 100 monedas de cada jugador"));
         mazo.alMazo(new SorpresaPorJugador( -1000, "Dona a los demas jugadores 1000 monedas."));
         mazo.alMazo(new SorpresaIrCasilla(tablero, 15, "Ve a la casilla 15"));
         mazo.alMazo(new SorpresaPorCasaHotel(1000, "Toma regalo!! ganas 1000 monedas por casaHotel"));
         mazo.alMazo(new SorpresaIrCasilla(tablero, 8, "Ve a la casilla 8"));
+        mazo.alMazo(new SorpresaSalirCarcel(mazo));
         mazo.alMazo(new SorpresaIrCarcel( tablero));
         mazo.alMazo(new SorpresaPagarCobrar(-1000, "Dona a 1000 monedas"));
         mazo.alMazo(new SorpresaPagarCobrar(500, "Recibes una donación de 500 monedas mas!!"));
@@ -227,7 +215,8 @@ public class Civitas {
      * 1 casilla parking
      */
     private void inicializarTablero( MazoSorpresas mazo){
-        tablero = new Tablero(5); //la posicion de la carcel es la q yo he dicho por defecto crea la casilla de salida
+        Casilla.setCarcel(8);
+        tablero = new Tablero(Casilla.getCarcel()); //la posicion de la carcel es la q yo he dicho por defecto crea la casilla de salida
         
         tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle Hipatia", 100, 100, 50, 50, 50), "Calle Hipatia"));//string nom, float ab, float fr, float hb, float pc, float pe////dice que se añadan las casillas que se van creando...
         tablero.añadeCasilla(new CasillaSorpresa(mazo, "SORPRESA!! ¿sabes quien fue Mary Winston Jackson? \n"

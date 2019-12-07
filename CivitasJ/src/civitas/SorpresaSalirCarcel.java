@@ -53,6 +53,7 @@ public class SorpresaSalirCarcel extends Sorpresa{
      * Si nadie la tiene, la obtiene el jugador actual (método obtenerSalvoconducto) 
      * y se llama al método salirDelMazo.
      */
+    @Override
     void aplicarAJugador(int actual, ArrayList<Jugador> todos){
 
         if (jugadorCorrecto(actual, todos)){
