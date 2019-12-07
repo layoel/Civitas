@@ -47,11 +47,6 @@ module Civitas
     def initialize(nombre)
       init
       @nombre = nombre
-#      if (@nombre == "carcel") ################ comprobar con que nombre creo la carcel en la funcion de inicializar tablero de civitas
-#        @tipo = TipoCasilla::CARCEL;
-#      else
-#      @tipo = TipoCasilla::DESCANSO;
-#      end
     end
     
     #        /**

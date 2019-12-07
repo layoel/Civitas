@@ -25,7 +25,6 @@ module Civitas
 
         if (jugadorCorrecto(actual, todos))
             informe(actual, todos);
-            #byebug
             especulador = JugadorEspeculador.nuevoEspeculador(todos.at(actual), @valor)
             #byebug
             todos[actual] = especulador 

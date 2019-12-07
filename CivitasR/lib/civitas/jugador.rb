@@ -611,12 +611,6 @@ module Civitas
         if (@propiedades.size>0)
           text = text+ "\n Tienes :"+ @propiedades.size.to_s + " propiedades"
         end
-#        text = text+ "\n El HotelesMax " + @@HotelesMax.to_s +
-#                "\n Su saldo inicial: " + @@SaldoInicial.to_s+
-#                "\n CasasMax "+ @@CasasMax.to_s+
-#                "\n CasasPorHotel "+ @@CasasPorHotel.to_s+
-#                "\n PasoPorSalida "+ @@PasoPorSalida.to_s+
-#                "\n PrecioLibertad " + @@PrecioLibertad.to_s
         return text
       end
     
