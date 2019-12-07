@@ -49,8 +49,8 @@ public class CasillaJuez extends Casilla{
         String text = super.toString();
         
         text = text +
-               "\n El tipo : JUEZ";
-        text = text +"\n carcel: "+ Integer.toString(Casilla.getCarcel());
+               "\n El JUEZ te manda a la carcel";
+        text = text +"\n casillaCarcel: "+ Integer.toString(Casilla.getCarcel());
               
         return text;
     }   

@@ -30,10 +30,6 @@ public class Casilla {
     Casilla(String nombre){
         init();
         this.nombre = nombre;
-//        if(nombre == "||||||CARCEL||||||")
-//            tipo = TipoCasilla.CARCEL;
-//        else
-//            tipo = TipoCasilla.DESCANSO;
     }
 
     static void setCarcel(int carcel) {
@@ -107,7 +103,6 @@ public class Casilla {
         carcel= 5;
         importe = 0;
         nombre = "Calle";
-        //tipo = TipoCasilla.DESCANSO;// ya no existen tipos
         tituloPropiedad = null;
         sorpresa = null;
         mazo = null;
@@ -157,114 +152,9 @@ public class Casilla {
         String text;
         
         text = "\n nombre: "+ nombre;
-        //text = text +"\n carcel: "+ Integer.toString(carcel);
-                //"\n El tipo : " +tipo.toString();
-//        //if (tipo == TipoCasilla.CARCEL)
-//            text = text +"\n carcel: "+ Integer.toString(carcel);
-//        if (importe > 0)
-//            text = text + "\n el importe: "+ Float.toString(importe);
-//        if(tituloPropiedad != null)
-//            text = text + "\n tutiloPropiedad" + tituloPropiedad.toString();
-//        if(sorpresa != null)
-//            text = text + "\n sorpresa: " + sorpresa.toString();
-        //if(mazo != null) //mazo no tiene tostring
-        //    text = text + "\n mazo: " + mazo.toString();       
         return text;
     }   
     
-    
-//    /**
-//     * @brief constructor de casilla calle
-//     * @param titulo de la propiedad 
-//     */ 
-//    Casilla (TituloPropiedad titulo){
-//        init();
-//        tituloPropiedad = titulo;
-//        tipo = TipoCasilla.CALLE;
-//        nombre = tituloPropiedad.getNombre();
-//    }
-    
-    
-    
-//    /**
-//     * @brief constructor de casilla impuesto
-//     * @param cantidad 
-//     * @param nombre de la casilla 
-//     */ 
-//    Casilla (float cantidad, String nombre){
-//        init();
-//        importe = cantidad;
-//        this.nombre = nombre;
-//        tipo = TipoCasilla.IMPUESTO;
-//    }
-    
-    
-
-//    /** 
-//     * @brief constructor de casilla juez
-//     * @param numcarcel numero de la casilla carcel
-//     * @param nombre el nombre de la casilla
-//     */ 
-//    Casilla (int numCarcel, String nombre){
-//        init();
-//        carcel = numCarcel;
-//        this.nombre = nombre;
-//        //tipo = TipoCasilla.JUEZ;
-//    }
-    
-    
-    
-    
-    
-//    /**
-//     * @brief constructor de casilla sorpresa
-//     * @param mazo de cartas sorpresa
-//     * @param nombre
-//     */ 
-//    Casilla (MazoSorpresas mazo, String nombre){
-//        init();
-//        this.mazo = mazo;
-//        this.nombre = nombre;
-//        tipo = TipoCasilla.SORPRESA;
-//    }
-    
-    
-    
-//    /**
-//     * @brief El jugador paga un impuesto por el valor que indica la casilla
-//     * @param actual
-//     * @param todos
-//     */
-//    void recibeJugador_impuesto(int actual, ArrayList<Jugador>todos){
-//        if(jugadorCorrecto(actual,todos)){
-//            informe(actual,todos);
-//            todos.get(actual).pagaImpuesto(importe);
-//        }
-//            
-//    }  
-    
-    
-    
-//    /**
-//     * @brief Se encarcela al jugador actual
-//     * @param actual
-//     * @param todos
-//     */
-//    void recibeJugador_juez(int actual, ArrayList<Jugador>todos){
-//        if(jugadorCorrecto(actual, todos)){
-//            informe(actual,todos);
-//            todos.get(actual).encarcelar(carcel);
-//        }
-//    }
-        
-
-   
-    
-    
-   
-    
-    
-
     
     /*******************____MAIN PRUEBA___*************************************/
     /**

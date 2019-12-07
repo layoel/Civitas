@@ -187,8 +187,7 @@ public class Civitas {
      */
     private void inicializarMazoSorpresas( Tablero tablero ){
        
-        mazo.alMazo(new SorpresaEspeculador(100, "Te conviertes en un jugador especulador ¡Ahora tienes privilegios!"));
-        
+        mazo.alMazo(new SorpresaEspeculador(100, "Te conviertes en un jugador especulador ¡Ahora tienes privilegios!"));        
         mazo.alMazo(new SorpresaPorJugador(100, "Recibes una donación de 100 monedas de cada jugador"));
         mazo.alMazo(new SorpresaPorJugador( -1000, "Dona a los demas jugadores 1000 monedas."));
         mazo.alMazo(new SorpresaIrCasilla(tablero, 15, "Ve a la casilla 15"));
@@ -228,11 +227,8 @@ public class Civitas {
                 + "del Área Oeste, y más tarde llegaría a ser la primera ingeniera \n"
                 + "de color de la NASA. Tras 34 años en la NASA, Jackson alcanzó\n"
                 + " el puesto más alto posible para ingenieros. COGE UNA CARTA SORPRESA"));
-        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Mary Jackson", 1000, 1000, 500, 500, 500), "Calle  Mary Jackson"));
-       
+        tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Mary Jackson", 1000, 1000, 500, 500, 500), "Calle  Mary Jackson"));       
         tablero.añadeJuez();
-       
-        
         tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Ada Lovelace", 100, 100, 50, 50, 50),"Calle  Ada Lovelace"));
         tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Hertha Ayrton", 100, 100, 50, 50, 50), "Calle  Hertha Ayrton"));
         tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Hedy Lamarr", 100, 100, 50, 50, 50), "Calle  Hedy Lamarr"));
@@ -265,8 +261,7 @@ public class Civitas {
                + "las formas del espacio en varias dimensiones.PUEDES ACCEDER \n"
                + "AL PARKING"));
         tablero.añadeCasilla(new CasillaCalle(new TituloPropiedad("Calle  Jocelyn Bell Burnell", 1000, 1000, 500, 500, 500), "Calle  Jocelyn Bell Burnell"));
-
-        
+  
     }    
     
     
@@ -279,7 +274,6 @@ public class Civitas {
             indiceJugadorActual = indiceJugadorActual + 1;
         if (indiceJugadorActual == jugadores.size())
             indiceJugadorActual = 0;
-        //System.out.println("****PASAR DE TURNO****");
     }
     
     

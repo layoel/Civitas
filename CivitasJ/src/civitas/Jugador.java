@@ -520,16 +520,7 @@ public class Jugador implements Comparable<Jugador>{
                 "\n Su saldo es " + Float.toString(saldo);
         if (salvoconducto != null)
             text = text+ "\n Tiene salvoconducto?: " + salvoconducto.toString();
-        //if (propiedades.size()>0)
             text = text+ "\n Tienes "+ propiedades.size()+ " propiedades";
-        
-        /*text = text+ "\n El HotelesMax" + Integer.toString(HotelesMax)+
-                "\n Su saldo inicial: " +Float.toString(SaldoInicial)+
-                "\n CasasMax "+ Integer.toString(CasasMax)+
-                "\n CasasPorHotel"+ Integer.toString(CasasPorHotel)+
-                "\n PasoPorSalida"+ Float.toString(PasoPorSalida)+
-                "\n PrecioLibertad" + Float.toString(PrecioLibertad);
-        */
         return text;
     }
     
