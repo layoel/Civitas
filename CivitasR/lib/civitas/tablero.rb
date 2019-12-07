@@ -162,10 +162,10 @@ module Civitas
     # */
     
     def nuevaPosicion (actual, tirada)
-      
+      #byebug
       if (correctoC)
         pos = actual + tirada
-        if(pos > @casillas.size)
+        if(pos >= @casillas.size)
           pos = pos % @casillas.size
           @porSalida = @porSalida + 1
         end

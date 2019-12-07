@@ -3,12 +3,8 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
-#
+
 #require "byebug"
-require_relative "casilla_calle.rb"
-require_relative "casilla_impuesto.rb"
-require_relative "casilla_juez.rb"
-require_relative "casilla_sorpresa.rb"
 require_relative "casilla.rb"
 require_relative "dado.rb"
 require_relative "diario.rb"
@@ -25,6 +21,13 @@ require_relative "casilla_calle.rb"
 require_relative "casilla_impuesto.rb"
 require_relative "casilla_sorpresa.rb"
 require_relative "casilla_juez.rb"
+require_relative "sorpresa_ir_carcel.rb"
+require_relative "sorpresa_ir_casilla.rb"
+require_relative "sorpresa_pagar_cobrar.rb"
+require_relative "sorpresa_por_casa_hotel.rb"
+require_relative "sorpresa_por_jugador.rb"
+require_relative "sorpresa_salir_carcel.rb"
+require_relative "sorpresa_especulador.rb"
 
 module Civitas
     class Civitas
@@ -83,23 +86,20 @@ module Civitas
 #     */
     def inicializarTablero( mazo)
         @tablero = Tablero.new(5) #SALIDA se añade cuando se crea el tablero
-        @tablero.aniadeCasilla(Casilla.new("Karen Uhlenbeck es una matematica 
-                 estadounidense especialista en ecuaciones en derivadas 
-                 parciales. \nEn marzo de 2019 recibio el Premio Abel or sus 
-                 investigaciones\n con ecuaciones en derivadas parciales de 
-                 las formas del \nespacio en varias dimensiones.PUEDES ACCEDER 
-                 AL PARKING")); 
+        
         @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle Hipatia", 100, 100, 50, 50, 50))) #//string nom, float ab, float fr, float hb, float pc, float pe////dice que se aniadan las casillas que se van creando...
-       
         @tablero.aniadeCasilla( CasillaSorpresa.new(mazo, "SORPRESA!! \n 
                  sabes quien fue Mary Winston Jackson? fue una matematica e \n
                  ingeniera aeroespacial. Trabajo para la NASA.Empezo como \n
                  calculista en la division de Calculo del Area Oeste, y mas \n
                  tarde llegaria a ser la primera ingeniera de color de la NASA. COGE UNA CARTA SORPRESA"))
-        @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Ada Lovelace", 100, 100, 50, 50, 50)))
+        @tablero.aniadeCasilla( CasillaImpuesto.new(100, "Maria Goeppert-Mayer fue Premio 
+                 Nobel de Fisica\n por sus descubrimientos sobre la estructura 
+                 de capas nuclear.\n AHORA QUE LA CONOCES, PAGA TUS IMPUESTOS!"));  
         
-       @tablero.aniadeJuez()
-       @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Hertha Ayrton", 100, 100, 50, 50, 50)))
+        @tablero.aniadeJuez()
+        @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Ada Lovelace", 100, 100, 50, 50, 50)))
+        @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Hertha Ayrton", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Hedy Lamarr", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla( CasillaSorpresa.new(mazo, "SORPRESA!!
                  sabes quien fue Katherine Coleman Goble Johnson? \nuna fisica, cientifica 
@@ -108,25 +108,26 @@ module Civitas
                  temprana de las computadoras electronicas digitales en\n la NASA. 
                  Conocida por su precision en la navegacion astronomica,\n calculo 
                  la trayectoria para el Proyecto Mercury y el vuelo del\n Apolo 11 
-                 a la Luna en 1969. COGE UNA CARTA SORPRESA"))
+                 a la Luna en 1969. COGE UNA CARTA SORPRESA#"))
         @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Rosalind Franklin", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Annie Easley", 100, 100, 50, 50, 50)))
-       
         @tablero.aniadeCasilla( CasillaSorpresa.new(mazo, "SORPRESA!! sabes quien fue Hedwig 
                  Eva Maria Kiesler\n conocida como Hedy Lamarr,  fue una actriz 
                  de cine e inventora\n austriaca naturalizada estadounidense, 
                  inventora de la \nprimera version del espectro ensanchado que 
-                 permitiria las \ncomunicaciones inalambricas de larga distancia. COGE UNA CARTA SORPRESA"))
+                 permitiria las \ncomunicaciones inalambricas de larga distancia. COGE UNA CARTA SORPRESA#"))
         @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Anita Borg", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Valentina Tereshkova", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Jocelyn Bell Burnell", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Katherine Johnson ", 100, 100, 50, 50, 50)))
-        @tablero.aniadeCasilla( CasillaImpuesto.new(100, "Maria Goeppert-Mayer fue Premio 
-                 Nobel de Fisica\n por sus descubrimientos sobre la estructura 
-                 de capas nuclear.\n AHORA QUE LA CONOCES, PAGA TUS IMPUESTOS!"));
         @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Dorothy Vaughan", 100, 100, 50, 50, 50)))
         @tablero.aniadeCasilla(CasillaCalle.new( TituloPropiedad.new("Calle  Mary Jackson", 100, 100, 50, 50, 50)))
-        
+        @tablero.aniadeCasilla(Casilla.new("Karen Uhlenbeck es una matematica 
+                 estadounidense especialista en ecuaciones en derivadas 
+                 parciales. \nEn marzo de 2019 recibio el Premio Abel or sus 
+                 investigaciones\n con ecuaciones en derivadas parciales de 
+                 las formas del \nespacio en varias dimensiones.PUEDES ACCEDER 
+                 AL PARKING")); 
       
     end    
     
@@ -243,18 +244,18 @@ module Civitas
 #     * @brief crea las sorpresas y las aniade al mazo
 #     */
     def inicializarMazoSorpresas( tablero )
-
-      @mazo.alMazo( Sorpresa.new_sorpresaEvitaCarcel(TipoSorpresa::SALIRCARCEL, @mazo));
-      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORJUGADOR, 100, 'Recibes una donación de 100 monedas de cada jugador'));  
-      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORJUGADOR, -1000, 'Dona a los demas jugadores 1000 monedas.'));
-      @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 15, 'Ve a la casilla 15'));
-      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORCASAHOTEL, 1000, 'Toma regalo ganas 1000 monedas por casaHotel'));
-      @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 8, 'Ve a la casilla 8'));
-      @mazo.alMazo( Sorpresa.new(TipoSorpresa::IRCARCEL, tablero));  
-      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR, -1000, 'Dona a 1000 monedas'));
-      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PAGARCOBRAR, 500, 'Recibes una donación de 500 monedas mas'));
-      @mazo.alMazo( Sorpresa.new_SorpresaIrOtraCasilla(TipoSorpresa::IRCASILLA, tablero, 4, 've a la casilla 4'));
-      @mazo.alMazo( Sorpresa.new_todasSorpresas(TipoSorpresa::PORCASAHOTEL, -500, 'Has pensado donar a la ciencia 500 monedas por casaHotel'));      
+      @mazo.alMazo(SorpresaEspeculador.new(500,"Te conviertes en un jugador especulador ¡Ahora tienes privilegios!"))
+      @mazo.alMazo(SorpresaSalirCarcel.new(@mazo))
+      @mazo.alMazo(SorpresaPorJugador.new( 100, 'Recibes una donación de 100 monedas de cada jugador'))  
+      @mazo.alMazo(SorpresaPorJugador.new( -1000, 'Dona a los demas jugadores 1000 monedas.'))
+      @mazo.alMazo(SorpresaIrCasilla.new(tablero, 15, 'Ve a la casilla 15'))
+      @mazo.alMazo(SorpresaPorCasaHotel.new( 1000, 'Toma regalo ganas 1000 monedas por casaHotel'))
+      @mazo.alMazo(SorpresaIrCasilla.new(tablero, 8, 'Ve a la casilla 8'))
+      @mazo.alMazo(SorpresaIrCarcel.new(tablero))
+      @mazo.alMazo(SorpresaPagarCobrar.new(-1000, 'Dona a 1000 monedas'))
+      @mazo.alMazo(SorpresaPagarCobrar.new( 500, 'Recibes una donación de 500 monedas mas'))
+      @mazo.alMazo(SorpresaIrCasilla.new(tablero, 4, 've a la casilla 4'))
+      @mazo.alMazo(SorpresaPorCasaHotel.new(-500, 'Has pensado donar a la ciencia 500 monedas por casaHotel'))      
     
     end
     
@@ -342,9 +343,10 @@ module Civitas
 #     * @return true si lo ha vendido
 #     */    
     def vender( ip)
+      prop = @jugadores.at(@indiceJugadorActual).propiedades.at(ip).nombre #guardo el nombre de la propiedad antes de venderla para poder imprimrlo despues
       ok = @jugadores.at(@indiceJugadorActual).vender(ip)
       if ok
-        puts "\n Has vendido la propiedad" + @tablero.getCasilla(ip).nombre+"\n"
+        puts "\n Has vendido la propiedad" + prop+"\n"
       end
       
       return ok
@@ -377,8 +379,10 @@ module Civitas
       tirada = Dado.instance.tirar()
       posicionNueva = @tablero.nuevaPosicion(posicionActual, tirada);
       casilla = @tablero.getCasilla(posicionNueva)
+      ## byebug
       contabilizarPasosPorSalida(jugadorActual)
       jugadorActual.moverACasilla(posicionNueva)
+      ##byebug
       casilla.recibeJugador(@indiceJugadorActual, @jugadores);
       contabilizarPasosPorSalida(jugadorActual)
       puts "----- Puedes ir a la casilla: " + jugadorActual.numCasillaActual.to_s + " "+ casilla.nombre + " -------\n"

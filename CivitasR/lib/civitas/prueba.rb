@@ -13,6 +13,7 @@ require_relative "dado.rb"
 require_relative "civitas.rb"
 require_relative "controlador"
 require_relative "operaciones_juego.rb"
+require_relative "jugador.rb"
 #require "byebug"
 
 module Civitas

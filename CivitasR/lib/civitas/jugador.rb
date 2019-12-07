@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 #require "byebug"
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
@@ -8,21 +9,6 @@ module Civitas
   
   class Jugador
 
-  #     /**
-  #     * @brief consultor de CasasMax
-  #     * @return numero maximo de casas
-  #     */
-      #attr_accessor :CasasMax
-  #    /**
-  #     * @brief Consultor de CasasPorHotel
-  #     * @return numero de casas que se cambian por un hotel
-  #     */
-      #attr_accessor :CasasPorHotel
-  #    /**
-  #     * @brief Consultor de Hoteles max
-  #     * @return numero maximo de hoteles
-  #     */
-      #attr_accessor :HotelesMax
   #    /**
   #     * @brief Consultor del nombre del jugador
   #     * @return nombre del jugador
@@ -37,7 +23,7 @@ module Civitas
   #     * @brief Consultor de propiedades
   #     * @return propiedades del jugador actual
   #     */    
-      attr_accessor :propiedades
+      attr_accessor :propiedades, :salvoconducto
   #    /**
   #     * @brief Consultor de puede comprar
   #     * @return puedeComprar
@@ -95,7 +81,15 @@ module Civitas
         return j
       end
 
-
+     def new_copiaJugador(otro)
+        @nombre= otro.nombre
+        @encarcelado = otro.encarcelado
+        @numCasillaActual = otro.numCasillaActual
+        @puedeComprar = otro.puedeComprar
+        @saldo = otro.saldo
+        @propiedades = otro.propiedades
+        @salvoconducto = otro.salvoconducto
+      end
 
   #    /**
   #     * @brief encarcela al jugador si no tiene salvoconducto para evitar la carcel
@@ -265,6 +259,7 @@ module Civitas
   #     */
       def moverACasilla(numCasilla)
         ok = false 
+       
         if (!@encarcelado)
           @numCasillaActual = numCasilla
           @puedeComprar = false
@@ -389,7 +384,7 @@ module Civitas
         modificarSaldo(@@PasoPorSalida)
         Diario.instance.ocurre_evento("El jugador "+
           @nombre + "ha pasado por salida, incrementa su saldo en "+
-          @@PasoPorSalida)
+          @@PasoPorSalida.to_s)
         return ok
       end
 
@@ -489,7 +484,7 @@ module Civitas
                 puedoEdificarHotel = puedoEdificarHotel(propiedad)
                 precio = propiedad.precioEdificar
                 if(puedoGastar(precio))
-                    if(propiedad.numHoteles <= @@HotelesMax)
+                    if(propiedad.numHoteles < @@HotelesMax)
                         if(propiedad.numCasas >= @@CasasPorHotel)
                             puedoEdificarHotel = true
                         end

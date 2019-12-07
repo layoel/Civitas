@@ -3,13 +3,20 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
-# require "byebug"
 
+#require "byebug"
 require_relative "titulo_propiedad.rb"
 require_relative "mazo_sorpresas.rb"
 require_relative "sorpresa.rb"
 require_relative "tiposorpresa.rb"
 require_relative "diario.rb"
+require_relative "sorpresa_ir_carcel.rb"
+require_relative "sorpresa_ir_casilla.rb"
+require_relative "sorpresa_pagar_cobrar.rb"
+require_relative "sorpresa_por_casa_hotel.rb"
+require_relative "sorpresa_por_jugador.rb"
+require_relative "sorpresa_salir_carcel.rb"
+require_relative "jugador.rb"
 
 module Civitas
  # /**
@@ -18,6 +25,7 @@ module Civitas
  #* 
  #* @Bief Clase casilla 
  #*/
+ 
   class Casilla
 
     #/**
@@ -25,16 +33,14 @@ module Civitas
     #* @return devuelve el nombre
     #*/
       attr_reader :nombre, :carcel
-    
-
-#    /**
+      
+    #    /**
 #     * @brief consultor del titulo de la propiedad
 #     * return el titulo de la propiedad
 #     */   
       attr_accessor :sorpresa, :tituloPropiedad, :importe, :tipo,:mazo
-      
-    
- #/**
+   
+    #/**
    #* @brief constructor de casilla descanso
    #* @param nombre nombre de la casilla 
    #*/ 
@@ -48,7 +54,6 @@ module Civitas
 #      end
     end
     
-
     #        /**
 #     * @brief inicia todos los atributos por defecto
 #     * @param carcel
@@ -66,10 +71,10 @@ module Civitas
         @tituloPropiedad = nil
         @sorpresa = nil
         @mazo = nil
-    end   
+    end      
     
     
-#    /**
+    #    /**
 #     *@brief informa la diario acerca del jugador que ha caido en la casilla 
 #     * @param actual
 #     * @param todos
@@ -79,8 +84,8 @@ module Civitas
         Diario.instance.ocurre_evento("El jugador "+ todos.at(actual).nombre+ 
             " avanza hasta la casilla" + self.toString)
       end
-    
-    
+      
+      
 #    /**
 #     * @brief comprueba si el indice  es valido para acceder a jugador
 #     * @param actual jugador que tiene el turno
@@ -95,143 +100,24 @@ module Civitas
       return ok
     end
     
+   def recibeJugador( actual, todos)
+     if(jugadorCorrecto(actual, todos))
+      informe(actual, todos)
+     end
+   end 
     
-    
-# se implementan en proximas practicas.
-    def recibeJugador( actual, todos)
-            informe(actual, todos)
-    end
-
-
-    
-#    /**
+   
+   #    /**
 #     * @brief represente con detalle la información acerca de la casilla
 #     */
     def toString()
       text = " \n nombre: " + @nombre.to_s
       return text;
     end   
-    
-    
-    
-    
-#  /**
-#   * @brief constructor de casilla calle
-#   * @param titulo de la propiedad 
-#   */ 
-#    def self.new_casillaTitulo(titulo)
-#      c = new(titulo.nombre)
-#      c.tituloPropiedad = titulo
-#      c.tipo = TipoCasilla::CALLE
-#      return c
-#    end
-    
-    
-#  /**
-#   * @brief constructor de casilla impuesto
-#   * @param cantidad 
-#   * @param nombre de la casilla 
-#   */
-#    def self.new_casillaImpuesto(cantidad, nombre)
-#      c = new(nombre)
-#      c.importe = cantidad;
-#      c.tipo = TipoCasilla::IMPUESTO;
-#    return c
-#    end
-    
-    
-#  /** 
-#   * @brief constructor de casilla juez
-#   * @param numcarcel numero de la casilla carcel
-#   * @param nombre el nombre de la casilla
-#   */ 
-#    def self.new_casillaJuez(numCarcel, nombre)
-#      c = new(nombre)
-#      @@carcel = numCarcel
-#      c.tipo = TipoCasilla::JUEZ
-#      return c
-#    end
-    
-#    /**
-#     * @brief constructor de casilla sorpresa
-#     * @param mazo de cartas sorpresa
-#     * @param nombre
-#     */ 
-#      def self.new_casillaSorpresa(mazo, nombre)
-#        c= new(nombre)
-#        c.mazo = mazo
-#        c.tipo = TipoCasilla::SORPRESA
-#        return c
-#      end
-    
-
-
-
-
-
-      
-#    /**
-#     * @brief El jugador paga un impuesto por el valor que indica la casilla
-#     * @param actual
-#     * @param todos
-#     */
-#    def recibeJugador_impuesto( actual, todos)
-#        if(jugadorCorrecto(actual,todos))
-#            informe(actual,todos)
-#            todos.at(actual).pagaImpuesto(@importe)
-#        end   
-#    end
-    
-##     /**
-##     * @brief Se encarcela al jugador actual
-##     * @param actual
-##     * @param todos
-##     */
-#    def recibeJugador_juez( actual, todos)
-#        if(jugadorCorrecto(actual, todos))
-#            informe(actual,todos)
-#            todos.at(actual).encarcelar(@@carcel)
-#        end
-#    end  
-    
-    
-    
-
-    
-    
-
-    
-    
-#    def recibeJugador_calle( actual, todos)
-#      if(jugadorCorrecto(actual, todos))
-#         informe(actual, todos)
-#
-#         if(!@tituloPropiedad.tienePropietario)
-#             todos.at(actual).puedeComprarCasilla   
-#         else
-#             @tituloPropiedad.tramitarAlquiler(todos.at(actual))
-#         end
-#      end
-#    end
-    
-    
-    
-    
-    
-#    def recibeJugador_sorpresa( actual, todos)
-#      #byebug
-#        if(jugadorCorrecto(actual, todos))
-#            sorpresa = @mazo.siguiente
-#            informe(actual, todos)
-#            sorpresa.aplicarAJugador(actual,todos)
-#        end
-#    end
-    
-    
-    
-    
-    
-    def self.main
+ 
+       
+   
+      def self.main
       tit = TituloPropiedad.new("mititulo", 100, 100, 100, 111, 111)
       cas = Casilla.new_casillaTitulo(tit)
       puts cas.inspect
@@ -288,9 +174,8 @@ module Civitas
      
     private :init
     #protected :informe
-    
+   
+   
   end
-  
-#  Casilla.main
-  
+  #  Casilla.main
 end

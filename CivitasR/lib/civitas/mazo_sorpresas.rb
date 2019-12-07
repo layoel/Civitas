@@ -95,7 +95,6 @@ module Civitas
     
     def inhabilitarCartaEspecial (sorpresa)
       #byebug
-      s = Sorpresa.new(nil, nil)
       unless ((s = @sorpresas.find(sorpresa)) == nil)
         @sorpresas.delete(s)
         @cartasEspeciales << sorpresa

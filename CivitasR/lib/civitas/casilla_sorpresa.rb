@@ -2,7 +2,15 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 require_relative "casilla.rb"
-
+require_relative "sorpresa_ir_carcel.rb"
+require_relative "sorpresa_ir_casilla.rb"
+require_relative "sorpresa_pagar_cobrar.rb"
+require_relative "sorpresa_por_casa_hotel.rb"
+require_relative "sorpresa_por_jugador.rb"
+require_relative "sorpresa_salir_carcel.rb"
+require_relative "sorpresa.rb"
+require_relative "jugador.rb"
+#require "byebug"
 module Civitas
   class CasillaSorpresa < Casilla
     
@@ -31,11 +39,10 @@ module Civitas
 #     * @brief represente con detalle la información acerca de la casilla
 #     */
     def toString()
-      text = " \n nombre: " + @nombre.to_s
-      text =text+    " \n El tipo :  sorpresa"
-      if@sorpresa != nil
-            text = text + "\nLa Sorpresa Contiene: " + @sorpresa.texto
-      end  
+      text = super
+      if @sorpresa !=nil
+       text = text + "\nLa Sorpresa Contiene: " + @sorpresa.toString
+      end
       return text;
     end   
     

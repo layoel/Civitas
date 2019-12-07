@@ -2,6 +2,7 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 require_relative "casilla.rb"
+#require "byebug"
 module Civitas
   class CasillaImpuesto < Casilla
 
