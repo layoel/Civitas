@@ -197,14 +197,14 @@ public class TituloPropiedad {
     /**
      *@brief cuantas casas tengo
      */
-    int getNumCasas(){
+    public int getNumCasas(){
         return numCasas;
     }
     
     /**
      *@brief cuantos hoteles tengo
      */
-    int getNumHoteles(){
+    public int getNumHoteles(){
         return numHoteles;
     }
     

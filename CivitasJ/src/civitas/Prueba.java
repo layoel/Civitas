@@ -5,6 +5,7 @@
  */
 package civitas;
 
+import GUI.Dado;
 import civitas.Civitas;
 import java.util.ArrayList;
 import juegoTexto.Controlador;

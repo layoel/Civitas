@@ -1,6 +1,8 @@
 package civitas;
 
-import juegoTexto.OperacionesJuego;
+//import juegoTexto.OperacionesJuego;
+import GUI.*;
+
 
 class GestorEstados {
   EstadosJuego estadoInicial() {

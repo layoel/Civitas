@@ -6,7 +6,7 @@
 package civitas;
 
 import java.util.ArrayList;
-
+import GUI.*;
 /**
  *
  * @author ELVIRA
@@ -26,7 +26,7 @@ public class Jugador implements Comparable<Jugador>{
     static private float SaldoInicial= 75000;
     protected ArrayList<TituloPropiedad> propiedades;
     protected Sorpresa salvoconducto;
-    
+    public Boolean especulador;
     
     /**
      * @brief constructor de jugador
@@ -40,6 +40,7 @@ public class Jugador implements Comparable<Jugador>{
         saldo = SaldoInicial;
         propiedades = new ArrayList<>();
         salvoconducto = null;
+        especulador = false;
     }
     
     
@@ -194,7 +195,7 @@ public class Jugador implements Comparable<Jugador>{
      * @brief Consultor del nombre del jugador
      * @return nombre del jugador
      */
-    protected String getNombre(){
+    public String getNombre(){
         return nombre;
     }
     
@@ -204,7 +205,7 @@ public class Jugador implements Comparable<Jugador>{
      * @brief Consultor de la casilla actual
      * @return numCasillaActual
      */
-    int getNumCasillaActual(){
+    public int getNumCasillaActual(){
         return numCasillaActual;
     }
     
@@ -254,7 +255,7 @@ public class Jugador implements Comparable<Jugador>{
      * @brief Consultor de saldo
      * @return saldo
      */
-    protected float getSaldo(){
+    public float getSaldo(){
         return saldo;
     }
     
@@ -704,6 +705,11 @@ public class Jugador implements Comparable<Jugador>{
             System.out.println("No puedes construir un nuevo hotel");
         return ok;
     }
+
+    public boolean getEspeculador() {
+        return especulador;
+    }
+
     
     
     /*******************____MAIN PRUEBA___*************************************/

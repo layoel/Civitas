@@ -6,7 +6,8 @@
  */
 package civitas;
 
-import juegoTexto.OperacionesJuego;
+//import juegoTexto.OperacionesJuego;
+import GUI.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;

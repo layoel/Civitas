@@ -27,6 +27,7 @@ public class JugadorEspeculador extends Jugador{
         this.CasasMax = getCasasMax();
         for(TituloPropiedad p : otro.propiedades)
             p.actualizaPropietarioPorConversion(this);
+        especulador = true;
     }
 
     @Override 
